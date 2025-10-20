@@ -4,116 +4,72 @@
 #include <Arduino.h>
 #include <Wire.h>
 
+#include "error_code.h"
+
 namespace em {
-
-static constexpr uint8_t kDefaultI2cAddress = 0x16;
-static constexpr uint8_t kMotorNum = 4;
-static constexpr uint8_t kMotorStateOffset = 0x20;
-
-enum StateCode : uint8_t { kIdle = 0, kRunningWithPwmDuty = 1, kRunningWithSpeed = 2, kRunningToPosition = 3, kReachedPosition = 4 };
-
-enum PhaseRelation : uint8_t { kAPhaseLeads = 0, kBPhaseLeads = 1 };
-
-enum Command : uint8_t {
-  kSetup = 1,
-  kReset = 2,
-  kSetSpeedPidP = 3,
-  kSetSpeedPidI = 4,
-  kSetSpeedPidD = 5,
-  kSetPositionPidP = 6,
-  kSetPositionPidI = 7,
-  kSetPositionPidD = 8,
-  kSetPosition = 9,
-  kSetPulseCount = 10,
-  kStop = 11,
-  kRunPwmDuty = 12,
-  kRunSpeed = 13,
-  kMoveTo = 14,
-  kMove = 15
-};
-
-enum MemoryAddress : uint8_t {
-  kDeviceId = 0x00,
-  kMajorVersion = 0x01,
-  kMinorVersion = 0x02,
-  kPatchVersion = 0x03,
-  kName = 0x04,
-  kCommandType = 0x11,
-  kCommandIndex = 0x12,
-  kCommandParam = 0x13,
-  kCommandExecute = 0x23,
-
-  kState = 0x24,
-  kSpeedP = 0x26,
-  kSpeedI = 0x28,
-  kSpeedD = 0x2A,
-  kPositionP = 0x2C,
-  kPositionI = 0x2E,
-  kPositionD = 0x30,
-  kSpeed = 0x34,
-  kPosition = 0x38,
-  kPulseCount = 0x3C,
-  kPwmDuty = 0x40
-};
 
 class Md40 {
  public:
+  static constexpr uint8_t kDefaultI2cAddress = 0x16;
+  static constexpr uint8_t kMotorNum = 4;
+
+  enum class PhaseRelation : uint8_t { kAPhaseLeads = 0, kBPhaseLeads = 1 };
+
   class Motor {
    public:
     Motor(const uint8_t index, const uint8_t i2c_address, TwoWire &wire);
 
-    void Reset();
-    void SetEncoderMode(const uint16_t ppr, const uint16_t reduction_ratio, const PhaseRelation phase_relation);
-    void SetDcMode();
+    md40::ErrorCode Reset();
+    md40::ErrorCode set_encoder_mode(const uint16_t ppr, const uint16_t reduction_ratio, const PhaseRelation phase_relation);
+    md40::ErrorCode set_dc_mode();
 
-    float SpeedPidP();
-    void SetSpeedPidP(const float value);
-    float SpeedPidI();
-    void SetSpeedPidI(const float value);
-    float SpeedPidD();
-    void SetSpeedPidD(const float value);
+    md40::ErrorCode speed_pid_p(float *const read_value);
+    md40::ErrorCode set_speed_pid_p(const float value);
+    md40::ErrorCode speed_pid_i(float *const read_value);
+    md40::ErrorCode set_speed_pid_i(const float value);
+    md40::ErrorCode speed_pid_d(float *const read_value);
+    md40::ErrorCode set_speed_pid_d(const float value);
 
-    float PositionPidP();
-    void SetPositionPidP(const float value);
-    float PositionPidI();
-    void SetPositionPidI(const float value);
-    float PositionPidD();
-    void SetPositionPidD(const float value);
+    md40::ErrorCode position_pid_p(float *const read_value);
+    md40::ErrorCode set_position_pid_p(const float value);
+    md40::ErrorCode position_pid_i(float *const read_value);
+    md40::ErrorCode set_position_pid_i(const float value);
+    md40::ErrorCode position_pid_d(float *const read_value);
+    md40::ErrorCode set_position_pid_d(const float value);
 
-    void SetCurrentPosition(const uint32_t position);
-    void SetPulseCount(const uint32_t pulse_count);
-    void Stop();
-    void RunSpeed(const int32_t rpm);
-    void RunPwmDuty(const int16_t pwm_duty);
-    void MoveTo(const int32_t position, const int32_t speed);
-    void Move(const int32_t offset, const int32_t speed);
+    md40::ErrorCode set_current_position(const uint32_t position);
+    md40::ErrorCode set_pulse_count(const uint32_t pulse_count);
+    md40::ErrorCode Stop();
+    md40::ErrorCode RunSpeed(const int32_t rpm);
+    md40::ErrorCode RunPwmDuty(const int16_t pwm_duty);
+    md40::ErrorCode MoveTo(const int32_t position, const int32_t speed);
+    md40::ErrorCode Move(const int32_t offset, const int32_t speed);
 
-    StateCode State();
-    int32_t Speed();
-    int32_t Position();
-    int32_t PulseCount();
-    int16_t PwmDuty();
+    md40::ErrorCode state(uint8_t *const read_value);
+    md40::ErrorCode speed(int32_t *const read_value);
+    md40::ErrorCode position(int32_t *const read_value);
+    md40::ErrorCode pulse_count(int32_t *const read_value);
+    md40::ErrorCode pwm_duty(int16_t *const read_value);
 
    private:
     Motor(const Motor &) = delete;
     Motor &operator=(const Motor &) = delete;
 
-    uint8_t index_;
+    md40::ErrorCode ExecuteCommand();
+    md40::ErrorCode WaitCommandEmptied();
+    md40::ErrorCode WriteCommand(const uint8_t command, const uint8_t *data, const uint16_t length);
+    const uint8_t index_;
     TwoWire &wire_;
     const uint8_t i2c_address_;
-
-    void ExecuteCommand();
-    void WaitCommandEmptied();
-    bool WriteCommand(Command command, const uint8_t *data, const uint16_t length);
   };
 
   Md40(const uint8_t i2c_address, TwoWire &wire);
   Motor &operator[](uint8_t index);
 
-  void Init();
-  String FirmwareVersion();
-  uint8_t DeviceId();
-  String Name();
+  md40::ErrorCode Init();
+  md40::ErrorCode firmware_version(String *const result);
+  md40::ErrorCode device_id(uint8_t *const result);
+  md40::ErrorCode name(String *const result);
 
  private:
   Md40(const Md40 &) = delete;
