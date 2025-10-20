@@ -1,7 +1,5 @@
 #include "Md40.h"
 
-#include "error_code.h"
-
 namespace em {
 
 namespace {
