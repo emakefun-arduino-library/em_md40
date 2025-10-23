@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef _EM_MD40_H_
 #define _EM_MD40_H_
 
@@ -5,7 +7,6 @@
 #include <Wire.h>
 
 #include "em_check.h"
-#include "motor_state_code.h"
 
 namespace em {
 
@@ -21,6 +22,14 @@ class Md40 {
 
   class Motor {
    public:
+    enum class State : uint8_t {
+      kIdle = 0,
+      kRuningWithPwmDuty = 1,
+      kRuningWithSpeed = 2,
+      kRuningToPosition = 3,
+      kReachedPosition = 4,
+    };
+
     Motor(const uint8_t index, const uint8_t i2c_address, TwoWire &wire);
 
     void Reset();
@@ -41,15 +50,15 @@ class Md40 {
     float position_pid_d();
     void set_position_pid_d(const float value);
 
-    void SetCurrentPosition(const uint32_t position);
-    void SetPulseCount(const uint32_t pulse_count);
+    void set_position(const int32_t position);
+    void set_pulse_count(const int32_t pulse_count);
     void Stop();
     void RunSpeed(const int32_t rpm);
     void RunPwmDuty(const int16_t pwm_duty);
     void MoveTo(const int32_t position, const int32_t speed);
     void Move(const int32_t offset, const int32_t speed);
 
-    md40::MotorStateCode state();
+    State state();
     int32_t speed();
     int32_t position();
     int32_t pulse_count();

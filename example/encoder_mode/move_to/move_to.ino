@@ -83,7 +83,7 @@ void loop() {
     Serial.print("states: ");
     for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
       Serial.print(em::md40::ToString(g_md40[i].state()));
-      if (i < 3) {
+      if (i < em::Md40::kMotorNum - 1) {
         Serial.print(", ");
       }
     }
