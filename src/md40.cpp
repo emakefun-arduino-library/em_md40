@@ -91,6 +91,7 @@ uint8_t Md40::device_id() {
   EM_CHECK_EQ(wire_.requestFrom(i2c_address_, static_cast<uint8_t>(1)), 1);
 
   while (wire_.available() == 0);
+
   return wire_.read();
 }
 
@@ -99,7 +100,7 @@ String Md40::name() {
   wire_.write(kName);
   EM_CHECK_EQ(wire_.endTransmission(), kI2cEndTransmissionSuccess);
 
-  char data[8] = {0};
+  uint8_t data[8] = {0};
   EM_CHECK_EQ(wire_.requestFrom(i2c_address_, static_cast<uint8_t>(sizeof(data))), sizeof(data));
 
   uint8_t offset = 0;
@@ -109,7 +110,7 @@ String Md40::name() {
     }
   }
 
-  return String(data);
+  return String(reinterpret_cast<const char *>(data));
 }
 
 Md40::Motor::Motor(const uint8_t index, const uint8_t i2c_address, TwoWire &wire) : index_(index), i2c_address_(i2c_address), wire_(wire) {
@@ -136,6 +137,7 @@ void Md40::Motor::WaitCommandEmptied() {
     EM_CHECK_EQ(wire_.requestFrom(i2c_address_, static_cast<uint8_t>(sizeof(result))), sizeof(result));
 
     while (wire_.available() == 0);
+
     result = wire_.read();
   } while (result != 0);
 }
@@ -353,7 +355,7 @@ void Md40::Motor::set_position_pid_d(const float value) {
   ExecuteCommand();
 }
 
-void Md40::Motor::SetCurrentPosition(const uint32_t position) {
+void Md40::Motor::set_current_position(const int32_t position) {
   WaitCommandEmptied();
 
   WriteCommand(kSetPosition, reinterpret_cast<const uint8_t *>(&position), sizeof(position));
@@ -361,7 +363,7 @@ void Md40::Motor::SetCurrentPosition(const uint32_t position) {
   ExecuteCommand();
 }
 
-void Md40::Motor::SetPulseCount(const uint32_t pulse_count) {
+void Md40::Motor::set_pulse_count(const int32_t pulse_count) {
   WaitCommandEmptied();
 
   WriteCommand(kSetPulseCount, reinterpret_cast<const uint8_t *>(&pulse_count), sizeof(pulse_count));
@@ -411,7 +413,7 @@ void Md40::Motor::Move(const int32_t offset, const int32_t speed) {
   ExecuteCommand();
 }
 
-md40::MotorStateCode Md40::Motor::state() {
+Md40::MotorStateCode Md40::Motor::state() {
   const uint8_t address = kState + index_ * kMotorStateOffset;
 
   wire_.beginTransmission(i2c_address_);
@@ -426,7 +428,8 @@ md40::MotorStateCode Md40::Motor::state() {
   EM_CHECK_EQ(wire_.requestFrom(i2c_address_, static_cast<uint8_t>(1)), 1);
 
   while (wire_.available() == 0);
-  return static_cast<md40::MotorStateCode>(wire_.read());
+
+  return static_cast<Md40::MotorStateCode>(wire_.read());
 }
 
 int32_t Md40::Motor::speed() {

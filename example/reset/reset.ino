@@ -23,12 +23,12 @@ void setup() {
     Serial.print("motor ");
     Serial.print(i);
     Serial.print(" state: ");
-    Serial.print(em::md40::ToString(g_md40[i].state()));
+    Serial.println(static_cast<uint8_t>(g_md40[i].state()));
 
     g_md40[i].Reset();
 
     Serial.print(" after reset: ");
-    Serial.println(em::md40::ToString(g_md40[i].state()));
+    Serial.println(static_cast<uint8_t>(g_md40[i].state()));
   }
 }
 
