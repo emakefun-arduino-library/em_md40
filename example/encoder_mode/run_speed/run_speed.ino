@@ -17,32 +17,17 @@ void setup() {
   Serial.begin(115200);
   Wire.begin();
 
-  auto result = em::md40::ErrorCode::kOK;
-
-  result = g_md40.Init();
-  if (result != em::md40::ErrorCode::kOK) {
-    Serial.print("module init failed: ");
-    Serial.println(em::md40::ToString(result));
-    while (true);
-  }
-
-  uint8_t device_id;
-  String device_name;
-  String firmware_version;
-
-  g_md40.device_id(&device_id);
-  g_md40.name(&device_name);
-  g_md40.firmware_version(&firmware_version);
+  g_md40.Init();
 
   Serial.print("device id: 0x");
-  Serial.println(device_id, HEX);
+  Serial.println(g_md40.device_id(), HEX);
   Serial.print("name: ");
-  Serial.println(device_name);
+  Serial.println(g_md40.name());
   Serial.print("firmware version: ");
-  Serial.println(firmware_version);
+  Serial.println(g_md40.firmware_version());
 
   for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
-    g_md40[i].set_encoder_mode(kEncoderPpr, kReductionRatio, em::Md40::PhaseRelation::kAPhaseLeads);
+    g_md40[i].SetEncoderMode(kEncoderPpr, kReductionRatio, em::Md40::PhaseRelation::kAPhaseLeads);
     g_md40[i].set_speed_pid_p(1.5);
     g_md40[i].set_speed_pid_i(1.5);
     g_md40[i].set_speed_pid_d(1.0);
@@ -69,45 +54,34 @@ void loop() {
   if (millis() - g_last_print_time > 200) {
     g_last_print_time = millis();
 
-    int32_t speed_value;
-    int16_t pwm_duty_value;
-    int32_t position_value;
-    int32_t pulse_count_value;
-    uint8_t state_value;
-
     Serial.print("speeds: ");
     for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
-      g_md40[i].speed(&speed_value);
-      Serial.print(speed_value);
+      Serial.print(g_md40[i].speed());
       Serial.print(", ");
     }
 
     Serial.print("pwm duties: ");
     for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
-      g_md40[i].pwm_duty(&pwm_duty_value);
-      Serial.print(pwm_duty_value);
+      Serial.print(g_md40[i].pwm_duty());
       Serial.print(", ");
     }
 
     Serial.print("positions: ");
     for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
-      g_md40[i].position(&position_value);
-      Serial.print(position_value);
+      Serial.print(g_md40[i].position());
       Serial.print(", ");
     }
 
     Serial.print("pulse counts: ");
     for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
-      g_md40[i].pulse_count(&pulse_count_value);
-      Serial.print(pulse_count_value);
+      Serial.print(g_md40[i].pulse_count());
       Serial.print(", ");
     }
 
     Serial.print("states: ");
     for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
-      g_md40[i].state(&state_value);
-      Serial.print(state_value);
-      if (i < em::Md40::kMotorNum - 1) {
+      Serial.print(em::md40::ToString(g_md40[i].state()));
+      if (i < 3) {
         Serial.print(", ");
       }
     }

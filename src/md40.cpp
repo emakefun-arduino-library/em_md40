@@ -3,44 +3,49 @@
 namespace em {
 
 namespace {
-static constexpr uint8_t kMotorStateOffset = 0x20;
+constexpr uint8_t kMotorStateOffset = 0x20;
+constexpr uint8_t kI2cEndTransmissionSuccess = 0;
 
-static constexpr uint8_t kCommandSetup = 1;
-static constexpr uint8_t kCommandReset = 2;
-static constexpr uint8_t kCommandSetSpeedPidP = 3;
-static constexpr uint8_t kCommandSetSpeedPidI = 4;
-static constexpr uint8_t kCommandSetSpeedPidD = 5;
-static constexpr uint8_t kCommandSetPositionPidP = 6;
-static constexpr uint8_t kCommandSetPositionPidI = 7;
-static constexpr uint8_t kCommandSetPositionPidD = 8;
-static constexpr uint8_t kCommandSetPosition = 9;
-static constexpr uint8_t kCommandSetPulseCount = 10;
-static constexpr uint8_t kCommandStop = 11;
-static constexpr uint8_t kCommandRunPwmDuty = 12;
-static constexpr uint8_t kCommandRunSpeed = 13;
-static constexpr uint8_t kCommandMoveTo = 14;
-static constexpr uint8_t kCommandMove = 15;
+enum Command : uint8_t {
+  kSetup = 1,
+  kReset = 2,
+  kSetSpeedPidP = 3,
+  kSetSpeedPidI = 4,
+  kSetSpeedPidD = 5,
+  kSetPositionPidP = 6,
+  kSetPositionPidI = 7,
+  kSetPositionPidD = 8,
+  kSetPosition = 9,
+  kSetPulseCount = 10,
+  kStop = 11,
+  kRunPwmDuty = 12,
+  kRunSpeed = 13,
+  kMoveTo = 14,
+  kMove = 15,
+};
 
-static constexpr uint8_t kMemoryAddressDeviceId = 0x00;
-static constexpr uint8_t kMemoryAddressMajorVersion = 0x01;
-static constexpr uint8_t kMemoryAddressMinorVersion = 0x02;
-static constexpr uint8_t kMemoryAddressPatchVersion = 0x03;
-static constexpr uint8_t kMemoryAddressName = 0x04;
-static constexpr uint8_t kMemoryAddressCommandType = 0x11;
-static constexpr uint8_t kMemoryAddressCommandIndex = 0x12;
-static constexpr uint8_t kMemoryAddressCommandParam = 0x13;
-static constexpr uint8_t kMemoryAddressCommandExecute = 0x23;
-static constexpr uint8_t kMemoryAddressState = 0x24;
-static constexpr uint8_t kMemoryAddressSpeedP = 0x26;
-static constexpr uint8_t kMemoryAddressSpeedI = 0x28;
-static constexpr uint8_t kMemoryAddressSpeedD = 0x2A;
-static constexpr uint8_t kMemoryAddressPositionP = 0x2C;
-static constexpr uint8_t kMemoryAddressPositionI = 0x2E;
-static constexpr uint8_t kMemoryAddressPositionD = 0x30;
-static constexpr uint8_t kMemoryAddressSpeed = 0x34;
-static constexpr uint8_t kMemoryAddressPosition = 0x38;
-static constexpr uint8_t kMemoryAddressPulseCount = 0x3C;
-static constexpr uint8_t kMemoryAddressPwmDuty = 0x40;
+enum MemoryAddress : uint8_t {
+  kDeviceId = 0x00,
+  kMajorVersion = 0x01,
+  kMinorVersion = 0x02,
+  kPatchVersion = 0x03,
+  kName = 0x04,
+  kCommandType = 0x11,
+  kCommandIndex = 0x12,
+  kCommandParam = 0x13,
+  kCommandExecute = 0x23,
+  kState = 0x24,
+  kSpeedP = 0x26,
+  kSpeedI = 0x28,
+  kSpeedD = 0x2A,
+  kPositionP = 0x2C,
+  kPositionI = 0x2E,
+  kPositionD = 0x30,
+  kSpeed = 0x34,
+  kPosition = 0x38,
+  kPulseCount = 0x3C,
+  kPwmDuty = 0x40,
+};
 }  // namespace
 
 Md40::Md40(const uint8_t i2c_address, TwoWire &wire) : i2c_address_(i2c_address), wire_(wire) {
@@ -50,691 +55,476 @@ Md40::Md40(const uint8_t i2c_address, TwoWire &wire) : i2c_address_(i2c_address)
 }
 
 Md40::Motor &Md40::operator[](const uint8_t index) {
+  EM_CHECK_LT(index, kMotorNum);
   return *motors_[index];
 }
 
-md40::ErrorCode Md40::Init() {
+void Md40::Init() {
   for (auto motor : motors_) {
-    const auto error_code = motor->Reset();
-    if (error_code != md40::ErrorCode::kOK) {
-      return error_code;
-    }
+    motor->Reset();
   }
-  return md40::ErrorCode::kOK;
 }
 
-md40::ErrorCode Md40::firmware_version(String *const read_value) {
+String Md40::firmware_version() {
   wire_.beginTransmission(i2c_address_);
-  wire_.write(kMemoryAddressMajorVersion);
-  const auto error_code = static_cast<md40::ErrorCode>(wire_.endTransmission());
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
+  wire_.write(kMajorVersion);
+  EM_CHECK_EQ(wire_.endTransmission(), kI2cEndTransmissionSuccess);
 
-  if (wire_.requestFrom(i2c_address_, static_cast<uint8_t>(3)) != 3) {
-    return md40::ErrorCode::kUnknownError;
-  }
+  uint8_t version[3] = {0};
+  EM_CHECK_EQ(wire_.requestFrom(i2c_address_, static_cast<uint8_t>(sizeof(version))), sizeof(version));
 
-  uint8_t read_bytes[3] = {0};
   uint8_t offset = 0;
-
-  while (offset < 3) {
+  while (offset < sizeof(version)) {
     if (wire_.available() > 0) {
-      read_bytes[offset++] = wire_.read();
+      version[offset++] = wire_.read();
     }
   }
 
-  *read_value = String(read_bytes[0]) + "." + String(read_bytes[1]) + "." + String(read_bytes[2]);
-  return md40::ErrorCode::kOK;
+  return String(version[0]) + "." + String(version[1]) + "." + String(version[2]);
 }
 
-md40::ErrorCode Md40::device_id(uint8_t *const read_value) {
+uint8_t Md40::device_id() {
   wire_.beginTransmission(i2c_address_);
-  wire_.write(kMemoryAddressDeviceId);
-  const auto error_code = static_cast<md40::ErrorCode>(wire_.endTransmission());
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
+  wire_.write(kDeviceId);
+  EM_CHECK_EQ(wire_.endTransmission(), kI2cEndTransmissionSuccess);
 
-  if (wire_.requestFrom(i2c_address_, static_cast<uint8_t>(1)) != 1) {
-    return md40::ErrorCode::kUnknownError;
-  }
+  EM_CHECK_EQ(wire_.requestFrom(i2c_address_, static_cast<uint8_t>(1)), 1);
 
-  *read_value = wire_.read();
-  return md40::ErrorCode::kOK;
+  while (wire_.available() == 0);
+  return wire_.read();
 }
 
-md40::ErrorCode Md40::name(String *const read_value) {
+String Md40::name() {
   wire_.beginTransmission(i2c_address_);
-  wire_.write(kMemoryAddressName);
-  const auto error_code = static_cast<md40::ErrorCode>(wire_.endTransmission());
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
+  wire_.write(kName);
+  EM_CHECK_EQ(wire_.endTransmission(), kI2cEndTransmissionSuccess);
 
-  if (wire_.requestFrom(i2c_address_, static_cast<uint8_t>(8)) != 8) {
-    return md40::ErrorCode::kUnknownError;
-  }
+  char data[8] = {0};
+  EM_CHECK_EQ(wire_.requestFrom(i2c_address_, static_cast<uint8_t>(sizeof(data))), sizeof(data));
 
-  char read_bytes[9] = {0};
   uint8_t offset = 0;
-
-  while (offset < 8) {
+  while (offset < sizeof(data)) {
     if (wire_.available() > 0) {
-      read_bytes[offset++] = wire_.read();
+      data[offset++] = wire_.read();
     }
   }
-  *read_value = String(read_bytes);
-  return md40::ErrorCode::kOK;
+
+  return String(data);
 }
 
 Md40::Motor::Motor(const uint8_t index, const uint8_t i2c_address, TwoWire &wire) : index_(index), i2c_address_(i2c_address), wire_(wire) {
 }
 
-md40::ErrorCode Md40::Motor::ExecuteCommand() {
+void Md40::Motor::ExecuteCommand() {
   wire_.beginTransmission(i2c_address_);
-  wire_.write(kMemoryAddressCommandExecute);
+  wire_.write(kCommandExecute);
   wire_.write(0x01);
 
-  auto error_code = static_cast<md40::ErrorCode>(wire_.endTransmission());
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
+  EM_CHECK_EQ(wire_.endTransmission(), kI2cEndTransmissionSuccess);
 
-  return WaitCommandEmptied();
+  WaitCommandEmptied();
 }
 
-md40::ErrorCode Md40::Motor::WaitCommandEmptied() {
+void Md40::Motor::WaitCommandEmptied() {
   uint8_t result = 0xFF;
   do {
     wire_.beginTransmission(i2c_address_);
-    wire_.write(kMemoryAddressCommandExecute);
+    wire_.write(kCommandExecute);
 
-    const auto error_code = static_cast<md40::ErrorCode>(wire_.endTransmission());
-    if (error_code != md40::ErrorCode::kOK) {
-      return error_code;
-    }
+    EM_CHECK_EQ(wire_.endTransmission(), kI2cEndTransmissionSuccess);
 
-    if (wire_.requestFrom(i2c_address_, static_cast<uint8_t>(1)) != 1) {
-      return md40::ErrorCode::kUnknownError;
-    }
+    EM_CHECK_EQ(wire_.requestFrom(i2c_address_, static_cast<uint8_t>(sizeof(result))), sizeof(result));
 
+    while (wire_.available() == 0);
     result = wire_.read();
   } while (result != 0);
-
-  return md40::ErrorCode::kOK;
 }
 
-md40::ErrorCode Md40::Motor::WriteCommand(const uint8_t command, const uint8_t *data, const uint16_t length) {
+void Md40::Motor::WriteCommand(const uint8_t command, const uint8_t *data, const uint16_t length) {
   wire_.beginTransmission(i2c_address_);
-  wire_.write(kMemoryAddressCommandType);
+  wire_.write(kCommandType);
   wire_.write(command);
   wire_.write(index_);
-  wire_.write(data, length);
-  return static_cast<md40::ErrorCode>(wire_.endTransmission());
+  if (data != nullptr && length > 0) {
+    wire_.write(data, length);
+  }
+  EM_CHECK_EQ(wire_.endTransmission(), kI2cEndTransmissionSuccess);
 }
 
-md40::ErrorCode Md40::Motor::Reset() {
-  auto error_code = WaitCommandEmptied();
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
+void Md40::Motor::Reset() {
+  WaitCommandEmptied();
 
-  error_code = WriteCommand(kCommandReset, nullptr, 0);
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
+  WriteCommand(kReset, nullptr, 0);
 
-  return ExecuteCommand();
+  ExecuteCommand();
 }
 
-md40::ErrorCode Md40::Motor::set_encoder_mode(const uint16_t ppr, const uint16_t reduction_ratio, const PhaseRelation phase_relation) {
-  auto error_code = WaitCommandEmptied();
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
+void Md40::Motor::SetEncoderMode(const uint16_t ppr, const uint16_t reduction_ratio, const PhaseRelation phase_relation) {
+  WaitCommandEmptied();
 
   wire_.beginTransmission(i2c_address_);
-  wire_.write(kMemoryAddressCommandType);
-  wire_.write(kCommandSetup);
+  wire_.write(kCommandType);
+  wire_.write(kSetup);
   wire_.write(index_);
-  wire_.write(ppr & 0xFF);
-  wire_.write((ppr >> 8) & 0xFF);
-  wire_.write(reduction_ratio & 0xFF);
-  wire_.write((reduction_ratio >> 8) & 0xFF);
+  wire_.write(reinterpret_cast<const uint8_t *>(&ppr), sizeof(ppr));
+  wire_.write(reinterpret_cast<const uint8_t *>(&reduction_ratio), sizeof(reduction_ratio));
   wire_.write(static_cast<uint8_t>(phase_relation));
 
-  error_code = static_cast<md40::ErrorCode>(wire_.endTransmission());
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
-  return ExecuteCommand();
+  EM_CHECK_EQ(wire_.endTransmission(), kI2cEndTransmissionSuccess);
+
+  ExecuteCommand();
 }
 
-md40::ErrorCode Md40::Motor::set_dc_mode() {
-  auto error_code = WaitCommandEmptied();
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
+void Md40::Motor::SetDcMode() {
+  WaitCommandEmptied();
 
   wire_.beginTransmission(i2c_address_);
-  wire_.write(kMemoryAddressCommandType);
-  wire_.write(kCommandSetup);
+  wire_.write(kCommandType);
+  wire_.write(kSetup);
   wire_.write(index_);
   wire_.write(0);
   wire_.write(0);
   wire_.write(0);
 
-  error_code = static_cast<md40::ErrorCode>(wire_.endTransmission());
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
-  return ExecuteCommand();
+  EM_CHECK_EQ(wire_.endTransmission(), kI2cEndTransmissionSuccess);
+
+  ExecuteCommand();
 }
 
-md40::ErrorCode Md40::Motor::speed_pid_p(float *const read_value) {
-  const uint8_t address = kMemoryAddressSpeedP + index_ * kMotorStateOffset;
-
+float Md40::Motor::speed_pid_p() {
   wire_.beginTransmission(i2c_address_);
-  wire_.write(address);
-  const auto error_code = static_cast<md40::ErrorCode>(wire_.endTransmission());
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
-
-  if (wire_.requestFrom(i2c_address_, static_cast<uint8_t>(2)) != 2) {
-    return md40::ErrorCode::kUnknownError;
-  }
+  wire_.write(static_cast<uint8_t>(kSpeedP + index_ * kMotorStateOffset));
+  EM_CHECK_EQ(wire_.endTransmission(), kI2cEndTransmissionSuccess);
 
   uint16_t data = 0;
-  uint8_t offset = 0;
+  EM_CHECK_EQ(wire_.requestFrom(i2c_address_, static_cast<uint8_t>(sizeof(data))), sizeof(data));
 
+  uint8_t offset = 0;
   while (offset < sizeof(data)) {
     if (wire_.available()) {
       reinterpret_cast<uint8_t *>(&data)[offset++] = wire_.read();
     }
   }
 
-  *read_value = data / 100.0f;
-  return md40::ErrorCode::kOK;
+  return data / 100.0f;
 }
 
-md40::ErrorCode Md40::Motor::set_speed_pid_p(const float value) {
-  auto error_code = WaitCommandEmptied();
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
+void Md40::Motor::set_speed_pid_p(const float value) {
+  WaitCommandEmptied();
 
   const uint16_t int_value = static_cast<uint16_t>(value * 100);
-  error_code = WriteCommand(kCommandSetSpeedPidP, reinterpret_cast<const uint8_t *>(&int_value), sizeof(int_value));
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
-  return ExecuteCommand();
+  WriteCommand(kSetSpeedPidP, reinterpret_cast<const uint8_t *>(&int_value), sizeof(int_value));
+
+  ExecuteCommand();
 }
 
-md40::ErrorCode Md40::Motor::speed_pid_i(float *const read_value) {
-  const uint8_t address = kMemoryAddressSpeedI + index_ * kMotorStateOffset;
-
+float Md40::Motor::speed_pid_i() {
   wire_.beginTransmission(i2c_address_);
-  wire_.write(address);
-  const auto error_code = static_cast<md40::ErrorCode>(wire_.endTransmission());
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
-
-  if (wire_.requestFrom(i2c_address_, static_cast<uint8_t>(2)) != 2) {
-    return md40::ErrorCode::kUnknownError;
-  }
+  wire_.write(static_cast<uint8_t>(kSpeedI + index_ * kMotorStateOffset));
+  EM_CHECK_EQ(wire_.endTransmission(), kI2cEndTransmissionSuccess);
 
   uint16_t data = 0;
-  uint8_t offset = 0;
+  EM_CHECK_EQ(wire_.requestFrom(i2c_address_, static_cast<uint8_t>(sizeof(data))), sizeof(data));
 
+  uint8_t offset = 0;
   while (offset < sizeof(data)) {
     if (wire_.available()) {
       reinterpret_cast<uint8_t *>(&data)[offset++] = wire_.read();
     }
   }
 
-  *read_value = data / 100.0f;
-  return md40::ErrorCode::kOK;
+  return data / 100.0f;
 }
 
-md40::ErrorCode Md40::Motor::set_speed_pid_i(const float value) {
-  auto error_code = WaitCommandEmptied();
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
+void Md40::Motor::set_speed_pid_i(const float value) {
+  WaitCommandEmptied();
 
   const uint16_t int_value = static_cast<uint16_t>(value * 100);
-  error_code = WriteCommand(kCommandSetSpeedPidI, reinterpret_cast<const uint8_t *>(&int_value), sizeof(int_value));
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
-  return ExecuteCommand();
+  WriteCommand(kSetSpeedPidI, reinterpret_cast<const uint8_t *>(&int_value), sizeof(int_value));
+
+  ExecuteCommand();
 }
 
-md40::ErrorCode Md40::Motor::speed_pid_d(float *const read_value) {
-  const uint8_t address = kMemoryAddressSpeedD + index_ * kMotorStateOffset;
-
+float Md40::Motor::speed_pid_d() {
   wire_.beginTransmission(i2c_address_);
-  wire_.write(address);
-  const auto error_code = static_cast<md40::ErrorCode>(wire_.endTransmission());
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
-
-  if (wire_.requestFrom(i2c_address_, static_cast<uint8_t>(2)) != 2) {
-    return md40::ErrorCode::kUnknownError;
-  }
+  wire_.write(static_cast<uint8_t>(kSpeedD + index_ * kMotorStateOffset));
+  EM_CHECK_EQ(wire_.endTransmission(), kI2cEndTransmissionSuccess);
 
   uint16_t data = 0;
-  uint8_t offset = 0;
+  EM_CHECK_EQ(wire_.requestFrom(i2c_address_, static_cast<uint8_t>(sizeof(data))), sizeof(data));
 
+  uint8_t offset = 0;
   while (offset < sizeof(data)) {
     if (wire_.available()) {
       reinterpret_cast<uint8_t *>(&data)[offset++] = wire_.read();
     }
   }
 
-  *read_value = data / 100.0f;
-  return md40::ErrorCode::kOK;
+  return data / 100.0f;
 }
 
-md40::ErrorCode Md40::Motor::set_speed_pid_d(const float value) {
-  auto error_code = WaitCommandEmptied();
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
+void Md40::Motor::set_speed_pid_d(const float value) {
+  WaitCommandEmptied();
 
   const uint16_t int_value = static_cast<uint16_t>(value * 100);
-  error_code = WriteCommand(kCommandSetSpeedPidD, reinterpret_cast<const uint8_t *>(&int_value), sizeof(int_value));
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
-  return ExecuteCommand();
+  WriteCommand(kSetSpeedPidD, reinterpret_cast<const uint8_t *>(&int_value), sizeof(int_value));
+
+  ExecuteCommand();
 }
 
-md40::ErrorCode Md40::Motor::position_pid_p(float *const read_value) {
-  const uint8_t address = kMemoryAddressPositionP + index_ * kMotorStateOffset;
-
+float Md40::Motor::position_pid_p() {
   wire_.beginTransmission(i2c_address_);
-  wire_.write(address);
-  const auto error_code = static_cast<md40::ErrorCode>(wire_.endTransmission());
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
-
-  if (wire_.requestFrom(i2c_address_, static_cast<uint8_t>(2)) != 2) {
-    return md40::ErrorCode::kUnknownError;
-  }
+  wire_.write(static_cast<uint8_t>(kPositionP + index_ * kMotorStateOffset));
+  EM_CHECK_EQ(wire_.endTransmission(), kI2cEndTransmissionSuccess);
 
   uint16_t data = 0;
-  uint8_t offset = 0;
+  EM_CHECK_EQ(wire_.requestFrom(i2c_address_, static_cast<uint8_t>(sizeof(data))), sizeof(data));
 
+  uint8_t offset = 0;
   while (offset < sizeof(data)) {
     if (wire_.available()) {
       reinterpret_cast<uint8_t *>(&data)[offset++] = wire_.read();
     }
   }
 
-  *read_value = data / 100.0f;
-  return md40::ErrorCode::kOK;
+  return data / 100.0f;
 }
 
-md40::ErrorCode Md40::Motor::set_position_pid_p(const float value) {
-  auto error_code = WaitCommandEmptied();
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
+void Md40::Motor::set_position_pid_p(const float value) {
+  WaitCommandEmptied();
 
   const uint16_t int_value = static_cast<uint16_t>(value * 100);
-  error_code = WriteCommand(kCommandSetPositionPidP, reinterpret_cast<const uint8_t *>(&int_value), sizeof(int_value));
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
-  return ExecuteCommand();
+  WriteCommand(kSetPositionPidP, reinterpret_cast<const uint8_t *>(&int_value), sizeof(int_value));
+
+  ExecuteCommand();
 }
 
-md40::ErrorCode Md40::Motor::position_pid_i(float *const read_value) {
-  const uint8_t address = kMemoryAddressPositionI + index_ * kMotorStateOffset;
-
+float Md40::Motor::position_pid_i() {
   wire_.beginTransmission(i2c_address_);
-  wire_.write(address);
-  const auto error_code = static_cast<md40::ErrorCode>(wire_.endTransmission());
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
-
-  if (wire_.requestFrom(i2c_address_, static_cast<uint8_t>(2)) != 2) {
-    return md40::ErrorCode::kUnknownError;
-  }
+  wire_.write(static_cast<uint8_t>(kPositionI + index_ * kMotorStateOffset));
+  EM_CHECK_EQ(wire_.endTransmission(), kI2cEndTransmissionSuccess);
 
   uint16_t data = 0;
-  uint8_t offset = 0;
+  EM_CHECK_EQ(wire_.requestFrom(i2c_address_, static_cast<uint8_t>(sizeof(data))), sizeof(data));
 
+  uint8_t offset = 0;
   while (offset < sizeof(data)) {
     if (wire_.available()) {
       reinterpret_cast<uint8_t *>(&data)[offset++] = wire_.read();
     }
   }
 
-  *read_value = data / 100.0f;
-  return md40::ErrorCode::kOK;
+  return data / 100.0f;
 }
 
-md40::ErrorCode Md40::Motor::set_position_pid_i(const float value) {
-  auto error_code = WaitCommandEmptied();
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
+void Md40::Motor::set_position_pid_i(const float value) {
+  WaitCommandEmptied();
 
   const uint16_t int_value = static_cast<uint16_t>(value * 100);
-  error_code = WriteCommand(kCommandSetPositionPidI, reinterpret_cast<const uint8_t *>(&int_value), sizeof(int_value));
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
-  return ExecuteCommand();
+  WriteCommand(kSetPositionPidI, reinterpret_cast<const uint8_t *>(&int_value), sizeof(int_value));
+
+  ExecuteCommand();
 }
 
-md40::ErrorCode Md40::Motor::position_pid_d(float *const read_value) {
-  const uint8_t address = kMemoryAddressPositionD + index_ * kMotorStateOffset;
-
+float Md40::Motor::position_pid_d() {
   wire_.beginTransmission(i2c_address_);
-  wire_.write(address);
-  const auto error_code = static_cast<md40::ErrorCode>(wire_.endTransmission());
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
-
-  if (wire_.requestFrom(i2c_address_, static_cast<uint8_t>(2)) != 2) {
-    return md40::ErrorCode::kUnknownError;
-  }
+  wire_.write(static_cast<uint8_t>(kPositionD + index_ * kMotorStateOffset));
+  EM_CHECK_EQ(wire_.endTransmission(), kI2cEndTransmissionSuccess);
 
   uint16_t data = 0;
-  uint8_t offset = 0;
+  EM_CHECK_EQ(wire_.requestFrom(i2c_address_, static_cast<uint8_t>(sizeof(data))), sizeof(data));
 
+  uint8_t offset = 0;
   while (offset < sizeof(data)) {
     if (wire_.available()) {
       reinterpret_cast<uint8_t *>(&data)[offset++] = wire_.read();
     }
   }
 
-  *read_value = data / 100.0f;
-  return md40::ErrorCode::kOK;
+  return data / 100.0f;
 }
 
-md40::ErrorCode Md40::Motor::set_position_pid_d(const float value) {
-  auto error_code = WaitCommandEmptied();
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
+void Md40::Motor::set_position_pid_d(const float value) {
+  WaitCommandEmptied();
 
   const uint16_t int_value = static_cast<uint16_t>(value * 100);
-  error_code = WriteCommand(kCommandSetPositionPidD, reinterpret_cast<const uint8_t *>(&int_value), sizeof(int_value));
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
-  return ExecuteCommand();
+  WriteCommand(kSetPositionPidD, reinterpret_cast<const uint8_t *>(&int_value), sizeof(int_value));
+
+  ExecuteCommand();
 }
 
-md40::ErrorCode Md40::Motor::set_current_position(const uint32_t position) {
-  auto error_code = WaitCommandEmptied();
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
+void Md40::Motor::SetCurrentPosition(const uint32_t position) {
+  WaitCommandEmptied();
 
-  error_code = WriteCommand(kCommandSetPosition, reinterpret_cast<const uint8_t *>(&position), sizeof(position));
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
-  return ExecuteCommand();
+  WriteCommand(kSetPosition, reinterpret_cast<const uint8_t *>(&position), sizeof(position));
+
+  ExecuteCommand();
 }
 
-md40::ErrorCode Md40::Motor::set_pulse_count(const uint32_t pulse_count) {
-  auto error_code = WaitCommandEmptied();
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
+void Md40::Motor::SetPulseCount(const uint32_t pulse_count) {
+  WaitCommandEmptied();
 
-  error_code = WriteCommand(kCommandSetPulseCount, reinterpret_cast<const uint8_t *>(&pulse_count), sizeof(pulse_count));
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
-  return ExecuteCommand();
+  WriteCommand(kSetPulseCount, reinterpret_cast<const uint8_t *>(&pulse_count), sizeof(pulse_count));
+
+  ExecuteCommand();
 }
 
-md40::ErrorCode Md40::Motor::Stop() {
-  auto error_code = WaitCommandEmptied();
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
+void Md40::Motor::Stop() {
+  WaitCommandEmptied();
 
-  error_code = WriteCommand(kCommandStop, nullptr, 0);
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
-  return ExecuteCommand();
+  WriteCommand(kStop, nullptr, 0);
+
+  ExecuteCommand();
 }
 
-md40::ErrorCode Md40::Motor::RunSpeed(const int32_t rpm) {
-  auto error_code = WaitCommandEmptied();
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
+void Md40::Motor::RunSpeed(const int32_t rpm) {
+  WaitCommandEmptied();
 
-  error_code = WriteCommand(kCommandRunSpeed, reinterpret_cast<const uint8_t *>(&rpm), sizeof(rpm));
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
-  return ExecuteCommand();
+  WriteCommand(kRunSpeed, reinterpret_cast<const uint8_t *>(&rpm), sizeof(rpm));
+
+  ExecuteCommand();
 }
 
-md40::ErrorCode Md40::Motor::RunPwmDuty(const int16_t pwm_duty) {
-  auto error_code = WaitCommandEmptied();
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
+void Md40::Motor::RunPwmDuty(const int16_t pwm_duty) {
+  WaitCommandEmptied();
 
-  error_code = WriteCommand(kCommandRunPwmDuty, reinterpret_cast<const uint8_t *>(&pwm_duty), sizeof(pwm_duty));
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
+  WriteCommand(kRunPwmDuty, reinterpret_cast<const uint8_t *>(&pwm_duty), sizeof(pwm_duty));
 
-  return ExecuteCommand();
+  ExecuteCommand();
 }
 
-md40::ErrorCode Md40::Motor::MoveTo(const int32_t position, const int32_t speed) {
-  auto error_code = WaitCommandEmptied();
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
+void Md40::Motor::MoveTo(const int32_t position, const int32_t speed) {
+  WaitCommandEmptied();
 
   const int32_t data[] = {position, speed};
-  error_code = WriteCommand(kCommandMoveTo, reinterpret_cast<const uint8_t *>(data), sizeof(data));
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
-  return ExecuteCommand();
+  WriteCommand(kMoveTo, reinterpret_cast<const uint8_t *>(data), sizeof(data));
+
+  ExecuteCommand();
 }
 
-md40::ErrorCode Md40::Motor::Move(const int32_t offset, const int32_t speed) {
-  auto error_code = WaitCommandEmptied();
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
+void Md40::Motor::Move(const int32_t offset, const int32_t speed) {
+  WaitCommandEmptied();
 
   const int32_t data[] = {offset, speed};
-  error_code = WriteCommand(kCommandMove, reinterpret_cast<const uint8_t *>(data), sizeof(data));
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
-  return ExecuteCommand();
+  WriteCommand(kMove, reinterpret_cast<const uint8_t *>(data), sizeof(data));
+
+  ExecuteCommand();
 }
 
-md40::ErrorCode Md40::Motor::state(uint8_t *const read_value) {
-  const uint8_t address = kMemoryAddressState + index_ * kMotorStateOffset;
+md40::MotorStateCode Md40::Motor::state() {
+  const uint8_t address = kState + index_ * kMotorStateOffset;
 
   wire_.beginTransmission(i2c_address_);
   wire_.write(address);
   wire_.write(0);
-  auto error_code = static_cast<md40::ErrorCode>(wire_.endTransmission());
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
+  EM_CHECK_EQ(wire_.endTransmission(), kI2cEndTransmissionSuccess);
 
   wire_.beginTransmission(i2c_address_);
   wire_.write(address);
-  error_code = static_cast<md40::ErrorCode>(wire_.endTransmission());
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
+  EM_CHECK_EQ(wire_.endTransmission(), kI2cEndTransmissionSuccess);
 
-  if (wire_.requestFrom(i2c_address_, static_cast<uint8_t>(1)) != 1) {
-    return md40::ErrorCode::kUnknownError;
-  }
+  EM_CHECK_EQ(wire_.requestFrom(i2c_address_, static_cast<uint8_t>(1)), 1);
 
-  *read_value = wire_.read();
-  return md40::ErrorCode::kOK;
+  while (wire_.available() == 0);
+  return static_cast<md40::MotorStateCode>(wire_.read());
 }
 
-md40::ErrorCode Md40::Motor::speed(int32_t *const read_value) {
-  const uint8_t address = kMemoryAddressSpeed + index_ * kMotorStateOffset;
+int32_t Md40::Motor::speed() {
+  const uint8_t address = kSpeed + index_ * kMotorStateOffset;
 
   wire_.beginTransmission(i2c_address_);
   wire_.write(address);
   wire_.write(0);
-  auto error_code = static_cast<md40::ErrorCode>(wire_.endTransmission());
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
+  EM_CHECK_EQ(wire_.endTransmission(), kI2cEndTransmissionSuccess);
 
   wire_.beginTransmission(i2c_address_);
   wire_.write(address);
-  error_code = static_cast<md40::ErrorCode>(wire_.endTransmission());
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
-
-  if (wire_.requestFrom(i2c_address_, static_cast<uint8_t>(4)) != 4) {
-    return md40::ErrorCode::kUnknownError;
-  }
+  EM_CHECK_EQ(wire_.endTransmission(), kI2cEndTransmissionSuccess);
 
   int32_t data = 0;
-  uint8_t offset = 0;
+  EM_CHECK_EQ(wire_.requestFrom(i2c_address_, static_cast<uint8_t>(sizeof(data))), sizeof(data));
 
+  uint8_t offset = 0;
+  while (offset < sizeof(data)) {
+    if (wire_.available()) {
+      reinterpret_cast<uint8_t *>(&data)[offset++] = wire_.read();
+    }
+  }
+  return data;
+}
+
+int32_t Md40::Motor::position() {
+  const uint8_t address = kPosition + index_ * kMotorStateOffset;
+
+  wire_.beginTransmission(i2c_address_);
+  wire_.write(address);
+  wire_.write(0);
+  EM_CHECK_EQ(wire_.endTransmission(), kI2cEndTransmissionSuccess);
+
+  wire_.beginTransmission(i2c_address_);
+  wire_.write(address);
+  EM_CHECK_EQ(wire_.endTransmission(), kI2cEndTransmissionSuccess);
+
+  int32_t data = 0;
+  EM_CHECK_EQ(wire_.requestFrom(i2c_address_, static_cast<uint8_t>(sizeof(data))), sizeof(data));
+
+  uint8_t offset = 0;
+  while (offset < sizeof(data)) {
+    if (wire_.available() > 0) {
+      reinterpret_cast<uint8_t *>(&data)[offset++] = wire_.read();
+    }
+  }
+
+  return data;
+}
+
+int32_t Md40::Motor::pulse_count() {
+  const uint8_t address = kPulseCount + index_ * kMotorStateOffset;
+
+  wire_.beginTransmission(i2c_address_);
+  wire_.write(address);
+  wire_.write(0);
+  EM_CHECK_EQ(wire_.endTransmission(), kI2cEndTransmissionSuccess);
+
+  wire_.beginTransmission(i2c_address_);
+  wire_.write(address);
+  EM_CHECK_EQ(wire_.endTransmission(), kI2cEndTransmissionSuccess);
+
+  int32_t data = 0;
+  EM_CHECK_EQ(wire_.requestFrom(i2c_address_, static_cast<uint8_t>(sizeof(data))), sizeof(data));
+
+  uint8_t offset = 0;
   while (offset < sizeof(data)) {
     if (wire_.available()) {
       reinterpret_cast<uint8_t *>(&data)[offset++] = wire_.read();
     }
   }
 
-  *read_value = data;
-  return md40::ErrorCode::kOK;
+  return data;
 }
 
-md40::ErrorCode Md40::Motor::position(int32_t *const read_value) {
-  const uint8_t address = kMemoryAddressPosition + index_ * kMotorStateOffset;
+int16_t Md40::Motor::pwm_duty() {
+  const uint8_t address = kPwmDuty + index_ * kMotorStateOffset;
 
   wire_.beginTransmission(i2c_address_);
   wire_.write(address);
   wire_.write(0);
-  auto error_code = static_cast<md40::ErrorCode>(wire_.endTransmission());
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
+  EM_CHECK_EQ(wire_.endTransmission(), kI2cEndTransmissionSuccess);
 
   wire_.beginTransmission(i2c_address_);
   wire_.write(address);
-  error_code = static_cast<md40::ErrorCode>(wire_.endTransmission());
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
-
-  if (wire_.requestFrom(i2c_address_, static_cast<uint8_t>(4)) != 4) {
-    return md40::ErrorCode::kUnknownError;
-  }
-
-  int32_t data = 0;
-  uint8_t offset = 0;
-
-  while (offset < sizeof(data)) {
-    if (wire_.available()) {
-      reinterpret_cast<uint8_t *>(&data)[offset++] = wire_.read();
-    }
-  }
-
-  *read_value = data;
-  return md40::ErrorCode::kOK;
-}
-
-md40::ErrorCode Md40::Motor::pulse_count(int32_t *const read_value) {
-  const uint8_t address = kMemoryAddressPulseCount + index_ * kMotorStateOffset;
-
-  wire_.beginTransmission(i2c_address_);
-  wire_.write(address);
-  wire_.write(0);
-  auto error_code = static_cast<md40::ErrorCode>(wire_.endTransmission());
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
-
-  wire_.beginTransmission(i2c_address_);
-  wire_.write(address);
-  error_code = static_cast<md40::ErrorCode>(wire_.endTransmission());
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
-
-  if (wire_.requestFrom(i2c_address_, static_cast<uint8_t>(4)) != 4) {
-    return md40::ErrorCode::kUnknownError;
-  }
-
-  int32_t data = 0;
-  uint8_t offset = 0;
-
-  while (offset < sizeof(data)) {
-    if (wire_.available()) {
-      reinterpret_cast<uint8_t *>(&data)[offset++] = wire_.read();
-    }
-  }
-
-  *read_value = data;
-  return md40::ErrorCode::kOK;
-}
-
-md40::ErrorCode Md40::Motor::pwm_duty(int16_t *const read_value) {
-  const uint8_t address = kMemoryAddressPwmDuty + index_ * kMotorStateOffset;
-
-  wire_.beginTransmission(i2c_address_);
-  wire_.write(address);
-  wire_.write(0);
-  auto error_code = static_cast<md40::ErrorCode>(wire_.endTransmission());
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
-
-  wire_.beginTransmission(i2c_address_);
-  wire_.write(address);
-  error_code = static_cast<md40::ErrorCode>(wire_.endTransmission());
-  if (error_code != md40::ErrorCode::kOK) {
-    return error_code;
-  }
-
-  if (wire_.requestFrom(i2c_address_, static_cast<uint8_t>(2)) != 2) {
-    return md40::ErrorCode::kUnknownError;
-  }
+  EM_CHECK_EQ(wire_.endTransmission(), kI2cEndTransmissionSuccess);
 
   int16_t data = 0;
-  uint8_t offset = 0;
+  EM_CHECK_EQ(wire_.requestFrom(i2c_address_, static_cast<uint8_t>(sizeof(data))), sizeof(data));
 
+  uint8_t offset = 0;
   while (offset < sizeof(data)) {
     if (wire_.available()) {
       reinterpret_cast<uint8_t *>(&data)[offset++] = wire_.read();
     }
   }
 
-  *read_value = data;
-  return md40::ErrorCode::kOK;
+  return data;
 }
 }  // namespace em
