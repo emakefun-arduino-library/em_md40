@@ -20,16 +20,16 @@ class Md40 {
     kBPhaseLeads = 1,
   };
 
-  enum class MotorStateCode : uint8_t {
-    kIdle = 0,
-    kRuningWithPwmDuty = 1,
-    kRuningWithSpeed = 2,
-    kRuningToPosition = 3,
-    kReachedPosition = 4,
-  };
-
   class Motor {
    public:
+    enum class State : uint8_t {
+      kIdle = 0,
+      kRuningWithPwmDuty = 1,
+      kRuningWithSpeed = 2,
+      kRuningToPosition = 3,
+      kReachedPosition = 4,
+    };
+
     Motor(const uint8_t index, const uint8_t i2c_address, TwoWire &wire);
 
     void Reset();
@@ -50,7 +50,7 @@ class Md40 {
     float position_pid_d();
     void set_position_pid_d(const float value);
 
-    void set_current_position(const int32_t position);
+    void set_position(const int32_t position);
     void set_pulse_count(const int32_t pulse_count);
     void Stop();
     void RunSpeed(const int32_t rpm);
@@ -58,7 +58,7 @@ class Md40 {
     void MoveTo(const int32_t position, const int32_t speed);
     void Move(const int32_t offset, const int32_t speed);
 
-    MotorStateCode state();
+    State state();
     int32_t speed();
     int32_t position();
     int32_t pulse_count();
