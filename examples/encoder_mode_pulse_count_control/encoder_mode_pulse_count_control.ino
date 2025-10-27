@@ -15,7 +15,7 @@
  * and reset the pulse count to ± 200. Real time monitoring of motor speed, position, PWM and other parameters.
  */
 
-#include "Md40.h"
+#include "md40.h"
 
 namespace {
 constexpr uint16_t kEncoderPpr = 12;

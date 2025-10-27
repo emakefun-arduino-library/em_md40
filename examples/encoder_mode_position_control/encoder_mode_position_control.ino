@@ -15,7 +15,7 @@
  * reset position information to ± 100. Real time monitoring of motor speed, position, PWM and other parameters.
  */
 
-#include "Md40.h"
+#include "md40.h"
 
 namespace {
 constexpr uint16_t kEncoderPpr = 12;
