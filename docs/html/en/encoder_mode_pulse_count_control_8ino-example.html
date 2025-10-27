@@ -117,7 +117,7 @@ $(function(){initNavTree('encoder_mode_pulse_count_control_8ino-example.html',''
 <div class="line"><span class="comment"> * and reset the pulse count to ± 200. Real time monitoring of motor speed, position, PWM and other parameters.</span></div>
 <div class="line"><span class="comment"> */</span></div>
 <div class="line"> </div>
-<div class="line"><span class="preprocessor">#include &quot;<a class="code" href="md40_8h.html">Md40.h</a>&quot;</span></div>
+<div class="line"><span class="preprocessor">#include &quot;<a class="code" href="md40_8h.html">md40.h</a>&quot;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">namespace </span>{</div>
 <div class="line"><span class="keyword">constexpr</span> uint16_t kEncoderPpr = 12;</div>
@@ -126,8 +126,9 @@ $(function(){initNavTree('encoder_mode_pulse_count_control_8ino-example.html',''
 <div class="line"><a id="_a0" name="_a0"></a><a class="code hl_class" href="classem_1_1_md40.html">em::Md40</a> g_md40(<a class="code hl_variable" href="classem_1_1_md40.html#a3a64a7255a21a66b9f4110ead3a26e5b">em::Md40::kDefaultI2cAddress</a>, Wire);</div>
 <div class="line"> </div>
 <div class="line">int32_t g_pwm_duty = 1023;</div>
+<div class="line">int32_t g_pulse_count = 200;</div>
 <div class="line"> </div>
-<div class="line"><span class="keywordtype">void</span> PrintfInfo() {</div>
+<div class="line"><span class="keywordtype">void</span> PrintMotorInfo() {</div>
 <div class="line">  <span class="keyword">const</span> <span class="keyword">auto</span> start_time = millis();</div>
 <div class="line">  <span class="keywordflow">while</span> ((millis() - start_time) &lt; 3000) {</div>
 <div class="line">    Serial.print(<span class="stringliteral">&quot;speeds: &quot;</span>);</div>
@@ -220,28 +221,29 @@ $(function(){initNavTree('encoder_mode_pulse_count_control_8ino-example.html',''
 <div class="line">  }</div>
 <div class="line">  g_pwm_duty = -g_pwm_duty;</div>
 <div class="line"> </div>
-<div class="line">  PrintfInfo();</div>
+<div class="line">  PrintMotorInfo();</div>
 <div class="line"> </div>
 <div class="line">  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
-<div class="line">    <span class="keyword">const</span> int32_t pulse_count = 200;</div>
 <div class="line">    Serial.print(<span class="stringliteral">&quot;motor &quot;</span>);</div>
 <div class="line">    Serial.print(i);</div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot; pulse count to: &quot;</span>);</div>
-<div class="line">    Serial.println(pulse_count);</div>
-<div class="line">    g_md40[i].set_pulse_count(pulse_count);</div>
+<div class="line">    Serial.print(<span class="stringliteral">&quot; pulse count: &quot;</span>);</div>
+<div class="line">    Serial.println(g_pulse_count);</div>
+<div class="line">    g_md40[i].set_pulse_count(g_pulse_count);</div>
 <div class="line">  }</div>
+<div class="line">  g_pulse_count = -g_pulse_count;</div>
 <div class="line"> </div>
-<div class="line">  PrintfInfo();</div>
+<div class="line">  PrintMotorInfo();</div>
 <div class="line"> </div>
 <div class="line">  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
-<div class="line">    <span class="keyword">const</span> int32_t pulse_count = -200;</div>
 <div class="line">    Serial.print(<span class="stringliteral">&quot;motor &quot;</span>);</div>
 <div class="line">    Serial.print(i);</div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot; pulse count to: &quot;</span>);</div>
-<div class="line">    Serial.println(pulse_count);</div>
-<div class="line">    g_md40[i].set_pulse_count(pulse_count);</div>
+<div class="line">    Serial.print(<span class="stringliteral">&quot; pulse count: &quot;</span>);</div>
+<div class="line">    Serial.println(g_pulse_count);</div>
+<div class="line">    g_md40[i].set_pulse_count(g_pulse_count);</div>
 <div class="line">  }</div>
-<div class="line">  PrintfInfo();</div>
+<div class="line">  g_pulse_count = -g_pulse_count;</div>
+<div class="line"> </div>
+<div class="line">  PrintMotorInfo();</div>
 <div class="line">}</div>
 <div class="ttc" id="aclassem_1_1_md40_1_1_motor_html_aba6144fd97d3cfee09f0a6c7c77d547ca74feb97f77c7b3a897564eac21252b89"><div class="ttname"><a href="classem_1_1_md40_1_1_motor.html#aba6144fd97d3cfee09f0a6c7c77d547ca74feb97f77c7b3a897564eac21252b89">em::Md40::Motor::PhaseRelation::kAPhaseLeads</a></div><div class="ttdeci">@ kAPhaseLeads</div><div class="ttdoc">Represents the situation where phase A leads phase B when the motor is rotating forward.</div><div class="ttdef"><b>Definition</b> <a href="md40_8h_source.html#l00080">md40.h:80</a></div></div>
 <div class="ttc" id="aclassem_1_1_md40_html"><div class="ttname"><a href="classem_1_1_md40.html">em::Md40</a></div><div class="ttdoc">Md40 is a driver class used to control the MD40 module for motor driving.</div><div class="ttdef"><b>Definition</b> <a href="md40_8h_source.html#l00027">md40.h:27</a></div></div>
