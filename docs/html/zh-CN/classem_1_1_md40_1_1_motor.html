@@ -1,0 +1,1018 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>EM MD40 Arduino 库: em::Md40::Motor类 参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">EM MD40 Arduino 库<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.13.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('classem_1_1_md40_1_1_motor.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#pub-types">Public 类型</a> &#124;
+<a href="#pub-methods">Public 成员函数</a> &#124;
+<a href="classem_1_1_md40_1_1_motor-members.html">所有成员列表</a>  </div>
+  <div class="headertitle"><div class="title">em::Md40::Motor类 参考</div></div>
+</div><!--header-->
+<div class="contents">
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
+Public 类型</h2></td></tr>
+<tr class="memitem:aba6144fd97d3cfee09f0a6c7c77d547c" id="r_aba6144fd97d3cfee09f0a6c7c77d547c"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aba6144fd97d3cfee09f0a6c7c77d547c">PhaseRelation</a> : uint8_t { <a class="el" href="#aba6144fd97d3cfee09f0a6c7c77d547ca74feb97f77c7b3a897564eac21252b89">kAPhaseLeads</a> = 0
+, <a class="el" href="#aba6144fd97d3cfee09f0a6c7c77d547caca2a02a3c4858c69a5e66f1790f341e5">kBPhaseLeads</a> = 1
+ }</td></tr>
+<tr class="memdesc:aba6144fd97d3cfee09f0a6c7c77d547c"><td class="mdescLeft">&#160;</td><td class="mdescRight">用于明确电机正转时编码器AB相的相位关系，以便在脉冲计数及后续速度计算等操作中依据正确的相位关系进行处理。  <a href="#aba6144fd97d3cfee09f0a6c7c77d547c">更多...</a><br /></td></tr>
+<tr class="separator:aba6144fd97d3cfee09f0a6c7c77d547c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad55460729773ef643807dff91b6f7a73" id="r_ad55460729773ef643807dff91b6f7a73"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad55460729773ef643807dff91b6f7a73">State</a> : uint8_t { <br />
+&#160;&#160;<a class="el" href="#ad55460729773ef643807dff91b6f7a73af5137a026a4b2f3b1c8a21cfc60dd14b">kIdle</a> = 0
+, <a class="el" href="#ad55460729773ef643807dff91b6f7a73ad43a4d0de8922909d711255d68be5e47">kRuningWithPwmDuty</a> = 1
+, <a class="el" href="#ad55460729773ef643807dff91b6f7a73a0cd681bad85bf042db785a2d3bb244d9">kRuningWithSpeed</a> = 2
+, <a class="el" href="#ad55460729773ef643807dff91b6f7a73a876e3d198f6521d3a3eb5c6229070501">kRuningToPosition</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="#ad55460729773ef643807dff91b6f7a73afcffcd738631bb974828b74e204d5066">kReachedPosition</a> = 4
+<br />
+ }</td></tr>
+<tr class="memdesc:ad55460729773ef643807dff91b6f7a73"><td class="mdescLeft">&#160;</td><td class="mdescRight">电机状态枚举。  <a href="#ad55460729773ef643807dff91b6f7a73">更多...</a><br /></td></tr>
+<tr class="separator:ad55460729773ef643807dff91b6f7a73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public 成员函数</h2></td></tr>
+<tr class="memitem:a822f70ffcda18debe2cdba53a47ea6a4" id="r_a822f70ffcda18debe2cdba53a47ea6a4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a822f70ffcda18debe2cdba53a47ea6a4">Motor</a> (const uint8_t index, const uint8_t i2c_address, TwoWire &amp;wire)</td></tr>
+<tr class="memdesc:a822f70ffcda18debe2cdba53a47ea6a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">构造函数。  <br /></td></tr>
+<tr class="separator:a822f70ffcda18debe2cdba53a47ea6a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5c98e5bfb608a23f02de7236e47874cd" id="r_a5c98e5bfb608a23f02de7236e47874cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5c98e5bfb608a23f02de7236e47874cd">Reset</a> ()</td></tr>
+<tr class="memdesc:a5c98e5bfb608a23f02de7236e47874cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">重置电机。  <br /></td></tr>
+<tr class="separator:a5c98e5bfb608a23f02de7236e47874cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0b8bf0435a6b6fc7e23ecd8b78b56bc" id="r_ad0b8bf0435a6b6fc7e23ecd8b78b56bc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad0b8bf0435a6b6fc7e23ecd8b78b56bc">SetEncoderMode</a> (const uint16_t ppr, const uint16_t reduction_ratio, const <a class="el" href="#aba6144fd97d3cfee09f0a6c7c77d547c">PhaseRelation</a> phase_relation)</td></tr>
+<tr class="memdesc:ad0b8bf0435a6b6fc7e23ecd8b78b56bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">设置电机为编码器模式。  <br /></td></tr>
+<tr class="separator:ad0b8bf0435a6b6fc7e23ecd8b78b56bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0731a3c22bda41385810165eb339cc25" id="r_a0731a3c22bda41385810165eb339cc25"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0731a3c22bda41385810165eb339cc25">SetDcMode</a> ()</td></tr>
+<tr class="memdesc:a0731a3c22bda41385810165eb339cc25"><td class="mdescLeft">&#160;</td><td class="mdescRight">设置电机为直流模式。  <br /></td></tr>
+<tr class="separator:a0731a3c22bda41385810165eb339cc25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35616fe69dc25629ff4015bae4b105a9" id="r_a35616fe69dc25629ff4015bae4b105a9"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a35616fe69dc25629ff4015bae4b105a9">speed_pid_p</a> ()</td></tr>
+<tr class="memdesc:a35616fe69dc25629ff4015bae4b105a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">获取速度PID控制器的比例（P）值。  <br /></td></tr>
+<tr class="separator:a35616fe69dc25629ff4015bae4b105a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57d27f5dc7af13742893c142e01a328d" id="r_a57d27f5dc7af13742893c142e01a328d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a57d27f5dc7af13742893c142e01a328d">set_speed_pid_p</a> (const float value)</td></tr>
+<tr class="memdesc:a57d27f5dc7af13742893c142e01a328d"><td class="mdescLeft">&#160;</td><td class="mdescRight">设置速度PID控制器的比例（P）值。  <br /></td></tr>
+<tr class="separator:a57d27f5dc7af13742893c142e01a328d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a405e4aad520a647ea9f4ecf0b789e4dd" id="r_a405e4aad520a647ea9f4ecf0b789e4dd"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a405e4aad520a647ea9f4ecf0b789e4dd">speed_pid_i</a> ()</td></tr>
+<tr class="memdesc:a405e4aad520a647ea9f4ecf0b789e4dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">获取速度PID控制器的积分（I）值。  <br /></td></tr>
+<tr class="separator:a405e4aad520a647ea9f4ecf0b789e4dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f7569b1f753d180c58b8c2011158ace" id="r_a0f7569b1f753d180c58b8c2011158ace"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0f7569b1f753d180c58b8c2011158ace">set_speed_pid_i</a> (const float value)</td></tr>
+<tr class="memdesc:a0f7569b1f753d180c58b8c2011158ace"><td class="mdescLeft">&#160;</td><td class="mdescRight">设置速度PID控制器的积分（I）值。  <br /></td></tr>
+<tr class="separator:a0f7569b1f753d180c58b8c2011158ace"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb54aa634850b57cef5842e1e020bd04" id="r_abb54aa634850b57cef5842e1e020bd04"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abb54aa634850b57cef5842e1e020bd04">speed_pid_d</a> ()</td></tr>
+<tr class="memdesc:abb54aa634850b57cef5842e1e020bd04"><td class="mdescLeft">&#160;</td><td class="mdescRight">获取速度PID控制器的微分（D）值。  <br /></td></tr>
+<tr class="separator:abb54aa634850b57cef5842e1e020bd04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1077ca2887f09184888d1a01a7b6ef36" id="r_a1077ca2887f09184888d1a01a7b6ef36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1077ca2887f09184888d1a01a7b6ef36">set_speed_pid_d</a> (const float value)</td></tr>
+<tr class="memdesc:a1077ca2887f09184888d1a01a7b6ef36"><td class="mdescLeft">&#160;</td><td class="mdescRight">设置速度PID控制器的微分（D）值。  <br /></td></tr>
+<tr class="separator:a1077ca2887f09184888d1a01a7b6ef36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a9dd15eb33700082c074c97877f4547" id="r_a5a9dd15eb33700082c074c97877f4547"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5a9dd15eb33700082c074c97877f4547">position_pid_p</a> ()</td></tr>
+<tr class="memdesc:a5a9dd15eb33700082c074c97877f4547"><td class="mdescLeft">&#160;</td><td class="mdescRight">获取位置PID控制器的比例（P）值。  <br /></td></tr>
+<tr class="separator:a5a9dd15eb33700082c074c97877f4547"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53fdb3ef91d2903dd63cf4cb44460a7a" id="r_a53fdb3ef91d2903dd63cf4cb44460a7a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53fdb3ef91d2903dd63cf4cb44460a7a">set_position_pid_p</a> (const float value)</td></tr>
+<tr class="memdesc:a53fdb3ef91d2903dd63cf4cb44460a7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">设置位置PID控制器的比例（P）值。  <br /></td></tr>
+<tr class="separator:a53fdb3ef91d2903dd63cf4cb44460a7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3856be58594b2f367e296dab4bab9126" id="r_a3856be58594b2f367e296dab4bab9126"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3856be58594b2f367e296dab4bab9126">position_pid_i</a> ()</td></tr>
+<tr class="memdesc:a3856be58594b2f367e296dab4bab9126"><td class="mdescLeft">&#160;</td><td class="mdescRight">获取位置PID控制器的积分（I）值。  <br /></td></tr>
+<tr class="separator:a3856be58594b2f367e296dab4bab9126"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b46c9b4f2d27b666d5ee0130b86621b" id="r_a4b46c9b4f2d27b666d5ee0130b86621b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4b46c9b4f2d27b666d5ee0130b86621b">set_position_pid_i</a> (const float value)</td></tr>
+<tr class="memdesc:a4b46c9b4f2d27b666d5ee0130b86621b"><td class="mdescLeft">&#160;</td><td class="mdescRight">设置位置PID控制器的积分（I）值。  <br /></td></tr>
+<tr class="separator:a4b46c9b4f2d27b666d5ee0130b86621b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af456bca4c627d1bdb878e6a960655f8d" id="r_af456bca4c627d1bdb878e6a960655f8d"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af456bca4c627d1bdb878e6a960655f8d">position_pid_d</a> ()</td></tr>
+<tr class="memdesc:af456bca4c627d1bdb878e6a960655f8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">获取位置PID控制器的微分（D）值。  <br /></td></tr>
+<tr class="separator:af456bca4c627d1bdb878e6a960655f8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bf0d76b5f62d5d75718c52f1fec8257" id="r_a9bf0d76b5f62d5d75718c52f1fec8257"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9bf0d76b5f62d5d75718c52f1fec8257">set_position_pid_d</a> (const float value)</td></tr>
+<tr class="memdesc:a9bf0d76b5f62d5d75718c52f1fec8257"><td class="mdescLeft">&#160;</td><td class="mdescRight">设置位置PID控制器的微分（D）值。  <br /></td></tr>
+<tr class="separator:a9bf0d76b5f62d5d75718c52f1fec8257"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a371260115307bdf66b335142fbb5b20f" id="r_a371260115307bdf66b335142fbb5b20f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a371260115307bdf66b335142fbb5b20f">set_position</a> (const int32_t <a class="el" href="#a7ac79f14a108c1bce6ff5469dbece890">position</a>)</td></tr>
+<tr class="memdesc:a371260115307bdf66b335142fbb5b20f"><td class="mdescLeft">&#160;</td><td class="mdescRight">重置电机的位置值。  <br /></td></tr>
+<tr class="separator:a371260115307bdf66b335142fbb5b20f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a025de408a74ccd4c63e179760d7199d9" id="r_a025de408a74ccd4c63e179760d7199d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a025de408a74ccd4c63e179760d7199d9">set_pulse_count</a> (const int32_t <a class="el" href="#ad00acbfaa29b7a1f8f794ccfcd2e78f2">pulse_count</a>)</td></tr>
+<tr class="memdesc:a025de408a74ccd4c63e179760d7199d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">重置电机的编码器脉冲数。  <br /></td></tr>
+<tr class="separator:a025de408a74ccd4c63e179760d7199d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f0fdb6c977ea11e89281c51534850ca" id="r_a8f0fdb6c977ea11e89281c51534850ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f0fdb6c977ea11e89281c51534850ca">Stop</a> ()</td></tr>
+<tr class="memdesc:a8f0fdb6c977ea11e89281c51534850ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">停止电机运行。  <br /></td></tr>
+<tr class="separator:a8f0fdb6c977ea11e89281c51534850ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a2d6bf7438d7436ffaebcd2f7c3a3ef" id="r_a0a2d6bf7438d7436ffaebcd2f7c3a3ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0a2d6bf7438d7436ffaebcd2f7c3a3ef">RunSpeed</a> (const int32_t rpm)</td></tr>
+<tr class="memdesc:a0a2d6bf7438d7436ffaebcd2f7c3a3ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">以设定的速度值（RPM）运行电机。  <br /></td></tr>
+<tr class="separator:a0a2d6bf7438d7436ffaebcd2f7c3a3ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12bed3cebbd751fa0064e3c0d84b29ff" id="r_a12bed3cebbd751fa0064e3c0d84b29ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a12bed3cebbd751fa0064e3c0d84b29ff">RunPwmDuty</a> (const int16_t <a class="el" href="#aa81ed40bb932acf2fbca631e776e8b8c">pwm_duty</a>)</td></tr>
+<tr class="memdesc:a12bed3cebbd751fa0064e3c0d84b29ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">直接设置电机的PWM占空比。  <br /></td></tr>
+<tr class="separator:a12bed3cebbd751fa0064e3c0d84b29ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17235e478c987cd3aa84a6f962b545e9" id="r_a17235e478c987cd3aa84a6f962b545e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a17235e478c987cd3aa84a6f962b545e9">MoveTo</a> (const int32_t <a class="el" href="#a7ac79f14a108c1bce6ff5469dbece890">position</a>, const int32_t <a class="el" href="#a9123c783d69b2c067347973601aa321f">speed</a>)</td></tr>
+<tr class="memdesc:a17235e478c987cd3aa84a6f962b545e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">将电机移动到指定位置。  <br /></td></tr>
+<tr class="separator:a17235e478c987cd3aa84a6f962b545e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54a4d217194795fff38df788c879c713" id="r_a54a4d217194795fff38df788c879c713"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54a4d217194795fff38df788c879c713">Move</a> (const int32_t offset, const int32_t <a class="el" href="#a9123c783d69b2c067347973601aa321f">speed</a>)</td></tr>
+<tr class="memdesc:a54a4d217194795fff38df788c879c713"><td class="mdescLeft">&#160;</td><td class="mdescRight">电机相对移动指定距离。  <br /></td></tr>
+<tr class="separator:a54a4d217194795fff38df788c879c713"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93a125ddc32655c419321ca7d6226344" id="r_a93a125ddc32655c419321ca7d6226344"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ad55460729773ef643807dff91b6f7a73">State</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a93a125ddc32655c419321ca7d6226344">state</a> ()</td></tr>
+<tr class="memdesc:a93a125ddc32655c419321ca7d6226344"><td class="mdescLeft">&#160;</td><td class="mdescRight">获取电机当前状态。  <br /></td></tr>
+<tr class="separator:a93a125ddc32655c419321ca7d6226344"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9123c783d69b2c067347973601aa321f" id="r_a9123c783d69b2c067347973601aa321f"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9123c783d69b2c067347973601aa321f">speed</a> ()</td></tr>
+<tr class="memdesc:a9123c783d69b2c067347973601aa321f"><td class="mdescLeft">&#160;</td><td class="mdescRight">获取电机当前的转速（RPM）。  <br /></td></tr>
+<tr class="separator:a9123c783d69b2c067347973601aa321f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ac79f14a108c1bce6ff5469dbece890" id="r_a7ac79f14a108c1bce6ff5469dbece890"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ac79f14a108c1bce6ff5469dbece890">position</a> ()</td></tr>
+<tr class="memdesc:a7ac79f14a108c1bce6ff5469dbece890"><td class="mdescLeft">&#160;</td><td class="mdescRight">获取电机位置。  <br /></td></tr>
+<tr class="separator:a7ac79f14a108c1bce6ff5469dbece890"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad00acbfaa29b7a1f8f794ccfcd2e78f2" id="r_ad00acbfaa29b7a1f8f794ccfcd2e78f2"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad00acbfaa29b7a1f8f794ccfcd2e78f2">pulse_count</a> ()</td></tr>
+<tr class="memdesc:ad00acbfaa29b7a1f8f794ccfcd2e78f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">获取电机当前的编码器脉冲数。  <br /></td></tr>
+<tr class="separator:ad00acbfaa29b7a1f8f794ccfcd2e78f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa81ed40bb932acf2fbca631e776e8b8c" id="r_aa81ed40bb932acf2fbca631e776e8b8c"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa81ed40bb932acf2fbca631e776e8b8c">pwm_duty</a> ()</td></tr>
+<tr class="memdesc:aa81ed40bb932acf2fbca631e776e8b8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">获取电机当前的PWM占空比。  <br /></td></tr>
+<tr class="separator:aa81ed40bb932acf2fbca631e776e8b8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
+<div class="textblock">
+<p class="definition">在文件 <a class="el" href="md40_8h_source.html">md40.h</a> 第 <a class="el" href="md40_8h_source.html#l00059">59</a> 行定义.</p>
+</div><h2 class="groupheader">成员枚举类型说明</h2>
+<a id="aba6144fd97d3cfee09f0a6c7c77d547c" name="aba6144fd97d3cfee09f0a6c7c77d547c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba6144fd97d3cfee09f0a6c7c77d547c">&#9670;&#160;</a></span>PhaseRelation</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#aba6144fd97d3cfee09f0a6c7c77d547c">em::Md40::Motor::PhaseRelation</a> : uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>用于明确电机正转时编码器AB相的相位关系，以便在脉冲计数及后续速度计算等操作中依据正确的相位关系进行处理。 </p>
+<table class="fieldtable">
+<tr><th colspan="3">枚举值</th></tr><tr><td class="fieldname"><a id="aba6144fd97d3cfee09f0a6c7c77d547ca74feb97f77c7b3a897564eac21252b89" name="aba6144fd97d3cfee09f0a6c7c77d547ca74feb97f77c7b3a897564eac21252b89"></a>kAPhaseLeads&#160;</td><td class="fieldinit">0&#160;</td><td class="fielddoc"><p>表示电机正转时A相领先于B相。 </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aba6144fd97d3cfee09f0a6c7c77d547caca2a02a3c4858c69a5e66f1790f341e5" name="aba6144fd97d3cfee09f0a6c7c77d547caca2a02a3c4858c69a5e66f1790f341e5"></a>kBPhaseLeads&#160;</td><td class="fieldinit">1&#160;</td><td class="fielddoc"><p>表示电机正转时B相领先于A相。 </p>
+</td></tr>
+</table>
+
+<p class="definition">在文件 <a class="el" href="md40_8h_source.html">md40.h</a> 第 <a class="el" href="md40_8h_source.html#l00071">71</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ad55460729773ef643807dff91b6f7a73" name="ad55460729773ef643807dff91b6f7a73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad55460729773ef643807dff91b6f7a73">&#9670;&#160;</a></span>State</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#ad55460729773ef643807dff91b6f7a73">em::Md40::Motor::State</a> : uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>电机状态枚举。 </p>
+<table class="fieldtable">
+<tr><th colspan="3">枚举值</th></tr><tr><td class="fieldname"><a id="ad55460729773ef643807dff91b6f7a73af5137a026a4b2f3b1c8a21cfc60dd14b" name="ad55460729773ef643807dff91b6f7a73af5137a026a4b2f3b1c8a21cfc60dd14b"></a>kIdle&#160;</td><td class="fieldinit">0&#160;</td><td class="fielddoc"><p>表示电机处于空闲状态。 </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad55460729773ef643807dff91b6f7a73ad43a4d0de8922909d711255d68be5e47" name="ad55460729773ef643807dff91b6f7a73ad43a4d0de8922909d711255d68be5e47"></a>kRuningWithPwmDuty&#160;</td><td class="fieldinit">1&#160;</td><td class="fielddoc"><p>表示电机处于PWM占空比模式运行。 </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad55460729773ef643807dff91b6f7a73a0cd681bad85bf042db785a2d3bb244d9" name="ad55460729773ef643807dff91b6f7a73a0cd681bad85bf042db785a2d3bb244d9"></a>kRuningWithSpeed&#160;</td><td class="fieldinit">2&#160;</td><td class="fielddoc"><p>表示电机处于速度模式运行。 </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad55460729773ef643807dff91b6f7a73a876e3d198f6521d3a3eb5c6229070501" name="ad55460729773ef643807dff91b6f7a73a876e3d198f6521d3a3eb5c6229070501"></a>kRuningToPosition&#160;</td><td class="fieldinit">3&#160;</td><td class="fielddoc"><p>表示电机正在执行位置闭环运动，向目标位置运行中。 </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ad55460729773ef643807dff91b6f7a73afcffcd738631bb974828b74e204d5066" name="ad55460729773ef643807dff91b6f7a73afcffcd738631bb974828b74e204d5066"></a>kReachedPosition&#160;</td><td class="fieldinit">4&#160;</td><td class="fielddoc"><p>表示电机到达目标位置状态。 </p>
+</td></tr>
+</table>
+
+<p class="definition">在文件 <a class="el" href="md40_8h_source.html">md40.h</a> 第 <a class="el" href="md40_8h_source.html#l00101">101</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">构造及析构函数说明</h2>
+<a id="a822f70ffcda18debe2cdba53a47ea6a4" name="a822f70ffcda18debe2cdba53a47ea6a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a822f70ffcda18debe2cdba53a47ea6a4">&#9670;&#160;</a></span>Motor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Motor::Motor </td>
+          <td>(</td>
+          <td class="paramtype">const uint8_t</td>          <td class="paramname"><span class="paramname"><em>index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint8_t</td>          <td class="paramname"><span class="paramname"><em>i2c_address</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TwoWire &amp;</td>          <td class="paramname"><span class="paramname"><em>wire</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>构造函数。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">index</td><td>电机索引。 </td></tr>
+    <tr><td class="paramname">i2c_address</td><td>I2C地址。 </td></tr>
+    <tr><td class="paramname">wire</td><td>TwoWire 对象引用。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00116">116</a> 行定义.</p>
+
+</div>
+</div>
+<h2 class="groupheader">成员函数说明</h2>
+<a id="a54a4d217194795fff38df788c879c713" name="a54a4d217194795fff38df788c879c713"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54a4d217194795fff38df788c879c713">&#9670;&#160;</a></span>Move()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Motor::Move </td>
+          <td>(</td>
+          <td class="paramtype">const int32_t</td>          <td class="paramname"><span class="paramname"><em>offset</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t</td>          <td class="paramname"><span class="paramname"><em>speed</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>电机相对移动指定距离。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">offset</td><td>相对位移。 </td></tr>
+    <tr><td class="paramname">speed</td><td>运行速度。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00407">407</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a17235e478c987cd3aa84a6f962b545e9" name="a17235e478c987cd3aa84a6f962b545e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17235e478c987cd3aa84a6f962b545e9">&#9670;&#160;</a></span>MoveTo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Motor::MoveTo </td>
+          <td>(</td>
+          <td class="paramtype">const int32_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int32_t</td>          <td class="paramname"><span class="paramname"><em>speed</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>将电机移动到指定位置。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">position</td><td>目标位置。 </td></tr>
+    <tr><td class="paramname">speed</td><td>运行速度。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00398">398</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a7ac79f14a108c1bce6ff5469dbece890" name="a7ac79f14a108c1bce6ff5469dbece890"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ac79f14a108c1bce6ff5469dbece890">&#9670;&#160;</a></span>position()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t Motor::position </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>获取电机位置。 </p>
+<dl class="section return"><dt>返回</dt><dd>电机位置。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00459">459</a> 行定义.</p>
+
+</div>
+</div>
+<a id="af456bca4c627d1bdb878e6a960655f8d" name="af456bca4c627d1bdb878e6a960655f8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af456bca4c627d1bdb878e6a960655f8d">&#9670;&#160;</a></span>position_pid_d()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Motor::position_pid_d </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>获取位置PID控制器的微分（D）值。 </p>
+<dl class="section return"><dt>返回</dt><dd>位置PID控制器的微分（D）值。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00331">331</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a3856be58594b2f367e296dab4bab9126" name="a3856be58594b2f367e296dab4bab9126"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3856be58594b2f367e296dab4bab9126">&#9670;&#160;</a></span>position_pid_i()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Motor::position_pid_i </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>获取位置PID控制器的积分（I）值。 </p>
+<dl class="section return"><dt>返回</dt><dd>位置PID控制器的积分（I）值。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00304">304</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a5a9dd15eb33700082c074c97877f4547" name="a5a9dd15eb33700082c074c97877f4547"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a9dd15eb33700082c074c97877f4547">&#9670;&#160;</a></span>position_pid_p()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Motor::position_pid_p </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>获取位置PID控制器的比例（P）值。 </p>
+<dl class="section return"><dt>返回</dt><dd>位置PID控制器的比例（P）值。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00277">277</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ad00acbfaa29b7a1f8f794ccfcd2e78f2" name="ad00acbfaa29b7a1f8f794ccfcd2e78f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad00acbfaa29b7a1f8f794ccfcd2e78f2">&#9670;&#160;</a></span>pulse_count()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t Motor::pulse_count </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>获取电机当前的编码器脉冲数。 </p>
+<dl class="section return"><dt>返回</dt><dd>电机当前的编码器脉冲数。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00484">484</a> 行定义.</p>
+
+</div>
+</div>
+<a id="aa81ed40bb932acf2fbca631e776e8b8c" name="aa81ed40bb932acf2fbca631e776e8b8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa81ed40bb932acf2fbca631e776e8b8c">&#9670;&#160;</a></span>pwm_duty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int16_t Motor::pwm_duty </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>获取电机当前的PWM占空比。 </p>
+<dl class="section return"><dt>返回</dt><dd>电机当前的PWM占空比（取值范围 -1023到1023）。正数代表正转，负数代表反转。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00509">509</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a5c98e5bfb608a23f02de7236e47874cd" name="a5c98e5bfb608a23f02de7236e47874cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c98e5bfb608a23f02de7236e47874cd">&#9670;&#160;</a></span>Reset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Motor::Reset </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>重置电机。 </p>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00156">156</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a12bed3cebbd751fa0064e3c0d84b29ff" name="a12bed3cebbd751fa0064e3c0d84b29ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12bed3cebbd751fa0064e3c0d84b29ff">&#9670;&#160;</a></span>RunPwmDuty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Motor::RunPwmDuty </td>
+          <td>(</td>
+          <td class="paramtype">const int16_t</td>          <td class="paramname"><span class="paramname"><em>pwm_duty</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>直接设置电机的PWM占空比。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pwm_duty</td><td>PWM占空比（取值范围 -1023到1023）。正数代表正转，负数代表反转。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00390">390</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a0a2d6bf7438d7436ffaebcd2f7c3a3ef" name="a0a2d6bf7438d7436ffaebcd2f7c3a3ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a2d6bf7438d7436ffaebcd2f7c3a3ef">&#9670;&#160;</a></span>RunSpeed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Motor::RunSpeed </td>
+          <td>(</td>
+          <td class="paramtype">const int32_t</td>          <td class="paramname"><span class="paramname"><em>rpm</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>以设定的速度值（RPM）运行电机。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rpm</td><td>速度设定值（RPM）。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00382">382</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a371260115307bdf66b335142fbb5b20f" name="a371260115307bdf66b335142fbb5b20f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a371260115307bdf66b335142fbb5b20f">&#9670;&#160;</a></span>set_position()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Motor::set_position </td>
+          <td>(</td>
+          <td class="paramtype">const int32_t</td>          <td class="paramname"><span class="paramname"><em>position</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>重置电机的位置值。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">position</td><td>位置设定值。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00358">358</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a9bf0d76b5f62d5d75718c52f1fec8257" name="a9bf0d76b5f62d5d75718c52f1fec8257"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bf0d76b5f62d5d75718c52f1fec8257">&#9670;&#160;</a></span>set_position_pid_d()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Motor::set_position_pid_d </td>
+          <td>(</td>
+          <td class="paramtype">const float</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>设置位置PID控制器的微分（D）值。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>位置PID控制器的微分（D）值。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00349">349</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a4b46c9b4f2d27b666d5ee0130b86621b" name="a4b46c9b4f2d27b666d5ee0130b86621b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b46c9b4f2d27b666d5ee0130b86621b">&#9670;&#160;</a></span>set_position_pid_i()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Motor::set_position_pid_i </td>
+          <td>(</td>
+          <td class="paramtype">const float</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>设置位置PID控制器的积分（I）值。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>位置PID控制器的积分（I）值。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00322">322</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a53fdb3ef91d2903dd63cf4cb44460a7a" name="a53fdb3ef91d2903dd63cf4cb44460a7a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53fdb3ef91d2903dd63cf4cb44460a7a">&#9670;&#160;</a></span>set_position_pid_p()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Motor::set_position_pid_p </td>
+          <td>(</td>
+          <td class="paramtype">const float</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>设置位置PID控制器的比例（P）值。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>位置PID控制器的比例（P）值。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00295">295</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a025de408a74ccd4c63e179760d7199d9" name="a025de408a74ccd4c63e179760d7199d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a025de408a74ccd4c63e179760d7199d9">&#9670;&#160;</a></span>set_pulse_count()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Motor::set_pulse_count </td>
+          <td>(</td>
+          <td class="paramtype">const int32_t</td>          <td class="paramname"><span class="paramname"><em>pulse_count</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>重置电机的编码器脉冲数。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pulse_count</td><td>编码器脉冲数。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00366">366</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a1077ca2887f09184888d1a01a7b6ef36" name="a1077ca2887f09184888d1a01a7b6ef36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1077ca2887f09184888d1a01a7b6ef36">&#9670;&#160;</a></span>set_speed_pid_d()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Motor::set_speed_pid_d </td>
+          <td>(</td>
+          <td class="paramtype">const float</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>设置速度PID控制器的微分（D）值。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>速度PID控制器的微分（D）值。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00268">268</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a0f7569b1f753d180c58b8c2011158ace" name="a0f7569b1f753d180c58b8c2011158ace"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f7569b1f753d180c58b8c2011158ace">&#9670;&#160;</a></span>set_speed_pid_i()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Motor::set_speed_pid_i </td>
+          <td>(</td>
+          <td class="paramtype">const float</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>设置速度PID控制器的积分（I）值。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>速度PID控制器的积分（I）值。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00241">241</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a57d27f5dc7af13742893c142e01a328d" name="a57d27f5dc7af13742893c142e01a328d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57d27f5dc7af13742893c142e01a328d">&#9670;&#160;</a></span>set_speed_pid_p()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Motor::set_speed_pid_p </td>
+          <td>(</td>
+          <td class="paramtype">const float</td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>设置速度PID控制器的比例（P）值。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>速度PID控制器的比例（P）值。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00214">214</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a0731a3c22bda41385810165eb339cc25" name="a0731a3c22bda41385810165eb339cc25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0731a3c22bda41385810165eb339cc25">&#9670;&#160;</a></span>SetDcMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Motor::SetDcMode </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>设置电机为直流模式。 </p>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00180">180</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ad0b8bf0435a6b6fc7e23ecd8b78b56bc" name="ad0b8bf0435a6b6fc7e23ecd8b78b56bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0b8bf0435a6b6fc7e23ecd8b78b56bc">&#9670;&#160;</a></span>SetEncoderMode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Motor::SetEncoderMode </td>
+          <td>(</td>
+          <td class="paramtype">const uint16_t</td>          <td class="paramname"><span class="paramname"><em>ppr</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const uint16_t</td>          <td class="paramname"><span class="paramname"><em>reduction_ratio</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="#aba6144fd97d3cfee09f0a6c7c77d547c">PhaseRelation</a></td>          <td class="paramname"><span class="paramname"><em>phase_relation</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>设置电机为编码器模式。 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ppr</td><td>每转脉冲数。 </td></tr>
+    <tr><td class="paramname">reduction_ratio</td><td>减速比。 </td></tr>
+    <tr><td class="paramname">phase_relation</td><td>相位关系（A相领先或B相领先，指电机正转时的情况），参数说明请查阅： PhaseRelation。 </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00164">164</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a9123c783d69b2c067347973601aa321f" name="a9123c783d69b2c067347973601aa321f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9123c783d69b2c067347973601aa321f">&#9670;&#160;</a></span>speed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int32_t Motor::speed </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>获取电机当前的转速（RPM）。 </p>
+<dl class="section return"><dt>返回</dt><dd>电机当前的转速（RPM）。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00435">435</a> 行定义.</p>
+
+</div>
+</div>
+<a id="abb54aa634850b57cef5842e1e020bd04" name="abb54aa634850b57cef5842e1e020bd04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb54aa634850b57cef5842e1e020bd04">&#9670;&#160;</a></span>speed_pid_d()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Motor::speed_pid_d </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>获取速度PID控制器的微分（D）值。 </p>
+<dl class="section return"><dt>返回</dt><dd>速度PID控制器的微分（D）值。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00250">250</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a405e4aad520a647ea9f4ecf0b789e4dd" name="a405e4aad520a647ea9f4ecf0b789e4dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a405e4aad520a647ea9f4ecf0b789e4dd">&#9670;&#160;</a></span>speed_pid_i()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Motor::speed_pid_i </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>获取速度PID控制器的积分（I）值。 </p>
+<dl class="section return"><dt>返回</dt><dd>速度PID控制器的积分（I）值。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00223">223</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a35616fe69dc25629ff4015bae4b105a9" name="a35616fe69dc25629ff4015bae4b105a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35616fe69dc25629ff4015bae4b105a9">&#9670;&#160;</a></span>speed_pid_p()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float Motor::speed_pid_p </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>获取速度PID控制器的比例（P）值。 </p>
+<dl class="section return"><dt>返回</dt><dd>速度PID控制器的比例（P）值。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00196">196</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a93a125ddc32655c419321ca7d6226344" name="a93a125ddc32655c419321ca7d6226344"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93a125ddc32655c419321ca7d6226344">&#9670;&#160;</a></span>state()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ad55460729773ef643807dff91b6f7a73">Md40::Motor::State</a> Motor::state </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>获取电机当前状态。 </p>
+<dl class="section return"><dt>返回</dt><dd>电机当前状态。 </dd></dl>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00416">416</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a8f0fdb6c977ea11e89281c51534850ca" name="a8f0fdb6c977ea11e89281c51534850ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f0fdb6c977ea11e89281c51534850ca">&#9670;&#160;</a></span>Stop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Motor::Stop </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>停止电机运行。 </p>
+
+<p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00374">374</a> 行定义.</p>
+
+</div>
+</div>
+<hr/>该类的文档由以下文件生成:<ul>
+<li>src/<a class="el" href="md40_8h_source.html">md40.h</a></li>
+<li>src/<a class="el" href="md40_8cpp_source.html">md40.cpp</a></li>
+</ul>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><b>em</b></li><li class="navelem"><a class="el" href="classem_1_1_md40.html">Md40</a></li><li class="navelem"><a class="el" href="classem_1_1_md40_1_1_motor.html">Motor</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.0 </li>
+  </ul>
+</div>
+</body>
+</html>

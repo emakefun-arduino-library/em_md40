@@ -1,0 +1,394 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.13.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>EM MD40 Arduino 库: src/em_check.h 文件参考</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">EM MD40 Arduino 库<span id="projectnumber">&#160;1.0.0</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- 制作者 Doxygen 1.13.0 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+/* @license-end */
+</script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() { codefold.init(0); });
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function() {
+  initMenu('',true,false,'search.php','搜索',true);
+  $(function() { init_search(); });
+});
+/* @license-end */
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(function(){initNavTree('em__check_8h.html',''); initResizable(true); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">载入中...</div>
+<div class="SRStatus" id="Searching">搜索中...</div>
+<div class="SRStatus" id="NoMatches">未找到</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="summary">
+<a href="#define-members">宏定义</a>  </div>
+  <div class="headertitle"><div class="title">em_check.h 文件参考</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &lt;Arduino.h&gt;</code><br />
+</div>
+<p><a href="em__check_8h_source.html">浏览该文件的源代码.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+宏定义</h2></td></tr>
+<tr class="memitem:a927fb0310f1d9464d31b38e2f3a105b6" id="r_a927fb0310f1d9464d31b38e2f3a105b6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a927fb0310f1d9464d31b38e2f3a105b6">_EM_CHECK_H_</a></td></tr>
+<tr class="separator:a927fb0310f1d9464d31b38e2f3a105b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47793d0aafbc9bac49afad4e469cad6b" id="r_a47793d0aafbc9bac49afad4e469cad6b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a47793d0aafbc9bac49afad4e469cad6b">EM_CHECK</a>(expr)</td></tr>
+<tr class="memdesc:a47793d0aafbc9bac49afad4e469cad6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">基本断言检查宏  <br /></td></tr>
+<tr class="separator:a47793d0aafbc9bac49afad4e469cad6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac79ffbc86b4a2bac1d3825f14ea6cd65" id="r_ac79ffbc86b4a2bac1d3825f14ea6cd65"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac79ffbc86b4a2bac1d3825f14ea6cd65">EM_CHECK_EQ</a>(a,  b)</td></tr>
+<tr class="memdesc:ac79ffbc86b4a2bac1d3825f14ea6cd65"><td class="mdescLeft">&#160;</td><td class="mdescRight">相等断言检查宏  <br /></td></tr>
+<tr class="separator:ac79ffbc86b4a2bac1d3825f14ea6cd65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06477ed873ac4d32f1e9699cecbc4ab9" id="r_a06477ed873ac4d32f1e9699cecbc4ab9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a06477ed873ac4d32f1e9699cecbc4ab9">EM_CHECK_NE</a>(a,  b)</td></tr>
+<tr class="memdesc:a06477ed873ac4d32f1e9699cecbc4ab9"><td class="mdescLeft">&#160;</td><td class="mdescRight">不相等断言检查宏  <br /></td></tr>
+<tr class="separator:a06477ed873ac4d32f1e9699cecbc4ab9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af74018489b8465547aac56991799cd71" id="r_af74018489b8465547aac56991799cd71"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af74018489b8465547aac56991799cd71">EM_CHECK_GT</a>(a,  b)</td></tr>
+<tr class="memdesc:af74018489b8465547aac56991799cd71"><td class="mdescLeft">&#160;</td><td class="mdescRight">大于断言检查宏  <br /></td></tr>
+<tr class="separator:af74018489b8465547aac56991799cd71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d3c7cd5719a86767a927c5f8af2baea" id="r_a6d3c7cd5719a86767a927c5f8af2baea"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6d3c7cd5719a86767a927c5f8af2baea">EM_CHECK_LT</a>(a,  b)</td></tr>
+<tr class="memdesc:a6d3c7cd5719a86767a927c5f8af2baea"><td class="mdescLeft">&#160;</td><td class="mdescRight">小于断言检查宏  <br /></td></tr>
+<tr class="separator:a6d3c7cd5719a86767a927c5f8af2baea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ea35f3be00273959a109cfafae2f75d" id="r_a1ea35f3be00273959a109cfafae2f75d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1ea35f3be00273959a109cfafae2f75d">EM_CHECK_GE</a>(a,  b)</td></tr>
+<tr class="memdesc:a1ea35f3be00273959a109cfafae2f75d"><td class="mdescLeft">&#160;</td><td class="mdescRight">大于等于断言检查宏  <br /></td></tr>
+<tr class="separator:a1ea35f3be00273959a109cfafae2f75d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4319e3e12e36d2f29adb3f9200e2e97" id="r_ab4319e3e12e36d2f29adb3f9200e2e97"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab4319e3e12e36d2f29adb3f9200e2e97">EM_CHECK_LE</a>(a,  b)</td></tr>
+<tr class="memdesc:ab4319e3e12e36d2f29adb3f9200e2e97"><td class="mdescLeft">&#160;</td><td class="mdescRight">小于等于断言检查宏  <br /></td></tr>
+<tr class="separator:ab4319e3e12e36d2f29adb3f9200e2e97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<h2 class="groupheader">宏定义说明</h2>
+<a id="a927fb0310f1d9464d31b38e2f3a105b6" name="a927fb0310f1d9464d31b38e2f3a105b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a927fb0310f1d9464d31b38e2f3a105b6">&#9670;&#160;</a></span>_EM_CHECK_H_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define _EM_CHECK_H_</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">在文件 <a class="el" href="em__check_8h_source.html">em_check.h</a> 第 <a class="el" href="em__check_8h_source.html#l00003">3</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a47793d0aafbc9bac49afad4e469cad6b" name="a47793d0aafbc9bac49afad4e469cad6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47793d0aafbc9bac49afad4e469cad6b">&#9670;&#160;</a></span>EM_CHECK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EM_CHECK</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>expr</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>值:</b><div class="fragment"><div class="line">((expr) ? (void)0 : AssertFailHandle(#expr, __PRETTY_FUNCTION__, __FILE__, __LINE__))</div>
+</div><!-- fragment -->
+<p>基本断言检查宏 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">expr</td><td>要检查的表达式</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>如果表达式为假，则触发断言失败处理 </p>
+
+<p class="definition">在文件 <a class="el" href="em__check_8h_source.html">em_check.h</a> 第 <a class="el" href="em__check_8h_source.html#l00070">70</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ac79ffbc86b4a2bac1d3825f14ea6cd65" name="ac79ffbc86b4a2bac1d3825f14ea6cd65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac79ffbc86b4a2bac1d3825f14ea6cd65">&#9670;&#160;</a></span>EM_CHECK_EQ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EM_CHECK_EQ</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>值:</b><div class="fragment"><div class="line">((a) == (b) ? (void)0 : AssertFailHandle(#a <span class="stringliteral">&quot; == &quot;</span> #b, __PRETTY_FUNCTION__, __FILE__, __LINE__))</div>
+</div><!-- fragment -->
+<p>相等断言检查宏 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>第一个比较值 </td></tr>
+    <tr><td class="paramname">b</td><td>第二个比较值</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>如果a不等于b，则触发断言失败处理 </p>
+
+<p class="definition">在文件 <a class="el" href="em__check_8h_source.html">em_check.h</a> 第 <a class="el" href="em__check_8h_source.html#l00086">86</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a1ea35f3be00273959a109cfafae2f75d" name="a1ea35f3be00273959a109cfafae2f75d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ea35f3be00273959a109cfafae2f75d">&#9670;&#160;</a></span>EM_CHECK_GE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EM_CHECK_GE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>值:</b><div class="fragment"><div class="line">((a) &gt;= (b) ? (void)0 : AssertFailHandle(#a <span class="stringliteral">&quot; &gt;= &quot;</span> #b, __PRETTY_FUNCTION__, __FILE__, __LINE__))</div>
+</div><!-- fragment -->
+<p>大于等于断言检查宏 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>第一个比较值 </td></tr>
+    <tr><td class="paramname">b</td><td>第二个比较值</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>如果a不大于等于b，则触发断言失败处理 </p>
+
+<p class="definition">在文件 <a class="el" href="em__check_8h_source.html">em_check.h</a> 第 <a class="el" href="em__check_8h_source.html#l00150">150</a> 行定义.</p>
+
+</div>
+</div>
+<a id="af74018489b8465547aac56991799cd71" name="af74018489b8465547aac56991799cd71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af74018489b8465547aac56991799cd71">&#9670;&#160;</a></span>EM_CHECK_GT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EM_CHECK_GT</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>值:</b><div class="fragment"><div class="line">((a) &gt; (b) ? (void)0 : AssertFailHandle(#a <span class="stringliteral">&quot; &gt; &quot;</span> #b, __PRETTY_FUNCTION__, __FILE__, __LINE__))</div>
+</div><!-- fragment -->
+<p>大于断言检查宏 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>第一个比较值 </td></tr>
+    <tr><td class="paramname">b</td><td>第二个比较值</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>如果a不大于b，则触发断言失败处理 </p>
+
+<p class="definition">在文件 <a class="el" href="em__check_8h_source.html">em_check.h</a> 第 <a class="el" href="em__check_8h_source.html#l00118">118</a> 行定义.</p>
+
+</div>
+</div>
+<a id="ab4319e3e12e36d2f29adb3f9200e2e97" name="ab4319e3e12e36d2f29adb3f9200e2e97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4319e3e12e36d2f29adb3f9200e2e97">&#9670;&#160;</a></span>EM_CHECK_LE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EM_CHECK_LE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>值:</b><div class="fragment"><div class="line">((a) &lt;= (b) ? (void)0 : AssertFailHandle(#a <span class="stringliteral">&quot; &lt;= &quot;</span> #b, __PRETTY_FUNCTION__, __FILE__, __LINE__))</div>
+</div><!-- fragment -->
+<p>小于等于断言检查宏 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>第一个比较值 </td></tr>
+    <tr><td class="paramname">b</td><td>第二个比较值</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>如果a不小于等于b，则触发断言失败处理 </p>
+
+<p class="definition">在文件 <a class="el" href="em__check_8h_source.html">em_check.h</a> 第 <a class="el" href="em__check_8h_source.html#l00166">166</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a6d3c7cd5719a86767a927c5f8af2baea" name="a6d3c7cd5719a86767a927c5f8af2baea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d3c7cd5719a86767a927c5f8af2baea">&#9670;&#160;</a></span>EM_CHECK_LT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EM_CHECK_LT</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>值:</b><div class="fragment"><div class="line">((a) &lt; (b) ? (void)0 : AssertFailHandle(#a <span class="stringliteral">&quot; &lt; &quot;</span> #b, __PRETTY_FUNCTION__, __FILE__, __LINE__))</div>
+</div><!-- fragment -->
+<p>小于断言检查宏 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>第一个比较值 </td></tr>
+    <tr><td class="paramname">b</td><td>第二个比较值</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>如果a不小于b，则触发断言失败处理 </p>
+
+<p class="definition">在文件 <a class="el" href="em__check_8h_source.html">em_check.h</a> 第 <a class="el" href="em__check_8h_source.html#l00134">134</a> 行定义.</p>
+
+</div>
+</div>
+<a id="a06477ed873ac4d32f1e9699cecbc4ab9" name="a06477ed873ac4d32f1e9699cecbc4ab9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06477ed873ac4d32f1e9699cecbc4ab9">&#9670;&#160;</a></span>EM_CHECK_NE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define EM_CHECK_NE</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>a</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>b</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>值:</b><div class="fragment"><div class="line">((a) != (b) ? (void)0 : AssertFailHandle(#a <span class="stringliteral">&quot; != &quot;</span> #b, __PRETTY_FUNCTION__, __FILE__, __LINE__))</div>
+</div><!-- fragment -->
+<p>不相等断言检查宏 </p>
+<dl class="params"><dt>参数</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>第一个比较值 </td></tr>
+    <tr><td class="paramname">b</td><td>第二个比较值</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>如果a等于b，则触发断言失败处理 </p>
+
+<p class="definition">在文件 <a class="el" href="em__check_8h_source.html">em_check.h</a> 第 <a class="el" href="em__check_8h_source.html#l00102">102</a> 行定义.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="em__check_8h.html">em_check.h</a></li>
+    <li class="footer">制作者 <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.13.0 </li>
+  </ul>
+</div>
+</body>
+</html>
