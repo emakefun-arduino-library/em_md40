@@ -139,11 +139,11 @@ $(function(){initNavTree('encoder_mode_move_to_8ino-example.html',''); initResiz
 <div class="line"> </div>
 <div class="line">  g_md40.Init();</div>
 <div class="line"> </div>
-<div class="line">  Serial.print(<span class="stringliteral">&quot;Device ID: 0x&quot;</span>);</div>
+<div class="line">  Serial.print(F(<span class="stringliteral">&quot;Device ID: 0x&quot;</span>));</div>
 <div class="line">  Serial.println(g_md40.device_id(), HEX);</div>
-<div class="line">  Serial.print(<span class="stringliteral">&quot;Name: &quot;</span>);</div>
+<div class="line">  Serial.print(F(<span class="stringliteral">&quot;Name: &quot;</span>));</div>
 <div class="line">  Serial.println(g_md40.name());</div>
-<div class="line">  Serial.print(<span class="stringliteral">&quot;Firmware Version: &quot;</span>);</div>
+<div class="line">  Serial.print(F(<span class="stringliteral">&quot;Firmware Version: &quot;</span>));</div>
 <div class="line">  Serial.println(g_md40.firmware_version());</div>
 <div class="line"> </div>
 <div class="line">  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
@@ -155,21 +155,21 @@ $(function(){initNavTree('encoder_mode_move_to_8ino-example.html',''); initResiz
 <div class="line">    g_md40[i].set_position_pid_i(1.0);</div>
 <div class="line">    g_md40[i].set_position_pid_d(1.0);</div>
 <div class="line"> </div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot;Motor &quot;</span>);</div>
+<div class="line">    Serial.print(F(<span class="stringliteral">&quot;Motor &quot;</span>));</div>
 <div class="line">    Serial.print(i);</div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot; state:&quot;</span>);</div>
+<div class="line">    Serial.print(F(<span class="stringliteral">&quot; state:&quot;</span>));</div>
 <div class="line">    Serial.print(<span class="keyword">static_cast&lt;</span>uint8_t<span class="keyword">&gt;</span>(g_md40[i].state()));</div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot;, speed pid p:&quot;</span>);</div>
+<div class="line">    Serial.print(F(<span class="stringliteral">&quot;, speed pid p:&quot;</span>));</div>
 <div class="line">    Serial.print(g_md40[i].speed_pid_p());</div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot;, speed pid i:&quot;</span>);</div>
+<div class="line">    Serial.print(F(<span class="stringliteral">&quot;, speed pid i:&quot;</span>));</div>
 <div class="line">    Serial.print(g_md40[i].speed_pid_i());</div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot;, speed pid d:&quot;</span>);</div>
+<div class="line">    Serial.print(F(<span class="stringliteral">&quot;, speed pid d:&quot;</span>));</div>
 <div class="line">    Serial.print(g_md40[i].speed_pid_d());</div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot;, position pid p:&quot;</span>);</div>
+<div class="line">    Serial.print(F(<span class="stringliteral">&quot;, position pid p:&quot;</span>));</div>
 <div class="line">    Serial.print(g_md40[i].position_pid_p());</div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot;, position pid i:&quot;</span>);</div>
+<div class="line">    Serial.print(F(<span class="stringliteral">&quot;, position pid i:&quot;</span>));</div>
 <div class="line">    Serial.print(g_md40[i].position_pid_i());</div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot;, position pid d:&quot;</span>);</div>
+<div class="line">    Serial.print(F(<span class="stringliteral">&quot;, position pid d:&quot;</span>));</div>
 <div class="line">    Serial.println(g_md40[i].position_pid_d());</div>
 <div class="line">  }</div>
 <div class="line">}</div>
@@ -178,9 +178,9 @@ $(function(){initNavTree('encoder_mode_move_to_8ino-example.html',''); initResiz
 <div class="line">  <span class="keywordflow">if</span> (g_trigger_time == 0 || millis() - g_trigger_time &gt; 2000) {</div>
 <div class="line">    g_trigger_time = millis();</div>
 <div class="line">    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
-<div class="line">      Serial.print(<span class="stringliteral">&quot;Motor &quot;</span>);</div>
+<div class="line">      Serial.print(F(<span class="stringliteral">&quot;Motor &quot;</span>));</div>
 <div class="line">      Serial.print(i);</div>
-<div class="line">      Serial.print(<span class="stringliteral">&quot; move to &quot;</span>);</div>
+<div class="line">      Serial.print(F(<span class="stringliteral">&quot; move to &quot;</span>));</div>
 <div class="line">      Serial.println(g_target_position);</div>
 <div class="line">      g_md40[i].MoveTo(g_target_position, kMotorSpeed);</div>
 <div class="line">    }</div>
@@ -190,35 +190,35 @@ $(function(){initNavTree('encoder_mode_move_to_8ino-example.html',''); initResiz
 <div class="line">  <span class="keywordflow">if</span> (millis() - g_last_print_time &gt; 200) {</div>
 <div class="line">    g_last_print_time = millis();</div>
 <div class="line"> </div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot;speeds: &quot;</span>);</div>
+<div class="line">    Serial.print(F(<span class="stringliteral">&quot;speeds: &quot;</span>));</div>
 <div class="line">    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
 <div class="line">      Serial.print(g_md40[i].speed());</div>
-<div class="line">      Serial.print(<span class="stringliteral">&quot;, &quot;</span>);</div>
+<div class="line">      Serial.print(F(<span class="stringliteral">&quot;, &quot;</span>));</div>
 <div class="line">    }</div>
 <div class="line"> </div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot;pwm duties: &quot;</span>);</div>
+<div class="line">    Serial.print(F(<span class="stringliteral">&quot;pwm duties: &quot;</span>));</div>
 <div class="line">    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
 <div class="line">      Serial.print(g_md40[i].pwm_duty());</div>
-<div class="line">      Serial.print(<span class="stringliteral">&quot;, &quot;</span>);</div>
+<div class="line">      Serial.print(F(<span class="stringliteral">&quot;, &quot;</span>));</div>
 <div class="line">    }</div>
 <div class="line"> </div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot;positions: &quot;</span>);</div>
+<div class="line">    Serial.print(F(<span class="stringliteral">&quot;positions: &quot;</span>));</div>
 <div class="line">    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
 <div class="line">      Serial.print(g_md40[i].position());</div>
-<div class="line">      Serial.print(<span class="stringliteral">&quot;, &quot;</span>);</div>
+<div class="line">      Serial.print(F(<span class="stringliteral">&quot;, &quot;</span>));</div>
 <div class="line">    }</div>
 <div class="line"> </div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot;pulse counts: &quot;</span>);</div>
+<div class="line">    Serial.print(F(<span class="stringliteral">&quot;pulse counts: &quot;</span>));</div>
 <div class="line">    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
 <div class="line">      Serial.print(g_md40[i].pulse_count());</div>
-<div class="line">      Serial.print(<span class="stringliteral">&quot;, &quot;</span>);</div>
+<div class="line">      Serial.print(F(<span class="stringliteral">&quot;, &quot;</span>));</div>
 <div class="line">    }</div>
 <div class="line"> </div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot;states: &quot;</span>);</div>
+<div class="line">    Serial.print(F(<span class="stringliteral">&quot;states: &quot;</span>));</div>
 <div class="line">    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
 <div class="line">      Serial.print(<span class="keyword">static_cast&lt;</span>uint8_t<span class="keyword">&gt;</span>(g_md40[i].state()));</div>
 <div class="line">      <span class="keywordflow">if</span> (i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a> - 1) {</div>
-<div class="line">        Serial.print(<span class="stringliteral">&quot;, &quot;</span>);</div>
+<div class="line">        Serial.print(F(<span class="stringliteral">&quot;, &quot;</span>));</div>
 <div class="line">      }</div>
 <div class="line">    }</div>
 <div class="line"> </div>

@@ -28,22 +28,22 @@ void setup() {
 
   g_md40.Init();
 
-  Serial.print("Device ID: 0x");
+  Serial.print(F("Device ID: 0x"));
   Serial.println(g_md40.device_id(), HEX);
-  Serial.print("Name: ");
+  Serial.print(F("Name: "));
   Serial.println(g_md40.name());
-  Serial.print("Firmware Version: ");
+  Serial.print(F("Firmware Version: "));
   Serial.println(g_md40.firmware_version());
 
   for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
-    Serial.print("Motor ");
+    Serial.print(F("Motor "));
     Serial.print(i);
-    Serial.print(" state: ");
+    Serial.print(F(" state: "));
     Serial.println(static_cast<uint8_t>(g_md40[i].state()));
 
     g_md40[i].Reset();
 
-    Serial.print(" after reset: ");
+    Serial.print(F(" after reset: "));
     Serial.println(static_cast<uint8_t>(g_md40[i].state()));
   }
 }

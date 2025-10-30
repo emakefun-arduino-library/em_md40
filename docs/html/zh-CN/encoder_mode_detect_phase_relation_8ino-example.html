@@ -122,7 +122,6 @@ $(function(){initNavTree('encoder_mode_detect_phase_relation_8ino-example.html',
 <div class="line"><span class="comment"> */</span></div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &quot;<a class="code" href="md40_8h.html">md40.h</a>&quot;</span></div>
-<div class="line"><span class="preprocessor">#include &quot;<a class="code" href="md40__lib_8h.html">md40_lib.h</a>&quot;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">namespace </span>{</div>
 <div class="line"><span class="keyword">constexpr</span> uint16_t kEncoderPpr = 12;</div>
@@ -141,11 +140,11 @@ $(function(){initNavTree('encoder_mode_detect_phase_relation_8ino-example.html',
 <div class="line"> </div>
 <div class="line">  g_md40.Init();</div>
 <div class="line"> </div>
-<div class="line">  Serial.print(<span class="stringliteral">&quot;Device ID: 0x&quot;</span>);</div>
+<div class="line">  Serial.print(F(<span class="stringliteral">&quot;Device ID: 0x&quot;</span>));</div>
 <div class="line">  Serial.println(g_md40.device_id(), HEX);</div>
-<div class="line">  Serial.print(<span class="stringliteral">&quot;Name: &quot;</span>);</div>
+<div class="line">  Serial.print(F(<span class="stringliteral">&quot;Name: &quot;</span>));</div>
 <div class="line">  Serial.println(g_md40.name());</div>
-<div class="line">  Serial.print(<span class="stringliteral">&quot;Firmware Version: &quot;</span>);</div>
+<div class="line">  Serial.print(F(<span class="stringliteral">&quot;Firmware Version: &quot;</span>));</div>
 <div class="line">  Serial.println(g_md40.firmware_version());</div>
 <div class="line"> </div>
 <div class="line">  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
@@ -157,28 +156,28 @@ $(function(){initNavTree('encoder_mode_detect_phase_relation_8ino-example.html',
 <div class="line">    g_md40[i].set_position_pid_i(1.0);</div>
 <div class="line">    g_md40[i].set_position_pid_d(1.0);</div>
 <div class="line"> </div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot;Motor &quot;</span>);</div>
+<div class="line">    Serial.print(F(<span class="stringliteral">&quot;Motor &quot;</span>));</div>
 <div class="line">    Serial.print(i);</div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot; state:&quot;</span>);</div>
+<div class="line">    Serial.print(F(<span class="stringliteral">&quot; state:&quot;</span>));</div>
 <div class="line">    Serial.print(<span class="keyword">static_cast&lt;</span>uint8_t<span class="keyword">&gt;</span>(g_md40[i].state()));</div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot;, speed pid p:&quot;</span>);</div>
+<div class="line">    Serial.print(F(<span class="stringliteral">&quot;, speed pid p:&quot;</span>));</div>
 <div class="line">    Serial.print(g_md40[i].speed_pid_p());</div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot;, speed pid i:&quot;</span>);</div>
+<div class="line">    Serial.print(F(<span class="stringliteral">&quot;, speed pid i:&quot;</span>));</div>
 <div class="line">    Serial.print(g_md40[i].speed_pid_i());</div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot;, speed pid d:&quot;</span>);</div>
+<div class="line">    Serial.print(F(<span class="stringliteral">&quot;, speed pid d:&quot;</span>));</div>
 <div class="line">    Serial.print(g_md40[i].speed_pid_d());</div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot;, position pid p:&quot;</span>);</div>
+<div class="line">    Serial.print(F(<span class="stringliteral">&quot;, position pid p:&quot;</span>));</div>
 <div class="line">    Serial.print(g_md40[i].position_pid_p());</div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot;, position pid i:&quot;</span>);</div>
+<div class="line">    Serial.print(F(<span class="stringliteral">&quot;, position pid i:&quot;</span>));</div>
 <div class="line">    Serial.print(g_md40[i].position_pid_i());</div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot;, position pid d:&quot;</span>);</div>
+<div class="line">    Serial.print(F(<span class="stringliteral">&quot;, position pid d:&quot;</span>));</div>
 <div class="line">    Serial.println(g_md40[i].position_pid_d());</div>
 <div class="line">  }</div>
 <div class="line"> </div>
 <div class="line">  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot;Motor &quot;</span>);</div>
+<div class="line">    Serial.print(F(<span class="stringliteral">&quot;Motor &quot;</span>));</div>
 <div class="line">    Serial.print(i);</div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot; run speed: &quot;</span>);</div>
+<div class="line">    Serial.print(F(<span class="stringliteral">&quot; run speed: &quot;</span>));</div>
 <div class="line">    Serial.println(kMotorPwmDuty);</div>
 <div class="line">    g_md40[i].RunPwmDuty(kMotorPwmDuty);</div>
 <div class="line">  }</div>
@@ -190,19 +189,17 @@ $(function(){initNavTree('encoder_mode_detect_phase_relation_8ino-example.html',
 <div class="line">    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
 <div class="line">      <span class="keyword">const</span> <span class="keyword">auto</span> speed = g_md40[i].speed();</div>
 <div class="line"> </div>
-<div class="line">      Serial.print(<span class="stringliteral">&quot;Motor &quot;</span>);</div>
+<div class="line">      Serial.print(F(<span class="stringliteral">&quot;Motor &quot;</span>));</div>
 <div class="line">      Serial.print(i);</div>
-<div class="line">      Serial.print(<span class="stringliteral">&quot; speed: &quot;</span>);</div>
+<div class="line">      Serial.print(F(<span class="stringliteral">&quot; speed: &quot;</span>));</div>
 <div class="line">      Serial.print(speed);</div>
 <div class="line"> </div>
 <div class="line">      <span class="keywordflow">if</span> (speed &gt; 0) {</div>
-<div class="line">        Serial.println(<span class="stringliteral">&quot;. The phase of A leads B, constructed with the em::Md40::Motor::PhaseRelation::kAPhaseLeads enum.&quot;</span>);</div>
-<div class="line"> </div>
+<div class="line">        Serial.println(F(<span class="stringliteral">&quot;. The phase of A leads B, constructed with the em::Md40::Motor::PhaseRelation::kAPhaseLeads enum.&quot;</span>));</div>
 <div class="line">      } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (speed &lt; 0) {</div>
-<div class="line">        Serial.println(<span class="stringliteral">&quot;. The phase of B leads A, constructed with the em::Md40::Motor::PhaseRelation::kBPhaseLeads enum.&quot;</span>);</div>
-<div class="line"> </div>
+<div class="line">        Serial.println(F(<span class="stringliteral">&quot;. The phase of B leads A, constructed with the em::Md40::Motor::PhaseRelation::kBPhaseLeads enum.&quot;</span>));</div>
 <div class="line">      } <span class="keywordflow">else</span> {</div>
-<div class="line">        Serial.println(<span class="stringliteral">&quot;. The motor is not running currently.&quot;</span>);</div>
+<div class="line">        Serial.println(F(<span class="stringliteral">&quot;. The motor is not running currently.&quot;</span>));</div>
 <div class="line">      }</div>
 <div class="line">    }</div>
 <div class="line">    Serial.println();</div>
@@ -213,7 +210,6 @@ $(function(){initNavTree('encoder_mode_detect_phase_relation_8ino-example.html',
 <div class="ttc" id="aclassem_1_1_md40_html_a0f933702a074938a294ba59b03212fbb"><div class="ttname"><a href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a></div><div class="ttdeci">static constexpr uint8_t kMotorNum</div><div class="ttdoc">电机数量。</div><div class="ttdef"><b>定义</b> <a href="md40_8h_source.html#l00046">md40.h:46</a></div></div>
 <div class="ttc" id="aclassem_1_1_md40_html_a3a64a7255a21a66b9f4110ead3a26e5b"><div class="ttname"><a href="classem_1_1_md40.html#a3a64a7255a21a66b9f4110ead3a26e5b">em::Md40::kDefaultI2cAddress</a></div><div class="ttdeci">static constexpr uint8_t kDefaultI2cAddress</div><div class="ttdoc">默认I2C地址。</div><div class="ttdef"><b>定义</b> <a href="md40_8h_source.html#l00037">md40.h:37</a></div></div>
 <div class="ttc" id="amd40_8h_html"><div class="ttname"><a href="md40_8h.html">md40.h</a></div></div>
-<div class="ttc" id="amd40__lib_8h_html"><div class="ttname"><a href="md40__lib_8h.html">md40_lib.h</a></div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

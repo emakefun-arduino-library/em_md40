@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.13.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>EM MD40 Arduino 库: encoder_mode_move_to.ino</title>
+<title>EM MD40 Arduino 库: encoder_mode_position_control.ino</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,7 +70,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(function(){initNavTree('encoder_mode_move_to_8ino-example.html',''); initResizable(true); });
+$(function(){initNavTree('encoder_mode_position_control_8ino-example.html',''); initResizable(true); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -96,40 +96,38 @@ $(function(){initNavTree('encoder_mode_move_to_8ino-example.html',''); initResiz
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">encoder_mode_move_to.ino</div></div>
+  <div class="headertitle"><div class="title">encoder_mode_position_control.ino</div></div>
 </div><!--header-->
 <div class="contents">
-<p>使用编码器模式，电机以60 RPM速度在绝对位置0和720之间交替移动。实时监控电机速度、位置、PWM占空比等参数。</p>
+<p>演示如何使用位置设置功能校准电机位置。</p>
 <div class="fragment"><div class="line"><span class="comment">/**</span></div>
 <div class="line"><span class="comment"> * @~Chinese</span></div>
-<div class="line"><span class="comment"> * @file encoder_mode_move_to.ino</span></div>
-<div class="line"><span class="comment"> * @brief 示例：使用编码器模式，电机以60 RPM速度在绝对位置0和720之间交替移动。</span></div>
-<div class="line"><span class="comment"> * @example encoder_mode_move_to.ino</span></div>
-<div class="line"><span class="comment"> * 使用编码器模式，电机以60 RPM速度在绝对位置0和720之间交替移动。实时监控电机速度、位置、PWM占空比等参数。</span></div>
+<div class="line"><span class="comment"> * @file encoder_mode_position_control.ino</span></div>
+<div class="line"><span class="comment"> * @brief 示例：电机位置设置功能演示。</span></div>
+<div class="line"><span class="comment"> * @example encoder_mode_position_control.ino</span></div>
+<div class="line"><span class="comment"> * 演示如何使用位置设置功能校准电机位置。</span></div>
 <div class="line"><span class="comment"> */</span><span class="comment"></span></div>
 <div class="line"><span class="comment">/**</span></div>
 <div class="line"><span class="comment"> * @~English</span></div>
-<div class="line"><span class="comment"> * @file encoder_mode_move_to.ino</span></div>
-<div class="line"><span class="comment"> * @brief Example: Using encoder mode, the motor alternates between absolute positions 0 and 720 at a speed of 60 RPM.</span></div>
-<div class="line"><span class="comment"> * @example encoder_mode_move_to.ino</span></div>
-<div class="line"><span class="comment"> * Using encoder mode, the motor alternates between absolute positions 0 and 720 at a speed of 60 RPM. Real time monitoring of motor speed, position,</span></div>
-<div class="line"><span class="comment"> * PWM duty and other parameters.</span></div>
+<div class="line"><span class="comment"> * @file encoder_mode_position_control.ino</span></div>
+<div class="line"><span class="comment"> * @brief Example: Demonstration of motor position setting function.</span></div>
+<div class="line"><span class="comment"> * @example encoder_mode_position_control.ino</span></div>
+<div class="line"><span class="comment"> * Demonstrates how to use the position setting function to calibrate motor position.</span></div>
 <div class="line"><span class="comment"> */</span></div>
-<div class="line"> </div>
-<div class="line"><span class="preprocessor">#include &lt;Wire.h&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &quot;<a class="code" href="md40_8h.html">md40.h</a>&quot;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">namespace </span>{</div>
-<div class="line"><span class="keyword">constexpr</span> int32_t kMotorSpeed = 60;</div>
 <div class="line"><span class="keyword">constexpr</span> uint16_t kEncoderPpr = 12;</div>
 <div class="line"><span class="keyword">constexpr</span> uint16_t kReductionRatio = 90;</div>
+<div class="line"><span class="keyword">constexpr</span> int32_t kMotorSpeed = 60;</div>
+<div class="line"><span class="keyword">constexpr</span> int32_t kMotorMoveOffset = 100;</div>
 <div class="line"> </div>
 <div class="line"><a id="_a0" name="_a0"></a><a class="code hl_class" href="classem_1_1_md40.html">em::Md40</a> g_md40(<a class="code hl_variable" href="classem_1_1_md40.html#a3a64a7255a21a66b9f4110ead3a26e5b">em::Md40::kDefaultI2cAddress</a>, Wire);</div>
 <div class="line"> </div>
-<div class="line">uint64_t g_last_print_time = 0;</div>
+<div class="line">int32_t g_motor_position = 100;</div>
 <div class="line">uint64_t g_trigger_time = 0;</div>
-<div class="line">int32_t g_target_position = 720;</div>
+<div class="line"> </div>
 <div class="line">}  <span class="comment">// namespace</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">void</span> setup() {</div>
@@ -176,53 +174,49 @@ $(function(){initNavTree('encoder_mode_move_to_8ino-example.html',''); initResiz
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">void</span> loop() {</div>
 <div class="line">  <span class="keywordflow">if</span> (g_trigger_time == 0 || millis() - g_trigger_time &gt; 2000) {</div>
-<div class="line">    g_trigger_time = millis();</div>
+<div class="line">    Serial.println(F(<span class="stringliteral">&quot;Initial state:&quot;</span>));</div>
 <div class="line">    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
 <div class="line">      Serial.print(F(<span class="stringliteral">&quot;Motor &quot;</span>));</div>
 <div class="line">      Serial.print(i);</div>
-<div class="line">      Serial.print(F(<span class="stringliteral">&quot; move to &quot;</span>));</div>
-<div class="line">      Serial.println(g_target_position);</div>
-<div class="line">      g_md40[i].MoveTo(g_target_position, kMotorSpeed);</div>
-<div class="line">    }</div>
-<div class="line">    g_target_position = (g_target_position == 0) ? 720 : 0;</div>
-<div class="line">  }</div>
-<div class="line"> </div>
-<div class="line">  <span class="keywordflow">if</span> (millis() - g_last_print_time &gt; 200) {</div>
-<div class="line">    g_last_print_time = millis();</div>
-<div class="line"> </div>
-<div class="line">    Serial.print(F(<span class="stringliteral">&quot;speeds: &quot;</span>));</div>
-<div class="line">    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
-<div class="line">      Serial.print(g_md40[i].speed());</div>
-<div class="line">      Serial.print(F(<span class="stringliteral">&quot;, &quot;</span>));</div>
+<div class="line">      Serial.print(F(<span class="stringliteral">&quot;: &quot;</span>));</div>
+<div class="line">      Serial.println(g_md40[i].position());</div>
 <div class="line">    }</div>
 <div class="line"> </div>
-<div class="line">    Serial.print(F(<span class="stringliteral">&quot;pwm duties: &quot;</span>));</div>
+<div class="line">    Serial.print(F(<span class="stringliteral">&quot;Set all motors position to: &quot;</span>));</div>
+<div class="line">    Serial.println(g_motor_position);</div>
 <div class="line">    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
-<div class="line">      Serial.print(g_md40[i].pwm_duty());</div>
-<div class="line">      Serial.print(F(<span class="stringliteral">&quot;, &quot;</span>));</div>
+<div class="line">      g_md40[i].set_position(g_motor_position);</div>
 <div class="line">    }</div>
 <div class="line"> </div>
-<div class="line">    Serial.print(F(<span class="stringliteral">&quot;positions: &quot;</span>));</div>
+<div class="line">    Serial.println(F(<span class="stringliteral">&quot;After set:&quot;</span>));</div>
 <div class="line">    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
+<div class="line">      Serial.print(F(<span class="stringliteral">&quot;Motor &quot;</span>));</div>
+<div class="line">      Serial.print(i);</div>
+<div class="line">      Serial.print(F(<span class="stringliteral">&quot;: &quot;</span>));</div>
+<div class="line">      Serial.println(g_md40[i].position());</div>
+<div class="line">    }</div>
+<div class="line">    g_motor_position = -g_motor_position;</div>
+<div class="line"> </div>
+<div class="line">    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
+<div class="line">      Serial.print(F(<span class="stringliteral">&quot;Motor &quot;</span>));</div>
+<div class="line">      Serial.print(i);</div>
+<div class="line">      Serial.print(F(<span class="stringliteral">&quot; from &quot;</span>));</div>
 <div class="line">      Serial.print(g_md40[i].position());</div>
-<div class="line">      Serial.print(F(<span class="stringliteral">&quot;, &quot;</span>));</div>
+<div class="line">      Serial.println(F(<span class="stringliteral">&quot; move 100 degrees&quot;</span>));</div>
+<div class="line"> </div>
+<div class="line">      g_md40[i].Move(kMotorMoveOffset, kMotorSpeed);</div>
 <div class="line">    }</div>
 <div class="line"> </div>
-<div class="line">    Serial.print(F(<span class="stringliteral">&quot;pulse counts: &quot;</span>));</div>
+<div class="line">    delay(1000);</div>
+<div class="line"> </div>
+<div class="line">    Serial.println(F(<span class="stringliteral">&quot;After movement:&quot;</span>));</div>
 <div class="line">    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
-<div class="line">      Serial.print(g_md40[i].pulse_count());</div>
-<div class="line">      Serial.print(F(<span class="stringliteral">&quot;, &quot;</span>));</div>
+<div class="line">      Serial.print(F(<span class="stringliteral">&quot;Motor &quot;</span>));</div>
+<div class="line">      Serial.print(i);</div>
+<div class="line">      Serial.print(F(<span class="stringliteral">&quot;: &quot;</span>));</div>
+<div class="line">      Serial.println(g_md40[i].position());</div>
 <div class="line">    }</div>
-<div class="line"> </div>
-<div class="line">    Serial.print(F(<span class="stringliteral">&quot;states: &quot;</span>));</div>
-<div class="line">    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
-<div class="line">      Serial.print(<span class="keyword">static_cast&lt;</span>uint8_t<span class="keyword">&gt;</span>(g_md40[i].state()));</div>
-<div class="line">      <span class="keywordflow">if</span> (i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a> - 1) {</div>
-<div class="line">        Serial.print(F(<span class="stringliteral">&quot;, &quot;</span>));</div>
-<div class="line">      }</div>
-<div class="line">    }</div>
-<div class="line"> </div>
-<div class="line">    Serial.println();</div>
+<div class="line">    g_trigger_time = millis();</div>
 <div class="line">  }</div>
 <div class="line">}</div>
 <div class="ttc" id="aclassem_1_1_md40_1_1_motor_html_aba6144fd97d3cfee09f0a6c7c77d547ca74feb97f77c7b3a897564eac21252b89"><div class="ttname"><a href="classem_1_1_md40_1_1_motor.html#aba6144fd97d3cfee09f0a6c7c77d547ca74feb97f77c7b3a897564eac21252b89">em::Md40::Motor::PhaseRelation::kAPhaseLeads</a></div><div class="ttdeci">@ kAPhaseLeads</div><div class="ttdoc">表示电机正转时A相领先于B相。</div><div class="ttdef"><b>定义</b> <a href="md40_8h_source.html#l00080">md40.h:80</a></div></div>

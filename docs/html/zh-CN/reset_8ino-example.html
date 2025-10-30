@@ -130,22 +130,22 @@ $(function(){initNavTree('reset_8ino-example.html',''); initResizable(true); });
 <div class="line"> </div>
 <div class="line">  g_md40.Init();</div>
 <div class="line"> </div>
-<div class="line">  Serial.print(<span class="stringliteral">&quot;Device ID: 0x&quot;</span>);</div>
+<div class="line">  Serial.print(F(<span class="stringliteral">&quot;Device ID: 0x&quot;</span>));</div>
 <div class="line">  Serial.println(g_md40.device_id(), HEX);</div>
-<div class="line">  Serial.print(<span class="stringliteral">&quot;Name: &quot;</span>);</div>
+<div class="line">  Serial.print(F(<span class="stringliteral">&quot;Name: &quot;</span>));</div>
 <div class="line">  Serial.println(g_md40.name());</div>
-<div class="line">  Serial.print(<span class="stringliteral">&quot;Firmware Version: &quot;</span>);</div>
+<div class="line">  Serial.print(F(<span class="stringliteral">&quot;Firmware Version: &quot;</span>));</div>
 <div class="line">  Serial.println(g_md40.firmware_version());</div>
 <div class="line"> </div>
 <div class="line">  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot;Motor &quot;</span>);</div>
+<div class="line">    Serial.print(F(<span class="stringliteral">&quot;Motor &quot;</span>));</div>
 <div class="line">    Serial.print(i);</div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot; state: &quot;</span>);</div>
+<div class="line">    Serial.print(F(<span class="stringliteral">&quot; state: &quot;</span>));</div>
 <div class="line">    Serial.println(<span class="keyword">static_cast&lt;</span>uint8_t<span class="keyword">&gt;</span>(g_md40[i].state()));</div>
 <div class="line"> </div>
 <div class="line">    g_md40[i].Reset();</div>
 <div class="line"> </div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot; after reset: &quot;</span>);</div>
+<div class="line">    Serial.print(F(<span class="stringliteral">&quot; after reset: &quot;</span>));</div>
 <div class="line">    Serial.println(<span class="keyword">static_cast&lt;</span>uint8_t<span class="keyword">&gt;</span>(g_md40[i].state()));</div>
 <div class="line">  }</div>
 <div class="line">}</div>

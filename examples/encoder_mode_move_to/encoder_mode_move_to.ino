@@ -37,11 +37,11 @@ void setup() {
 
   g_md40.Init();
 
-  Serial.print("Device ID: 0x");
+  Serial.print(F("Device ID: 0x"));
   Serial.println(g_md40.device_id(), HEX);
-  Serial.print("Name: ");
+  Serial.print(F("Name: "));
   Serial.println(g_md40.name());
-  Serial.print("Firmware Version: ");
+  Serial.print(F("Firmware Version: "));
   Serial.println(g_md40.firmware_version());
 
   for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
@@ -53,21 +53,21 @@ void setup() {
     g_md40[i].set_position_pid_i(1.0);
     g_md40[i].set_position_pid_d(1.0);
 
-    Serial.print("Motor ");
+    Serial.print(F("Motor "));
     Serial.print(i);
-    Serial.print(" state:");
+    Serial.print(F(" state:"));
     Serial.print(static_cast<uint8_t>(g_md40[i].state()));
-    Serial.print(", speed pid p:");
+    Serial.print(F(", speed pid p:"));
     Serial.print(g_md40[i].speed_pid_p());
-    Serial.print(", speed pid i:");
+    Serial.print(F(", speed pid i:"));
     Serial.print(g_md40[i].speed_pid_i());
-    Serial.print(", speed pid d:");
+    Serial.print(F(", speed pid d:"));
     Serial.print(g_md40[i].speed_pid_d());
-    Serial.print(", position pid p:");
+    Serial.print(F(", position pid p:"));
     Serial.print(g_md40[i].position_pid_p());
-    Serial.print(", position pid i:");
+    Serial.print(F(", position pid i:"));
     Serial.print(g_md40[i].position_pid_i());
-    Serial.print(", position pid d:");
+    Serial.print(F(", position pid d:"));
     Serial.println(g_md40[i].position_pid_d());
   }
 }
@@ -76,9 +76,9 @@ void loop() {
   if (g_trigger_time == 0 || millis() - g_trigger_time > 2000) {
     g_trigger_time = millis();
     for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
-      Serial.print("Motor ");
+      Serial.print(F("Motor "));
       Serial.print(i);
-      Serial.print(" move to ");
+      Serial.print(F(" move to "));
       Serial.println(g_target_position);
       g_md40[i].MoveTo(g_target_position, kMotorSpeed);
     }
@@ -88,35 +88,35 @@ void loop() {
   if (millis() - g_last_print_time > 200) {
     g_last_print_time = millis();
 
-    Serial.print("speeds: ");
+    Serial.print(F("speeds: "));
     for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
       Serial.print(g_md40[i].speed());
-      Serial.print(", ");
+      Serial.print(F(", "));
     }
 
-    Serial.print("pwm duties: ");
+    Serial.print(F("pwm duties: "));
     for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
       Serial.print(g_md40[i].pwm_duty());
-      Serial.print(", ");
+      Serial.print(F(", "));
     }
 
-    Serial.print("positions: ");
+    Serial.print(F("positions: "));
     for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
       Serial.print(g_md40[i].position());
-      Serial.print(", ");
+      Serial.print(F(", "));
     }
 
-    Serial.print("pulse counts: ");
+    Serial.print(F("pulse counts: "));
     for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
       Serial.print(g_md40[i].pulse_count());
-      Serial.print(", ");
+      Serial.print(F(", "));
     }
 
-    Serial.print("states: ");
+    Serial.print(F("states: "));
     for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
       Serial.print(static_cast<uint8_t>(g_md40[i].state()));
       if (i < em::Md40::kMotorNum - 1) {
-        Serial.print(", ");
+        Serial.print(F(", "));
       }
     }
 
