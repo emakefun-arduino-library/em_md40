@@ -101,7 +101,10 @@ $(function(){initNavTree('examples.html',''); initResizable(true); });
 <div class="contents">
 <div class="textblock">这里列出了所有示例:</div><ul>
 <li><a class="el" href="dc_mode_run_pwm_duty_8ino-example.html">dc_mode_run_pwm_duty.ino</a></li>
-<td class="desc">示例：使用直流模式，以指定PWM占空比驱动电机，每2秒切换转向（PWM值在+1023和-1023间切换）。 </td>
+<td class="desc">示例：使用直流模式，以指定PWM占空比驱动电机，每2秒切换转向（PWM占空比值为±1023）。 </td>
+<p></p>
+<li><a class="el" href="encoder_mode_detect_phase_relation_8ino-example.html">encoder_mode_detect_phase_relation.ino</a></li>
+<td class="desc">示例：根据电机正转时编码器AB相的实际相位关系，在串口打印输出是使用 kAPhaseLeads 还是 kBPhaseLeads，以此帮助用户确定在设置编码器模式时phase_relation参数应设置的值。 </td>
 <p></p>
 <li><a class="el" href="encoder_mode_move_8ino-example.html">encoder_mode_move.ino</a></li>
 <td class="desc">示例：使用编码器模式，电机以60 RPM速度相对移动±720位置。 </td>
@@ -109,17 +112,15 @@ $(function(){initNavTree('examples.html',''); initResizable(true); });
 <li><a class="el" href="encoder_mode_move_to_8ino-example.html">encoder_mode_move_to.ino</a></li>
 <td class="desc">示例：使用编码器模式，电机以60 RPM速度在绝对位置0和720之间交替移动。 </td>
 <p></p>
-<li><a class="el" href="encoder_mode_position_control_8ino-example.html">encoder_mode_position_control.ino</a></li>
-<td class="desc">示例：使用编码器模式，以指定PWM占空比驱动电机，周期性切换转向（PWM值在+1023和-1023间切换），以及重置位置信息为±100。 </td>
-<p></p>
+<li><a class="el" href="encoder_mode_position_set_demo_8ino-example.html">encoder_mode_position_set_demo.ino</a></li>
 <li><a class="el" href="encoder_mode_pulse_count_control_8ino-example.html">encoder_mode_pulse_count_control.ino</a></li>
-<td class="desc">示例：使用编码器模式，以指定PWM占空比驱动电机，周期性切换转向（PWM值在+1023和-1023间切换），以及重置脉冲计数为±200。 </td>
+<td class="desc">示例：电机位置设置功能演示。 </td>
 <p></p>
 <li><a class="el" href="encoder_mode_run_pwm_duty_8ino-example.html">encoder_mode_run_pwm_duty.ino</a></li>
-<td class="desc">示例：使用编码器模式，以指定PWM占空比驱动电机，每2秒切换转向（PWM值在+1023和-1023间切换）。 </td>
+<td class="desc">示例：使用编码器模式，以指定PWM占空比驱动电机，每2秒切换转向（PWM占空比值为±1023）。 </td>
 <p></p>
 <li><a class="el" href="encoder_mode_run_speed_8ino-example.html">encoder_mode_run_speed.ino</a></li>
-<td class="desc">示例：使用编码器模式，以指定的速度（单位RPM）驱动电机，每2秒切换方向（速度值在+100和-100间切换）。 </td>
+<td class="desc">示例：使用编码器模式，以指定的速度（单位RPM）驱动电机，每2秒切换方向（速度值为±100）。 </td>
 <p></p>
 <li><a class="el" href="encoder_mode_run_speed_stop_8ino-example.html">encoder_mode_run_speed_stop.ino</a></li>
 <td class="desc">示例：使用编码器模式，周期性地启动和停止电机，每隔2秒切换运行状态。 </td>

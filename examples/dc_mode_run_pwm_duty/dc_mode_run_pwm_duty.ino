@@ -1,23 +1,23 @@
 /**
  * @~Chinese
  * @file dc_mode_run_pwm_duty.ino
- * @brief 示例：使用直流模式，以指定PWM占空比驱动电机，每2秒切换转向（PWM值在+1023和-1023间切换）。
+ * @brief 示例：使用直流模式，以指定PWM占空比驱动电机，每2秒切换转向（PWM占空比值为±1023）。
  * @example dc_mode_run_pwm_duty.ino
- * 使用直流模式，以指定PWM占空比驱动电机，每2秒切换转向（PWM值在+1023和-1023间切换）。实时监控电机PWM和状态。
+ * 使用直流模式，以指定PWM占空比驱动电机，每2秒切换转向（PWM占空比值为±1023）。实时监控电机PWM占空比和状态。
  */
 /**
  * @~English
  * @file dc_mode_run_pwm_duty.ino
- * @brief Example: Using DC mode, drive the motor with a specified PWM duty cycle and switch the steering every 2 seconds (PWM value switches
- * between+1023 and -1023).
+ * @brief Example: Using DC mode, drive the motor with a specified PWM duty and switch the direction every 2 seconds (PWM duty is ± 1023).
  * @example dc_mode_run_pwm_duty.ino
- * Use DC mode to drive the motor with a specified PWM duty cycle, switching the steering every 2 seconds (PWM value switches between+1023 and -1023).
- * Real time monitoring of motor PWM and status.
+ * Use DC mode to drive the motor with a specified PWM duty, switching the direction every 2 seconds (PWM duty is ± 1023). Real time
+ * monitoring of motor PWM duty and status.
  */
 
 #include <Wire.h>
 
 #include "md40.h"
+#include "md40_lib.h"
 
 namespace {
 em::Md40 g_md40(em::Md40::kDefaultI2cAddress, Wire);
@@ -29,19 +29,23 @@ int16_t g_pwm_duty = 1023;
 
 void setup() {
   Serial.begin(115200);
+
+  Serial.print("Emakefun MD40 Library Version: ");
+  Serial.println(em::md40_lib::Version().c_str());
+
   Wire.begin();
 
   g_md40.Init();
 
-  Serial.print("device id: 0x");
+  Serial.print("Device ID: 0x");
   Serial.println(g_md40.device_id(), HEX);
-  Serial.print("name: ");
+  Serial.print("Name: ");
   Serial.println(g_md40.name());
-  Serial.print("firmware version: ");
+  Serial.print("Firmware Version: ");
   Serial.println(g_md40.firmware_version());
 
   for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
-    Serial.print("motor ");
+    Serial.print("Motor ");
     Serial.print(i);
     Serial.print(" state: ");
     Serial.println(static_cast<uint8_t>(g_md40[i].state()));
@@ -54,7 +58,7 @@ void loop() {
     g_trigger_time = millis();
 
     for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
-      Serial.print("motor ");
+      Serial.print("Motor ");
       Serial.print(i);
       Serial.print(" run pwm duty: ");
       Serial.println(g_pwm_duty);

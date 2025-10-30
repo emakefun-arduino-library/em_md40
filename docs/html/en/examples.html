@@ -101,7 +101,10 @@ $(function(){initNavTree('examples.html',''); initResizable(true); });
 <div class="contents">
 <div class="textblock">Here is a list of all examples:</div><ul>
 <li><a class="el" href="dc_mode_run_pwm_duty_8ino-example.html">dc_mode_run_pwm_duty.ino</a></li>
-<td class="desc">Example: Using DC mode, drive the motor with a specified PWM duty cycle and switch the steering every 2 seconds (PWM value switches between+1023 and -1023) </td>
+<td class="desc">Example: Using DC mode, drive the motor with a specified PWM duty and switch the direction every 2 seconds (PWM duty is ± 1023) </td>
+<p></p>
+<li><a class="el" href="encoder_mode_detect_phase_relation_8ino-example.html">encoder_mode_detect_phase_relation.ino</a></li>
+<td class="desc">Example: Based on the actual phase relationship between encoder A and B phases when the motor rotates forward, whether to use kAPhaseLeads or kBPhaseLeads for serial port printing output can help users determine the value of the phase-relation parameter to be set when setting the encoder mode </td>
 <p></p>
 <li><a class="el" href="encoder_mode_move_8ino-example.html">encoder_mode_move.ino</a></li>
 <td class="desc">Example: Using encoder mode, the motor moves relative to ± 720 position at a speed of 60 RPM </td>
@@ -109,17 +112,15 @@ $(function(){initNavTree('examples.html',''); initResizable(true); });
 <li><a class="el" href="encoder_mode_move_to_8ino-example.html">encoder_mode_move_to.ino</a></li>
 <td class="desc">Example: Using encoder mode, the motor alternates between absolute positions 0 and 720 at a speed of 60 RPM </td>
 <p></p>
-<li><a class="el" href="encoder_mode_position_control_8ino-example.html">encoder_mode_position_control.ino</a></li>
-<td class="desc">Example: Use encoder mode to drive the motor with a specified PWM duty cycle, periodically switch the steering (PWM value switches between+1023 and -1023), and reset the position information to ± 100 </td>
-<p></p>
+<li><a class="el" href="encoder_mode_position_set_demo_8ino-example.html">encoder_mode_position_set_demo.ino</a></li>
 <li><a class="el" href="encoder_mode_pulse_count_control_8ino-example.html">encoder_mode_pulse_count_control.ino</a></li>
-<td class="desc">Example: Use encoder mode to drive the motor with a specified PWM duty cycle, periodically switch the steering (PWM values switch between+1023 and -1023), and reset the pulse count to ± 200. between+1023 and -1023), and reset the position information to ± 180 degrees </td>
+<td class="desc">Example: Demonstration of motor position setting function </td>
 <p></p>
 <li><a class="el" href="encoder_mode_run_pwm_duty_8ino-example.html">encoder_mode_run_pwm_duty.ino</a></li>
-<td class="desc">Example: Using encoder mode, drive the motor with a specified PWM duty cycle and switch the direction every 2 seconds (PWM value switches between+1023 and -1023) </td>
+<td class="desc">Example: Using encoder mode, drive the motor with a specified PWM duty and switch the direction every 2 seconds (PWM duty is ± 1023) </td>
 <p></p>
 <li><a class="el" href="encoder_mode_run_speed_8ino-example.html">encoder_mode_run_speed.ino</a></li>
-<td class="desc">Example: Using encoder mode, drive the motor at a specified speed (in RPM) and switch direction every 2 seconds (speed value switches between+100 and -100) </td>
+<td class="desc">Example: Using encoder mode, drive the motor at a specified speed (in RPM) and switch direction every 2 seconds (with a speed value of ± 100) </td>
 <p></p>
 <li><a class="el" href="encoder_mode_run_speed_stop_8ino-example.html">encoder_mode_run_speed_stop.ino</a></li>
 <td class="desc">Example: Using encoder mode to periodically start and stop the motor, switching the operating state every 2 seconds </td>

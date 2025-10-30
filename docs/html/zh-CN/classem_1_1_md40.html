@@ -147,7 +147,7 @@ Public 成员函数</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
 <div class="textblock"><p>Md40是一个用于控制MD40模块的驱动类，用来驱动电机。 </p>
-<dl class="section examples"><dt>示例</dt><dd><a class="el" href="dc_mode_run_pwm_duty_8ino-example.html#_a0">dc_mode_run_pwm_duty.ino</a>, <a class="el" href="encoder_mode_move_8ino-example.html#_a0">encoder_mode_move.ino</a>, <a class="el" href="encoder_mode_move_to_8ino-example.html#_a0">encoder_mode_move_to.ino</a>, <a class="el" href="encoder_mode_position_control_8ino-example.html#_a0">encoder_mode_position_control.ino</a>, <a class="el" href="encoder_mode_pulse_count_control_8ino-example.html#_a0">encoder_mode_pulse_count_control.ino</a>, <a class="el" href="encoder_mode_run_pwm_duty_8ino-example.html#_a0">encoder_mode_run_pwm_duty.ino</a>, <a class="el" href="encoder_mode_run_speed_8ino-example.html#_a0">encoder_mode_run_speed.ino</a>, <a class="el" href="encoder_mode_run_speed_stop_8ino-example.html#_a0">encoder_mode_run_speed_stop.ino</a> , 以及 <a class="el" href="reset_8ino-example.html#_a0">reset.ino</a>.</dd>
+<dl class="section examples"><dt>示例</dt><dd><a class="el" href="dc_mode_run_pwm_duty_8ino-example.html#_a0">dc_mode_run_pwm_duty.ino</a>, <a class="el" href="encoder_mode_detect_phase_relation_8ino-example.html#_a0">encoder_mode_detect_phase_relation.ino</a>, <a class="el" href="encoder_mode_move_8ino-example.html#_a0">encoder_mode_move.ino</a>, <a class="el" href="encoder_mode_move_to_8ino-example.html#_a0">encoder_mode_move_to.ino</a>, <a class="el" href="encoder_mode_pulse_count_control_8ino-example.html#_a0">encoder_mode_pulse_count_control.ino</a>, <a class="el" href="encoder_mode_run_pwm_duty_8ino-example.html#_a0">encoder_mode_run_pwm_duty.ino</a>, <a class="el" href="encoder_mode_run_speed_8ino-example.html#_a0">encoder_mode_run_speed.ino</a>, <a class="el" href="encoder_mode_run_speed_stop_8ino-example.html#_a0">encoder_mode_run_speed_stop.ino</a> , 以及 <a class="el" href="reset_8ino-example.html#_a0">reset.ino</a>.</dd>
 </dl>
 
 <p class="definition">在文件 <a class="el" href="md40_8h_source.html">md40.h</a> 第 <a class="el" href="md40_8h_source.html#l00027">27</a> 行定义.</p>
@@ -174,8 +174,8 @@ Public 成员函数</h2></td></tr>
 <p>构造函数。 </p>
 <dl class="params"><dt>参数</dt><dd>
   <table class="params">
-    <tr><td class="paramname">i2c_address</td><td>I2C地址。 </td></tr>
-    <tr><td class="paramname">wire</td><td>TwoWire 对象引用。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">i2c_address</td><td>I2C地址。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">wire</td><td>TwoWire 对象引用。 </td></tr>
   </table>
   </dd>
 </dl>
@@ -290,7 +290,7 @@ Public 成员函数</h2></td></tr>
 <p>获取指定索引的电机对象。 </p>
 <dl class="params"><dt>参数</dt><dd>
   <table class="params">
-    <tr><td class="paramname">index</td><td>电机索引。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>电机索引。 </td></tr>
   </table>
   </dd>
 </dl>

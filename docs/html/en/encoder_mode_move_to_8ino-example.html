@@ -99,13 +99,13 @@ $(function(){initNavTree('encoder_mode_move_to_8ino-example.html',''); initResiz
   <div class="headertitle"><div class="title">encoder_mode_move_to.ino</div></div>
 </div><!--header-->
 <div class="contents">
-<p>Using encoder mode, the motor alternates between absolute positions 0 and 720 at a speed of 60 RPM. Real time monitoring of motor speed, position, PWM and other parameters.</p>
+<p>Using encoder mode, the motor alternates between absolute positions 0 and 720 at a speed of 60 RPM. Real time monitoring of motor speed, position, PWM duty and other parameters.</p>
 <div class="fragment"><div class="line"><span class="comment">/**</span></div>
 <div class="line"><span class="comment"> * @~Chinese</span></div>
 <div class="line"><span class="comment"> * @file encoder_mode_move_to.ino</span></div>
 <div class="line"><span class="comment"> * @brief 示例：使用编码器模式，电机以60 RPM速度在绝对位置0和720之间交替移动。</span></div>
 <div class="line"><span class="comment"> * @example encoder_mode_move_to.ino</span></div>
-<div class="line"><span class="comment"> * 使用编码器模式，电机以60 RPM速度在绝对位置0和720之间交替移动。实时监控电机速度、位置、PWM等参数。</span></div>
+<div class="line"><span class="comment"> * 使用编码器模式，电机以60 RPM速度在绝对位置0和720之间交替移动。实时监控电机速度、位置、PWM占空比等参数。</span></div>
 <div class="line"><span class="comment"> */</span><span class="comment"></span></div>
 <div class="line"><span class="comment">/**</span></div>
 <div class="line"><span class="comment"> * @~English</span></div>
@@ -113,12 +113,13 @@ $(function(){initNavTree('encoder_mode_move_to_8ino-example.html',''); initResiz
 <div class="line"><span class="comment"> * @brief Example: Using encoder mode, the motor alternates between absolute positions 0 and 720 at a speed of 60 RPM.</span></div>
 <div class="line"><span class="comment"> * @example encoder_mode_move_to.ino</span></div>
 <div class="line"><span class="comment"> * Using encoder mode, the motor alternates between absolute positions 0 and 720 at a speed of 60 RPM. Real time monitoring of motor speed, position,</span></div>
-<div class="line"><span class="comment"> * PWM and other parameters.</span></div>
+<div class="line"><span class="comment"> * PWM duty and other parameters.</span></div>
 <div class="line"><span class="comment"> */</span></div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;Wire.h&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &quot;<a class="code" href="md40_8h.html">md40.h</a>&quot;</span></div>
+<div class="line"><span class="preprocessor">#include &quot;<a class="code" href="md40__lib_8h.html">md40_lib.h</a>&quot;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">namespace </span>{</div>
 <div class="line"><span class="keyword">constexpr</span> int32_t kMotorSpeed = 60;</div>
@@ -134,15 +135,19 @@ $(function(){initNavTree('encoder_mode_move_to_8ino-example.html',''); initResiz
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">void</span> setup() {</div>
 <div class="line">  Serial.begin(115200);</div>
+<div class="line"> </div>
+<div class="line">  Serial.print(<span class="stringliteral">&quot;Emakefun MD40 Library Version: &quot;</span>);</div>
+<div class="line">  Serial.println(<a class="code hl_function" href="md40__lib_8h.html#a27fff994ed10bd74ab968eb7ac31270d">em::md40_lib::Version</a>().c_str());</div>
+<div class="line"> </div>
 <div class="line">  Wire.begin();</div>
 <div class="line"> </div>
 <div class="line">  g_md40.Init();</div>
 <div class="line"> </div>
-<div class="line">  Serial.print(<span class="stringliteral">&quot;device id: 0x&quot;</span>);</div>
+<div class="line">  Serial.print(<span class="stringliteral">&quot;Device ID: 0x&quot;</span>);</div>
 <div class="line">  Serial.println(g_md40.device_id(), HEX);</div>
-<div class="line">  Serial.print(<span class="stringliteral">&quot;name: &quot;</span>);</div>
+<div class="line">  Serial.print(<span class="stringliteral">&quot;Name: &quot;</span>);</div>
 <div class="line">  Serial.println(g_md40.name());</div>
-<div class="line">  Serial.print(<span class="stringliteral">&quot;firmware version: &quot;</span>);</div>
+<div class="line">  Serial.print(<span class="stringliteral">&quot;Firmware Version: &quot;</span>);</div>
 <div class="line">  Serial.println(g_md40.firmware_version());</div>
 <div class="line"> </div>
 <div class="line">  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
@@ -154,7 +159,7 @@ $(function(){initNavTree('encoder_mode_move_to_8ino-example.html',''); initResiz
 <div class="line">    g_md40[i].set_position_pid_i(1.0);</div>
 <div class="line">    g_md40[i].set_position_pid_d(1.0);</div>
 <div class="line"> </div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot;motor &quot;</span>);</div>
+<div class="line">    Serial.print(<span class="stringliteral">&quot;Motor &quot;</span>);</div>
 <div class="line">    Serial.print(i);</div>
 <div class="line">    Serial.print(<span class="stringliteral">&quot; state:&quot;</span>);</div>
 <div class="line">    Serial.print(<span class="keyword">static_cast&lt;</span>uint8_t<span class="keyword">&gt;</span>(g_md40[i].state()));</div>
@@ -177,7 +182,7 @@ $(function(){initNavTree('encoder_mode_move_to_8ino-example.html',''); initResiz
 <div class="line">  <span class="keywordflow">if</span> (g_trigger_time == 0 || millis() - g_trigger_time &gt; 2000) {</div>
 <div class="line">    g_trigger_time = millis();</div>
 <div class="line">    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
-<div class="line">      Serial.print(<span class="stringliteral">&quot;motor &quot;</span>);</div>
+<div class="line">      Serial.print(<span class="stringliteral">&quot;Motor &quot;</span>);</div>
 <div class="line">      Serial.print(i);</div>
 <div class="line">      Serial.print(<span class="stringliteral">&quot; move to &quot;</span>);</div>
 <div class="line">      Serial.println(g_target_position);</div>
@@ -229,6 +234,8 @@ $(function(){initNavTree('encoder_mode_move_to_8ino-example.html',''); initResiz
 <div class="ttc" id="aclassem_1_1_md40_html_a0f933702a074938a294ba59b03212fbb"><div class="ttname"><a href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a></div><div class="ttdeci">static constexpr uint8_t kMotorNum</div><div class="ttdoc">Number of motors.</div><div class="ttdef"><b>Definition</b> <a href="md40_8h_source.html#l00046">md40.h:46</a></div></div>
 <div class="ttc" id="aclassem_1_1_md40_html_a3a64a7255a21a66b9f4110ead3a26e5b"><div class="ttname"><a href="classem_1_1_md40.html#a3a64a7255a21a66b9f4110ead3a26e5b">em::Md40::kDefaultI2cAddress</a></div><div class="ttdeci">static constexpr uint8_t kDefaultI2cAddress</div><div class="ttdoc">Default I2C address.</div><div class="ttdef"><b>Definition</b> <a href="md40_8h_source.html#l00037">md40.h:37</a></div></div>
 <div class="ttc" id="amd40_8h_html"><div class="ttname"><a href="md40_8h.html">md40.h</a></div></div>
+<div class="ttc" id="amd40__lib_8h_html"><div class="ttname"><a href="md40__lib_8h.html">md40_lib.h</a></div></div>
+<div class="ttc" id="amd40__lib_8h_html_a27fff994ed10bd74ab968eb7ac31270d"><div class="ttname"><a href="md40__lib_8h.html#a27fff994ed10bd74ab968eb7ac31270d">em::md40_lib::Version</a></div><div class="ttdeci">String Version()</div><div class="ttdoc">Get the version number string.</div><div class="ttdef"><b>Definition</b> <a href="md40__lib_8h_source.html#l00055">md40_lib.h:55</a></div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

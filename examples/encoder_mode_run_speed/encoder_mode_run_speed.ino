@@ -1,23 +1,24 @@
 /**
  * @~Chinese
  * @file encoder_mode_run_speed.ino
- * @brief 示例：使用编码器模式，以指定的速度（单位RPM）驱动电机，每2秒切换方向（速度值在+100和-100间切换）。
+ * @brief 示例：使用编码器模式，以指定的速度（单位RPM）驱动电机，每2秒切换方向（速度值为±100）。
  * @example encoder_mode_run_speed.ino
- * 使用编码器模式，以指定的速度（单位RPM）驱动电机，每2秒切换方向（速度值在+100和-100间切换）。实时监控电机速度、位置、PWM等参数。
+ * 使用编码器模式，以指定的速度（单位RPM）驱动电机，每2秒切换方向（速度值为±100）。实时监控电机速度、位置、PWM占空比等参数。
  */
 /**
  * @~English
  * @file encoder_mode_run_speed.ino
- * @brief Example: Using encoder mode, drive the motor at a specified speed (in RPM) and switch direction every 2 seconds (speed value switches
- * between+100 and -100).
+ * @brief Example: Using encoder mode, drive the motor at a specified speed (in RPM) and switch direction every 2 seconds (with a speed value of ±
+ * 100).
  * @example encoder_mode_run_speed.ino
- * Use encoder mode to drive the motor at a specified speed (in RPM), switching direction every 2 seconds (speed values switch between+100 and -100).
- * Real time monitoring of motor speed, position, PWM and other parameters.
+ * Using encoder mode, drive the motor at a specified speed (in RPM) and switch direction every 2 seconds (with a speed value of ± 100). Real time
+ * monitoring of motor speed, position, PWM duty and other parameters.
  */
 
 #include <Wire.h>
 
 #include "md40.h"
+#include "md40_lib.h"
 
 namespace {
 constexpr uint16_t kEncoderPpr = 12;
@@ -32,15 +33,19 @@ int32_t g_target_speed = 100;
 
 void setup() {
   Serial.begin(115200);
+
+  Serial.print("Emakefun MD40 Library Version: ");
+  Serial.println(em::md40_lib::Version().c_str());
+
   Wire.begin();
 
   g_md40.Init();
 
-  Serial.print("device id: 0x");
+  Serial.print("Device ID: 0x");
   Serial.println(g_md40.device_id(), HEX);
-  Serial.print("name: ");
+  Serial.print("Name: ");
   Serial.println(g_md40.name());
-  Serial.print("firmware version: ");
+  Serial.print("Firmware Version: ");
   Serial.println(g_md40.firmware_version());
 
   for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
@@ -52,7 +57,7 @@ void setup() {
     g_md40[i].set_position_pid_i(1.0);
     g_md40[i].set_position_pid_d(1.0);
 
-    Serial.print("motor ");
+    Serial.print("Motor ");
     Serial.print(i);
     Serial.print(" state:");
     Serial.print(static_cast<uint8_t>(g_md40[i].state()));
@@ -75,7 +80,7 @@ void loop() {
   if (g_trigger_time == 0 || millis() - g_trigger_time > 2000) {
     g_trigger_time = millis();
     for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
-      Serial.print("motor ");
+      Serial.print("Motor ");
       Serial.print(i);
       Serial.print(" run speed: ");
       Serial.println(g_target_speed);

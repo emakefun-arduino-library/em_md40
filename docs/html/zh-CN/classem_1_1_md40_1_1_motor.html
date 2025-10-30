@@ -174,40 +174,40 @@ Public 成员函数</h2></td></tr>
 <tr class="memdesc:a9bf0d76b5f62d5d75718c52f1fec8257"><td class="mdescLeft">&#160;</td><td class="mdescRight">设置位置PID控制器的微分（D）值。  <br /></td></tr>
 <tr class="separator:a9bf0d76b5f62d5d75718c52f1fec8257"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a371260115307bdf66b335142fbb5b20f" id="r_a371260115307bdf66b335142fbb5b20f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a371260115307bdf66b335142fbb5b20f">set_position</a> (const int32_t <a class="el" href="#a7ac79f14a108c1bce6ff5469dbece890">position</a>)</td></tr>
-<tr class="memdesc:a371260115307bdf66b335142fbb5b20f"><td class="mdescLeft">&#160;</td><td class="mdescRight">重置电机的位置值。  <br /></td></tr>
+<tr class="memdesc:a371260115307bdf66b335142fbb5b20f"><td class="mdescLeft">&#160;</td><td class="mdescRight">设定电机输出轴的位置值，单位为角度(°)。（电机输出轴累计角度值，例如：360度表示正转1整圈，-360度表示反转一整圈）  <br /></td></tr>
 <tr class="separator:a371260115307bdf66b335142fbb5b20f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a025de408a74ccd4c63e179760d7199d9" id="r_a025de408a74ccd4c63e179760d7199d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a025de408a74ccd4c63e179760d7199d9">set_pulse_count</a> (const int32_t <a class="el" href="#ad00acbfaa29b7a1f8f794ccfcd2e78f2">pulse_count</a>)</td></tr>
-<tr class="memdesc:a025de408a74ccd4c63e179760d7199d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">重置电机的编码器脉冲数。  <br /></td></tr>
+<tr class="memdesc:a025de408a74ccd4c63e179760d7199d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">设定电机的编码器脉冲计数。该计数值是在A相下降沿的时候计数，如果是正转会加一，反转则减一。  <br /></td></tr>
 <tr class="separator:a025de408a74ccd4c63e179760d7199d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f0fdb6c977ea11e89281c51534850ca" id="r_a8f0fdb6c977ea11e89281c51534850ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f0fdb6c977ea11e89281c51534850ca">Stop</a> ()</td></tr>
 <tr class="memdesc:a8f0fdb6c977ea11e89281c51534850ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">停止电机运行。  <br /></td></tr>
 <tr class="separator:a8f0fdb6c977ea11e89281c51534850ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a2d6bf7438d7436ffaebcd2f7c3a3ef" id="r_a0a2d6bf7438d7436ffaebcd2f7c3a3ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0a2d6bf7438d7436ffaebcd2f7c3a3ef">RunSpeed</a> (const int32_t rpm)</td></tr>
-<tr class="memdesc:a0a2d6bf7438d7436ffaebcd2f7c3a3ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">以设定的速度值（RPM）运行电机。  <br /></td></tr>
+<tr class="memdesc:a0a2d6bf7438d7436ffaebcd2f7c3a3ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">以设定的速度值（RPM）设置电机输出轴转速。正数代表正转，负数代表反转。  <br /></td></tr>
 <tr class="separator:a0a2d6bf7438d7436ffaebcd2f7c3a3ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12bed3cebbd751fa0064e3c0d84b29ff" id="r_a12bed3cebbd751fa0064e3c0d84b29ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a12bed3cebbd751fa0064e3c0d84b29ff">RunPwmDuty</a> (const int16_t <a class="el" href="#aa81ed40bb932acf2fbca631e776e8b8c">pwm_duty</a>)</td></tr>
-<tr class="memdesc:a12bed3cebbd751fa0064e3c0d84b29ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">直接设置电机的PWM占空比。  <br /></td></tr>
+<tr class="memdesc:a12bed3cebbd751fa0064e3c0d84b29ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">以设定的PWM占空比运行电机。正数代表正转，负数代表反转。  <br /></td></tr>
 <tr class="separator:a12bed3cebbd751fa0064e3c0d84b29ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17235e478c987cd3aa84a6f962b545e9" id="r_a17235e478c987cd3aa84a6f962b545e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a17235e478c987cd3aa84a6f962b545e9">MoveTo</a> (const int32_t <a class="el" href="#a7ac79f14a108c1bce6ff5469dbece890">position</a>, const int32_t <a class="el" href="#a9123c783d69b2c067347973601aa321f">speed</a>)</td></tr>
-<tr class="memdesc:a17235e478c987cd3aa84a6f962b545e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">将电机移动到指定位置。  <br /></td></tr>
+<tr class="memdesc:a17235e478c987cd3aa84a6f962b545e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">将电机输出轴转动到指定位置，单位为角度(°)。  <br /></td></tr>
 <tr class="separator:a17235e478c987cd3aa84a6f962b545e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a54a4d217194795fff38df788c879c713" id="r_a54a4d217194795fff38df788c879c713"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a54a4d217194795fff38df788c879c713">Move</a> (const int32_t offset, const int32_t <a class="el" href="#a9123c783d69b2c067347973601aa321f">speed</a>)</td></tr>
-<tr class="memdesc:a54a4d217194795fff38df788c879c713"><td class="mdescLeft">&#160;</td><td class="mdescRight">电机相对移动指定距离。  <br /></td></tr>
+<tr class="memdesc:a54a4d217194795fff38df788c879c713"><td class="mdescLeft">&#160;</td><td class="mdescRight">电机输出轴相对转动指定角度，单位为角度(°)。  <br /></td></tr>
 <tr class="separator:a54a4d217194795fff38df788c879c713"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a93a125ddc32655c419321ca7d6226344" id="r_a93a125ddc32655c419321ca7d6226344"><td class="memItemLeft" align="right" valign="top"><a class="el" href="#ad55460729773ef643807dff91b6f7a73">State</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a93a125ddc32655c419321ca7d6226344">state</a> ()</td></tr>
 <tr class="memdesc:a93a125ddc32655c419321ca7d6226344"><td class="mdescLeft">&#160;</td><td class="mdescRight">获取电机当前状态。  <br /></td></tr>
 <tr class="separator:a93a125ddc32655c419321ca7d6226344"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9123c783d69b2c067347973601aa321f" id="r_a9123c783d69b2c067347973601aa321f"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9123c783d69b2c067347973601aa321f">speed</a> ()</td></tr>
-<tr class="memdesc:a9123c783d69b2c067347973601aa321f"><td class="mdescLeft">&#160;</td><td class="mdescRight">获取电机当前的转速（RPM）。  <br /></td></tr>
+<tr class="memdesc:a9123c783d69b2c067347973601aa321f"><td class="mdescLeft">&#160;</td><td class="mdescRight">获取电机输出轴当前的转速（RPM）。正数代表正转，负数代表反转。  <br /></td></tr>
 <tr class="separator:a9123c783d69b2c067347973601aa321f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ac79f14a108c1bce6ff5469dbece890" id="r_a7ac79f14a108c1bce6ff5469dbece890"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7ac79f14a108c1bce6ff5469dbece890">position</a> ()</td></tr>
-<tr class="memdesc:a7ac79f14a108c1bce6ff5469dbece890"><td class="mdescLeft">&#160;</td><td class="mdescRight">获取电机位置。  <br /></td></tr>
+<tr class="memdesc:a7ac79f14a108c1bce6ff5469dbece890"><td class="mdescLeft">&#160;</td><td class="mdescRight">获取电机输出轴的位置值，单位为角度(°)。（电机输出轴累计角度值，例如：360度表示正转1整圈，-360度表示反转一整圈）  <br /></td></tr>
 <tr class="separator:a7ac79f14a108c1bce6ff5469dbece890"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad00acbfaa29b7a1f8f794ccfcd2e78f2" id="r_ad00acbfaa29b7a1f8f794ccfcd2e78f2"><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad00acbfaa29b7a1f8f794ccfcd2e78f2">pulse_count</a> ()</td></tr>
-<tr class="memdesc:ad00acbfaa29b7a1f8f794ccfcd2e78f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">获取电机当前的编码器脉冲数。  <br /></td></tr>
+<tr class="memdesc:ad00acbfaa29b7a1f8f794ccfcd2e78f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">获取电机当前的编码器脉冲计数。该计数值是在A相下降沿的时候计数，如果是正转会加一，反转则减一。  <br /></td></tr>
 <tr class="separator:ad00acbfaa29b7a1f8f794ccfcd2e78f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa81ed40bb932acf2fbca631e776e8b8c" id="r_aa81ed40bb932acf2fbca631e776e8b8c"><td class="memItemLeft" align="right" valign="top">int16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa81ed40bb932acf2fbca631e776e8b8c">pwm_duty</a> ()</td></tr>
-<tr class="memdesc:aa81ed40bb932acf2fbca631e776e8b8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">获取电机当前的PWM占空比。  <br /></td></tr>
+<tr class="memdesc:aa81ed40bb932acf2fbca631e776e8b8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">获取电机当前的PWM占空比。正数代表正转，负数代表反转。  <br /></td></tr>
 <tr class="separator:aa81ed40bb932acf2fbca631e776e8b8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">详细描述</h2>
@@ -312,9 +312,9 @@ Public 成员函数</h2></td></tr>
 <p>构造函数。 </p>
 <dl class="params"><dt>参数</dt><dd>
   <table class="params">
-    <tr><td class="paramname">index</td><td>电机索引。 </td></tr>
-    <tr><td class="paramname">i2c_address</td><td>I2C地址。 </td></tr>
-    <tr><td class="paramname">wire</td><td>TwoWire 对象引用。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">index</td><td>电机索引。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">i2c_address</td><td>I2C地址。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">wire</td><td>TwoWire 对象引用。 </td></tr>
   </table>
   </dd>
 </dl>
@@ -343,11 +343,11 @@ Public 成员函数</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>电机相对移动指定距离。 </p>
+<p>电机输出轴相对转动指定角度，单位为角度(°)。 </p>
 <dl class="params"><dt>参数</dt><dd>
   <table class="params">
-    <tr><td class="paramname">offset</td><td>相对位移。 </td></tr>
-    <tr><td class="paramname">speed</td><td>运行速度。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">offset</td><td>相对位移设定值，单位为角度(°)，基于当前位置的相对角度。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">speed</td><td>电机输出轴运行速度设定值（RPM）。 </td></tr>
   </table>
   </dd>
 </dl>
@@ -375,11 +375,11 @@ Public 成员函数</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>将电机移动到指定位置。 </p>
+<p>将电机输出轴转动到指定位置，单位为角度(°)。 </p>
 <dl class="params"><dt>参数</dt><dd>
   <table class="params">
-    <tr><td class="paramname">position</td><td>目标位置。 </td></tr>
-    <tr><td class="paramname">speed</td><td>运行速度。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">position</td><td>目标位置设定值，单位为角度(°)，累计角度值。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">speed</td><td>电机输出轴运行速度设定值（RPM）。 </td></tr>
   </table>
   </dd>
 </dl>
@@ -403,8 +403,8 @@ Public 成员函数</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>获取电机位置。 </p>
-<dl class="section return"><dt>返回</dt><dd>电机位置。 </dd></dl>
+<p>获取电机输出轴的位置值，单位为角度(°)。（电机输出轴累计角度值，例如：360度表示正转1整圈，-360度表示反转一整圈） </p>
+<dl class="section return"><dt>返回</dt><dd>电机输出轴当前位置，单位为角度(°)，表示从零位开始的累计角度。 </dd></dl>
 
 <p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00463">463</a> 行定义.</p>
 
@@ -491,7 +491,7 @@ Public 成员函数</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>获取电机当前的编码器脉冲数。 </p>
+<p>获取电机当前的编码器脉冲计数。该计数值是在A相下降沿的时候计数，如果是正转会加一，反转则减一。 </p>
 <dl class="section return"><dt>返回</dt><dd>电机当前的编码器脉冲数。 </dd></dl>
 
 <p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00488">488</a> 行定义.</p>
@@ -513,7 +513,7 @@ Public 成员函数</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>获取电机当前的PWM占空比。 </p>
+<p>获取电机当前的PWM占空比。正数代表正转，负数代表反转。 </p>
 <dl class="section return"><dt>返回</dt><dd>电机当前的PWM占空比（取值范围 -1023到1023）。正数代表正转，负数代表反转。 </dd></dl>
 
 <p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00513">513</a> 行定义.</p>
@@ -556,10 +556,10 @@ Public 成员函数</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>直接设置电机的PWM占空比。 </p>
+<p>以设定的PWM占空比运行电机。正数代表正转，负数代表反转。 </p>
 <dl class="params"><dt>参数</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pwm_duty</td><td>PWM占空比（取值范围 -1023到1023）。正数代表正转，负数代表反转。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pwm_duty</td><td>PWM占空比（取值范围 -1023到1023）。正数代表正转，负数代表反转。 </td></tr>
   </table>
   </dd>
 </dl>
@@ -583,10 +583,10 @@ Public 成员函数</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>以设定的速度值（RPM）运行电机。 </p>
+<p>以设定的速度值（RPM）设置电机输出轴转速。正数代表正转，负数代表反转。 </p>
 <dl class="params"><dt>参数</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rpm</td><td>速度设定值（RPM）。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">rpm</td><td>速度设定值（RPM）。正数代表正转，负数代表反转。 </td></tr>
   </table>
   </dd>
 </dl>
@@ -610,10 +610,10 @@ Public 成员函数</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>重置电机的位置值。 </p>
+<p>设定电机输出轴的位置值，单位为角度(°)。（电机输出轴累计角度值，例如：360度表示正转1整圈，-360度表示反转一整圈） </p>
 <dl class="params"><dt>参数</dt><dd>
   <table class="params">
-    <tr><td class="paramname">position</td><td>位置设定值。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">position</td><td>位置设定值，单位为角度(°)，表示从零位开始的累计角度。 </td></tr>
   </table>
   </dd>
 </dl>
@@ -640,7 +640,7 @@ Public 成员函数</h2></td></tr>
 <p>设置位置PID控制器的微分（D）值。 </p>
 <dl class="params"><dt>参数</dt><dd>
   <table class="params">
-    <tr><td class="paramname">value</td><td>位置PID控制器的微分（D）值。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>位置PID控制器的微分（D）值。 </td></tr>
   </table>
   </dd>
 </dl>
@@ -667,7 +667,7 @@ Public 成员函数</h2></td></tr>
 <p>设置位置PID控制器的积分（I）值。 </p>
 <dl class="params"><dt>参数</dt><dd>
   <table class="params">
-    <tr><td class="paramname">value</td><td>位置PID控制器的积分（I）值。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>位置PID控制器的积分（I）值。 </td></tr>
   </table>
   </dd>
 </dl>
@@ -694,7 +694,7 @@ Public 成员函数</h2></td></tr>
 <p>设置位置PID控制器的比例（P）值。 </p>
 <dl class="params"><dt>参数</dt><dd>
   <table class="params">
-    <tr><td class="paramname">value</td><td>位置PID控制器的比例（P）值。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>位置PID控制器的比例（P）值。 </td></tr>
   </table>
   </dd>
 </dl>
@@ -718,10 +718,10 @@ Public 成员函数</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>重置电机的编码器脉冲数。 </p>
+<p>设定电机的编码器脉冲计数。该计数值是在A相下降沿的时候计数，如果是正转会加一，反转则减一。 </p>
 <dl class="params"><dt>参数</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pulse_count</td><td>编码器脉冲数。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">pulse_count</td><td>编码器脉冲数。 </td></tr>
   </table>
   </dd>
 </dl>
@@ -748,7 +748,7 @@ Public 成员函数</h2></td></tr>
 <p>设置速度PID控制器的微分（D）值。 </p>
 <dl class="params"><dt>参数</dt><dd>
   <table class="params">
-    <tr><td class="paramname">value</td><td>速度PID控制器的微分（D）值。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>速度PID控制器的微分（D）值。 </td></tr>
   </table>
   </dd>
 </dl>
@@ -775,7 +775,7 @@ Public 成员函数</h2></td></tr>
 <p>设置速度PID控制器的积分（I）值。 </p>
 <dl class="params"><dt>参数</dt><dd>
   <table class="params">
-    <tr><td class="paramname">value</td><td>速度PID控制器的积分（I）值。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>速度PID控制器的积分（I）值。 </td></tr>
   </table>
   </dd>
 </dl>
@@ -802,7 +802,7 @@ Public 成员函数</h2></td></tr>
 <p>设置速度PID控制器的比例（P）值。 </p>
 <dl class="params"><dt>参数</dt><dd>
   <table class="params">
-    <tr><td class="paramname">value</td><td>速度PID控制器的比例（P）值。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">value</td><td>速度PID控制器的比例（P）值。 </td></tr>
   </table>
   </dd>
 </dl>
@@ -859,9 +859,9 @@ Public 成员函数</h2></td></tr>
 <p>设置电机为编码器模式。 </p>
 <dl class="params"><dt>参数</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ppr</td><td>每转脉冲数。 </td></tr>
-    <tr><td class="paramname">reduction_ratio</td><td>减速比。 </td></tr>
-    <tr><td class="paramname">phase_relation</td><td>相位关系（A相领先或B相领先，指电机正转时的情况），参数说明请查阅： PhaseRelation。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">ppr</td><td>每转脉冲数。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">reduction_ratio</td><td>减速比。 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">phase_relation</td><td>相位关系（A相领先或B相领先，指电机正转时的情况），参数说明请查阅： <a class="el" href="#aba6144fd97d3cfee09f0a6c7c77d547c">PhaseRelation</a> 。 </td></tr>
   </table>
   </dd>
 </dl>
@@ -885,8 +885,8 @@ Public 成员函数</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>获取电机当前的转速（RPM）。 </p>
-<dl class="section return"><dt>返回</dt><dd>电机当前的转速（RPM）。 </dd></dl>
+<p>获取电机输出轴当前的转速（RPM）。正数代表正转，负数代表反转。 </p>
+<dl class="section return"><dt>返回</dt><dd>电机输出轴当前的转速（RPM）。正数代表正转，负数代表反转。 </dd></dl>
 
 <p class="definition">在文件 <a class="el" href="md40_8cpp_source.html">md40.cpp</a> 第 <a class="el" href="md40_8cpp_source.html#l00439">439</a> 行定义.</p>
 

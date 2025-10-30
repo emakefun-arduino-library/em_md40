@@ -99,27 +99,27 @@ $(function(){initNavTree('dc_mode_run_pwm_duty_8ino-example.html',''); initResiz
   <div class="headertitle"><div class="title">dc_mode_run_pwm_duty.ino</div></div>
 </div><!--header-->
 <div class="contents">
-<p>Use DC mode to drive the motor with a specified PWM duty cycle, switching the steering every 2 seconds (PWM value switches between+1023 and -1023). Real time monitoring of motor PWM and status.</p>
+<p>Use DC mode to drive the motor with a specified PWM duty, switching the direction every 2 seconds (PWM duty is ± 1023). Real time monitoring of motor PWM duty and status.</p>
 <div class="fragment"><div class="line"><span class="comment">/**</span></div>
 <div class="line"><span class="comment"> * @~Chinese</span></div>
 <div class="line"><span class="comment"> * @file dc_mode_run_pwm_duty.ino</span></div>
-<div class="line"><span class="comment"> * @brief 示例：使用直流模式，以指定PWM占空比驱动电机，每2秒切换转向（PWM值在+1023和-1023间切换）。</span></div>
+<div class="line"><span class="comment"> * @brief 示例：使用直流模式，以指定PWM占空比驱动电机，每2秒切换转向（PWM占空比值为±1023）。</span></div>
 <div class="line"><span class="comment"> * @example dc_mode_run_pwm_duty.ino</span></div>
-<div class="line"><span class="comment"> * 使用直流模式，以指定PWM占空比驱动电机，每2秒切换转向（PWM值在+1023和-1023间切换）。实时监控电机PWM和状态。</span></div>
+<div class="line"><span class="comment"> * 使用直流模式，以指定PWM占空比驱动电机，每2秒切换转向（PWM占空比值为±1023）。实时监控电机PWM占空比和状态。</span></div>
 <div class="line"><span class="comment"> */</span><span class="comment"></span></div>
 <div class="line"><span class="comment">/**</span></div>
 <div class="line"><span class="comment"> * @~English</span></div>
 <div class="line"><span class="comment"> * @file dc_mode_run_pwm_duty.ino</span></div>
-<div class="line"><span class="comment"> * @brief Example: Using DC mode, drive the motor with a specified PWM duty cycle and switch the steering every 2 seconds (PWM value switches</span></div>
-<div class="line"><span class="comment"> * between+1023 and -1023).</span></div>
+<div class="line"><span class="comment"> * @brief Example: Using DC mode, drive the motor with a specified PWM duty and switch the direction every 2 seconds (PWM duty is ± 1023).</span></div>
 <div class="line"><span class="comment"> * @example dc_mode_run_pwm_duty.ino</span></div>
-<div class="line"><span class="comment"> * Use DC mode to drive the motor with a specified PWM duty cycle, switching the steering every 2 seconds (PWM value switches between+1023 and -1023).</span></div>
-<div class="line"><span class="comment"> * Real time monitoring of motor PWM and status.</span></div>
+<div class="line"><span class="comment"> * Use DC mode to drive the motor with a specified PWM duty, switching the direction every 2 seconds (PWM duty is ± 1023). Real time</span></div>
+<div class="line"><span class="comment"> * monitoring of motor PWM duty and status.</span></div>
 <div class="line"><span class="comment"> */</span></div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;Wire.h&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &quot;<a class="code" href="md40_8h.html">md40.h</a>&quot;</span></div>
+<div class="line"><span class="preprocessor">#include &quot;<a class="code" href="md40__lib_8h.html">md40_lib.h</a>&quot;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">namespace </span>{</div>
 <div class="line"><a id="_a0" name="_a0"></a><a class="code hl_class" href="classem_1_1_md40.html">em::Md40</a> g_md40(<a class="code hl_variable" href="classem_1_1_md40.html#a3a64a7255a21a66b9f4110ead3a26e5b">em::Md40::kDefaultI2cAddress</a>, Wire);</div>
@@ -131,19 +131,23 @@ $(function(){initNavTree('dc_mode_run_pwm_duty_8ino-example.html',''); initResiz
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">void</span> setup() {</div>
 <div class="line">  Serial.begin(115200);</div>
+<div class="line"> </div>
+<div class="line">  Serial.print(<span class="stringliteral">&quot;Emakefun MD40 Library Version: &quot;</span>);</div>
+<div class="line">  Serial.println(<a class="code hl_function" href="md40__lib_8h.html#a27fff994ed10bd74ab968eb7ac31270d">em::md40_lib::Version</a>().c_str());</div>
+<div class="line"> </div>
 <div class="line">  Wire.begin();</div>
 <div class="line"> </div>
 <div class="line">  g_md40.Init();</div>
 <div class="line"> </div>
-<div class="line">  Serial.print(<span class="stringliteral">&quot;device id: 0x&quot;</span>);</div>
+<div class="line">  Serial.print(<span class="stringliteral">&quot;Device ID: 0x&quot;</span>);</div>
 <div class="line">  Serial.println(g_md40.device_id(), HEX);</div>
-<div class="line">  Serial.print(<span class="stringliteral">&quot;name: &quot;</span>);</div>
+<div class="line">  Serial.print(<span class="stringliteral">&quot;Name: &quot;</span>);</div>
 <div class="line">  Serial.println(g_md40.name());</div>
-<div class="line">  Serial.print(<span class="stringliteral">&quot;firmware version: &quot;</span>);</div>
+<div class="line">  Serial.print(<span class="stringliteral">&quot;Firmware Version: &quot;</span>);</div>
 <div class="line">  Serial.println(g_md40.firmware_version());</div>
 <div class="line"> </div>
 <div class="line">  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
-<div class="line">    Serial.print(<span class="stringliteral">&quot;motor &quot;</span>);</div>
+<div class="line">    Serial.print(<span class="stringliteral">&quot;Motor &quot;</span>);</div>
 <div class="line">    Serial.print(i);</div>
 <div class="line">    Serial.print(<span class="stringliteral">&quot; state: &quot;</span>);</div>
 <div class="line">    Serial.println(<span class="keyword">static_cast&lt;</span>uint8_t<span class="keyword">&gt;</span>(g_md40[i].state()));</div>
@@ -156,7 +160,7 @@ $(function(){initNavTree('dc_mode_run_pwm_duty_8ino-example.html',''); initResiz
 <div class="line">    g_trigger_time = millis();</div>
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
-<div class="line">      Serial.print(<span class="stringliteral">&quot;motor &quot;</span>);</div>
+<div class="line">      Serial.print(<span class="stringliteral">&quot;Motor &quot;</span>);</div>
 <div class="line">      Serial.print(i);</div>
 <div class="line">      Serial.print(<span class="stringliteral">&quot; run pwm duty: &quot;</span>);</div>
 <div class="line">      Serial.println(g_pwm_duty);</div>
@@ -189,6 +193,8 @@ $(function(){initNavTree('dc_mode_run_pwm_duty_8ino-example.html',''); initResiz
 <div class="ttc" id="aclassem_1_1_md40_html_a0f933702a074938a294ba59b03212fbb"><div class="ttname"><a href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a></div><div class="ttdeci">static constexpr uint8_t kMotorNum</div><div class="ttdoc">Number of motors.</div><div class="ttdef"><b>Definition</b> <a href="md40_8h_source.html#l00046">md40.h:46</a></div></div>
 <div class="ttc" id="aclassem_1_1_md40_html_a3a64a7255a21a66b9f4110ead3a26e5b"><div class="ttname"><a href="classem_1_1_md40.html#a3a64a7255a21a66b9f4110ead3a26e5b">em::Md40::kDefaultI2cAddress</a></div><div class="ttdeci">static constexpr uint8_t kDefaultI2cAddress</div><div class="ttdoc">Default I2C address.</div><div class="ttdef"><b>Definition</b> <a href="md40_8h_source.html#l00037">md40.h:37</a></div></div>
 <div class="ttc" id="amd40_8h_html"><div class="ttname"><a href="md40_8h.html">md40.h</a></div></div>
+<div class="ttc" id="amd40__lib_8h_html"><div class="ttname"><a href="md40__lib_8h.html">md40_lib.h</a></div></div>
+<div class="ttc" id="amd40__lib_8h_html_a27fff994ed10bd74ab968eb7ac31270d"><div class="ttname"><a href="md40__lib_8h.html#a27fff994ed10bd74ab968eb7ac31270d">em::md40_lib::Version</a></div><div class="ttdeci">String Version()</div><div class="ttdoc">Get the version number string.</div><div class="ttdef"><b>Definition</b> <a href="md40__lib_8h_source.html#l00055">md40_lib.h:55</a></div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

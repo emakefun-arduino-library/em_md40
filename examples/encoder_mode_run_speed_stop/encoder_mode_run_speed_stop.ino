@@ -3,7 +3,7 @@
  * @file encoder_mode_run_speed_stop.ino
  * @brief 示例：使用编码器模式，周期性地启动和停止电机，每隔2秒切换运行状态。
  * @example encoder_mode_run_speed_stop.ino
- * 使用编码器模式，周期性地启动和停止电机，每隔2秒切换运行状态。实时监控电机速度、位置、PWM等参数。
+ * 使用编码器模式，周期性地启动和停止电机，每隔2秒切换运行状态。实时监控电机速度、位置、PWM占空比等参数。
  */
 /**
  * @~English
@@ -11,12 +11,13 @@
  * @brief Example: Using encoder mode to periodically start and stop the motor, switching the operating state every 2 seconds.
  * @example encoder_mode_run_speed_stop.ino
  * Use encoder mode to periodically start and stop the motor, switching operating states every 2 seconds. Real time monitoring of motor speed,
- * position, PWM and other parameters.
+ * position, PWM duty and other parameters.
  */
 
 #include <Wire.h>
 
 #include "md40.h"
+#include "md40_lib.h"
 
 namespace {
 constexpr int32_t kMotorSpeed = 100;
@@ -32,15 +33,19 @@ bool g_motor_run = true;
 
 void setup() {
   Serial.begin(115200);
+
+  Serial.print("Emakefun MD40 Library Version: ");
+  Serial.println(em::md40_lib::Version().c_str());
+
   Wire.begin();
 
   g_md40.Init();
 
-  Serial.print("device id: 0x");
+  Serial.print("Device ID: 0x");
   Serial.println(g_md40.device_id(), HEX);
-  Serial.print("name: ");
+  Serial.print("Name: ");
   Serial.println(g_md40.name());
-  Serial.print("firmware version: ");
+  Serial.print("Firmware Version: ");
   Serial.println(g_md40.firmware_version());
 
   for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
@@ -52,7 +57,7 @@ void setup() {
     g_md40[i].set_position_pid_i(1.0);
     g_md40[i].set_position_pid_d(1.0);
 
-    Serial.print("motor ");
+    Serial.print("Motor ");
     Serial.print(i);
     Serial.print(" state:");
     Serial.print(static_cast<uint8_t>(g_md40[i].state()));
@@ -85,7 +90,7 @@ void loop() {
   if (millis() - g_trigger_time > 2000) {
     g_trigger_time = millis();
     g_motor_run = !g_motor_run;
-    Serial.println(g_motor_run ? "motors run" : "motors stop");
+    Serial.println(g_motor_run ? "Motors Run" : "Motors Stop");
   }
 
   if (millis() - g_last_print_time > 200) {

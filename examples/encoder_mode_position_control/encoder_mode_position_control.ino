@@ -1,84 +1,49 @@
 /**
  * @~Chinese
- * @file encoder_mode_position_control.ino
- * @brief 示例：使用编码器模式，以指定PWM占空比驱动电机，周期性切换转向（PWM值在+1023和-1023间切换），以及重置位置信息为±100。
- * @example encoder_mode_position_control.ino
- * 使用编码器模式，以指定PWM占空比驱动电机，周期性切换转向（PWM值在+1023和-1023间切换），以及重置位置信息为±100。实时监控电机速度、位置、PWM等参数。
+ * @file encoder_mode_position_set_demo.ino
+ * @brief 示例：电机位置设置功能演示。
+ * @example encoder_mode_position_set_demo.ino
+ * 演示如何使用位置设置功能校准电机位置。
  */
 /**
  * @~English
- * @file encoder_mode_position_control.ino
- * @brief Example: Use encoder mode to drive the motor with a specified PWM duty cycle, periodically switch the steering (PWM value switches
- * between+1023 and -1023), and reset the position information to ± 100.
- * @example encoder_mode_position_control.ino
- * Use encoder mode to drive the motor with a specified PWM duty cycle, periodically switch steering (PWM values switch between+1023 and -1023), and
- * reset position information to ± 100. Real time monitoring of motor speed, position, PWM and other parameters.
+ * @file encoder_mode_position_set_demo.ino
+ * @brief Example: Demonstration of motor position setting function.
+ * @example encoder_mode_position_set_demo.ino
+ * Demonstrates how to use the position setting function to calibrate motor position.
  */
 
 #include "md40.h"
+#include "md40_lib.h"
 
 namespace {
 constexpr uint16_t kEncoderPpr = 12;
 constexpr uint16_t kReductionRatio = 90;
+constexpr int32_t kMotorSpeed = 100;
+constexpr int32_t kMotorMoveOffset = 100;
 
 em::Md40 g_md40(em::Md40::kDefaultI2cAddress, Wire);
 
-int32_t g_pwm_duty = 1023;
-int32_t g_position = 100;
-
-void PrintMotorInfo() {
-  const auto start_time = millis();
-  while ((millis() - start_time) < 3000) {
-    Serial.print("speeds: ");
-    for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
-      Serial.print(g_md40[i].speed());
-      Serial.print(", ");
-    }
-
-    Serial.print("pwm duties: ");
-    for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
-      Serial.print(g_md40[i].pwm_duty());
-      Serial.print(", ");
-    }
-
-    Serial.print("positions: ");
-    for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
-      Serial.print(g_md40[i].position());
-      Serial.print(", ");
-    }
-
-    Serial.print("pulse counts: ");
-    for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
-      Serial.print(g_md40[i].pulse_count());
-      Serial.print(", ");
-    }
-
-    Serial.print("states: ");
-    for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
-      Serial.print(static_cast<uint8_t>(g_md40[i].state()));
-      if (i < em::Md40::kMotorNum - 1) {
-        Serial.print(", ");
-      }
-    }
-    Serial.println();
-
-    delay(200);
-  }
-}
+int32_t g_motor_position = 100;
+uint64_t g_trigger_time = 0;
 
 }  // namespace
 
 void setup() {
   Serial.begin(115200);
+
+  Serial.print("Emakefun MD40 Library Version: ");
+  Serial.println(em::md40_lib::Version().c_str());
+
   Wire.begin();
 
   g_md40.Init();
 
-  Serial.print("device id: 0x");
+  Serial.print("Device ID: 0x");
   Serial.println(g_md40.device_id(), HEX);
-  Serial.print("name: ");
+  Serial.print("Name: ");
   Serial.println(g_md40.name());
-  Serial.print("firmware version: ");
+  Serial.print("Firmware Version: ");
   Serial.println(g_md40.firmware_version());
 
   for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
@@ -90,7 +55,7 @@ void setup() {
     g_md40[i].set_position_pid_i(1.0);
     g_md40[i].set_position_pid_d(1.0);
 
-    Serial.print("motor ");
+    Serial.print("Motor ");
     Serial.print(i);
     Serial.print(" state:");
     Serial.print(static_cast<uint8_t>(g_md40[i].state()));
@@ -110,36 +75,50 @@ void setup() {
 }
 
 void loop() {
-  for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
-    Serial.print("motor ");
-    Serial.print(i);
-    Serial.print(" run pwm duty: ");
-    Serial.println(g_pwm_duty);
-    g_md40[i].RunPwmDuty(g_pwm_duty);
+  if (g_trigger_time == 0 || millis() - g_trigger_time > 2000) {
+    Serial.println("Initial state - All motor positions:");
+    for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
+      Serial.print("Motor ");
+      Serial.print(i);
+      Serial.print(": ");
+      Serial.println(g_md40[i].position());
+    }
+
+    Serial.print("Set all motors position to: ");
+    Serial.println(g_motor_position);
+    for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
+      g_md40[i].set_position(g_motor_position);
+    }
+
+    Serial.println("After set:");
+    for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
+      Serial.print("Motor ");
+      Serial.print(i);
+      Serial.print(": ");
+      Serial.println(g_md40[i].position());
+    }
+    g_motor_position = -g_motor_position;
+
+    Serial.println("Relative move 100 degrees from current position:");
+    for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
+      Serial.print("Motor ");
+      Serial.print(i);
+      Serial.print(" from ");
+      Serial.print(g_md40[i].position());
+      Serial.println(" move +100 degrees");
+
+      g_md40[i].Move(kMotorMoveOffset, kMotorSpeed);
+    }
+
+    delay(1000);
+
+    Serial.println("Positions after movement:");
+    for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
+      Serial.print("Motor ");
+      Serial.print(i);
+      Serial.print(": ");
+      Serial.println(g_md40[i].position());
+    }
+    g_trigger_time = millis();
   }
-  g_pwm_duty = -g_pwm_duty;
-
-  PrintMotorInfo();
-
-  for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
-    Serial.print("motor ");
-    Serial.print(i);
-    Serial.print(" position: ");
-    Serial.println(g_position);
-    g_md40[i].set_position(g_position);
-  }
-  g_position = -g_position;
-
-  PrintMotorInfo();
-
-  for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
-    Serial.print("motor ");
-    Serial.print(i);
-    Serial.print(" position: ");
-    Serial.println(g_position);
-    g_md40[i].set_position(g_position);
-  }
-  g_position = -g_position;
-
-  PrintMotorInfo();
 }

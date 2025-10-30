@@ -16,6 +16,7 @@
 #include <Wire.h>
 
 #include "md40.h"
+#include "md40_lib.h"
 
 namespace {
 em::Md40 g_md40(em::Md40::kDefaultI2cAddress, Wire);
@@ -23,19 +24,23 @@ em::Md40 g_md40(em::Md40::kDefaultI2cAddress, Wire);
 
 void setup() {
   Serial.begin(115200);
+
+  Serial.print("Emakefun MD40 Library Version: ");
+  Serial.println(em::md40_lib::Version().c_str());
+
   Wire.begin();
 
   g_md40.Init();
 
-  Serial.print("device id: 0x");
+  Serial.print("Device ID: 0x");
   Serial.println(g_md40.device_id(), HEX);
-  Serial.print("name: ");
+  Serial.print("Name: ");
   Serial.println(g_md40.name());
-  Serial.print("firmware version: ");
+  Serial.print("Firmware Version: ");
   Serial.println(g_md40.firmware_version());
 
   for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
-    Serial.print("motor ");
+    Serial.print("Motor ");
     Serial.print(i);
     Serial.print(" state: ");
     Serial.println(static_cast<uint8_t>(g_md40[i].state()));

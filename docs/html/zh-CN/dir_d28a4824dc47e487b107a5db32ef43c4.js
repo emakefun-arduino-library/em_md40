@@ -1,6 +1,7 @@
 var dir_d28a4824dc47e487b107a5db32ef43c4 =
 [
     [ "dc_mode_run_pwm_duty", "dir_eb1cc6973e954161f403f58436411036.html", "dir_eb1cc6973e954161f403f58436411036" ],
+    [ "encoder_mode_detect_phase_relation", "dir_69ef472408da846040cef9bbe92ee0f0.html", "dir_69ef472408da846040cef9bbe92ee0f0" ],
     [ "encoder_mode_move", "dir_a9ac3fa67ce67db6299dc1e831586c14.html", "dir_a9ac3fa67ce67db6299dc1e831586c14" ],
     [ "encoder_mode_move_to", "dir_e9ecb7ca869da775477efea1cb994e87.html", "dir_e9ecb7ca869da775477efea1cb994e87" ],
     [ "encoder_mode_position_control", "dir_caf2daf836f02c48404e4df6a619e081.html", "dir_caf2daf836f02c48404e4df6a619e081" ],
