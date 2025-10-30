@@ -117,51 +117,45 @@ $(function(){initNavTree('reset_8ino_source.html',''); initResizable(true); });
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &lt;Wire.h&gt;</span></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#include &quot;<a class="code" href="md40_8h.html">md40.h</a>&quot;</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#include &quot;<a class="code" href="md40__lib_8h.html">md40_lib.h</a>&quot;</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">namespace </span>{</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><a class="code hl_class" href="classem_1_1_md40.html">em::Md40</a> g_md40(<a class="code hl_variable" href="classem_1_1_md40.html#a3a64a7255a21a66b9f4110ead3a26e5b">em::Md40::kDefaultI2cAddress</a>, Wire);</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>}  <span class="comment">// namespace</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="keywordtype">void</span> setup() {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  Serial.begin(115200);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  Serial.print(<span class="stringliteral">&quot;Emakefun MD40 Library Version: &quot;</span>);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  Serial.println(<a class="code hl_function" href="md40__lib_8h.html#a27fff994ed10bd74ab968eb7ac31270d">em::md40_lib::Version</a>().c_str());</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">namespace </span>{</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><a class="code hl_class" href="classem_1_1_md40.html">em::Md40</a> g_md40(<a class="code hl_variable" href="classem_1_1_md40.html#a3a64a7255a21a66b9f4110ead3a26e5b">em::Md40::kDefaultI2cAddress</a>, Wire);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}  <span class="comment">// namespace</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="keywordtype">void</span> setup() {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  Serial.begin(115200);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  Wire.begin();</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  g_md40.Init();</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  Wire.begin();</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  g_md40.Init();</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  Serial.print(<span class="stringliteral">&quot;Device ID: 0x&quot;</span>);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  Serial.println(g_md40.device_id(), HEX);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  Serial.print(<span class="stringliteral">&quot;Name: &quot;</span>);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  Serial.println(g_md40.name());</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  Serial.print(<span class="stringliteral">&quot;Firmware Version: &quot;</span>);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  Serial.println(g_md40.firmware_version());</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    Serial.print(<span class="stringliteral">&quot;Motor &quot;</span>);</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    Serial.print(i);</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    Serial.print(<span class="stringliteral">&quot; state: &quot;</span>);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    Serial.println(<span class="keyword">static_cast&lt;</span>uint8_t<span class="keyword">&gt;</span>(g_md40[i].state()));</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    g_md40[i].Reset();</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    Serial.print(<span class="stringliteral">&quot; after reset: &quot;</span>);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    Serial.println(<span class="keyword">static_cast&lt;</span>uint8_t<span class="keyword">&gt;</span>(g_md40[i].state()));</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  }</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  Serial.print(<span class="stringliteral">&quot;Device ID: 0x&quot;</span>);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  Serial.println(g_md40.device_id(), HEX);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>  Serial.print(<span class="stringliteral">&quot;Name: &quot;</span>);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  Serial.println(g_md40.name());</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  Serial.print(<span class="stringliteral">&quot;Firmware Version: &quot;</span>);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  Serial.println(g_md40.firmware_version());</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    Serial.print(<span class="stringliteral">&quot;Motor &quot;</span>);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    Serial.print(i);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    Serial.print(<span class="stringliteral">&quot; state: &quot;</span>);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    Serial.println(<span class="keyword">static_cast&lt;</span>uint8_t<span class="keyword">&gt;</span>(g_md40[i].state()));</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    g_md40[i].Reset();</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    Serial.print(<span class="stringliteral">&quot; after reset: &quot;</span>);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    Serial.println(<span class="keyword">static_cast&lt;</span>uint8_t<span class="keyword">&gt;</span>(g_md40[i].state()));</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  }</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>}</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="keywordtype">void</span> loop() {</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  delay(1000);</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="keywordtype">void</span> loop() {</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  delay(1000);</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>}</div>
 <div class="ttc" id="aclassem_1_1_md40_html"><div class="ttname"><a href="classem_1_1_md40.html">em::Md40</a></div><div class="ttdoc">Md40 is a driver class used to control the MD40 module for motor driving.</div><div class="ttdef"><b>Definition</b> <a href="md40_8h_source.html#l00027">md40.h:27</a></div></div>
 <div class="ttc" id="aclassem_1_1_md40_html_a0f933702a074938a294ba59b03212fbb"><div class="ttname"><a href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a></div><div class="ttdeci">static constexpr uint8_t kMotorNum</div><div class="ttdoc">Number of motors.</div><div class="ttdef"><b>Definition</b> <a href="md40_8h_source.html#l00046">md40.h:46</a></div></div>
 <div class="ttc" id="aclassem_1_1_md40_html_a3a64a7255a21a66b9f4110ead3a26e5b"><div class="ttname"><a href="classem_1_1_md40.html#a3a64a7255a21a66b9f4110ead3a26e5b">em::Md40::kDefaultI2cAddress</a></div><div class="ttdeci">static constexpr uint8_t kDefaultI2cAddress</div><div class="ttdoc">Default I2C address.</div><div class="ttdef"><b>Definition</b> <a href="md40_8h_source.html#l00037">md40.h:37</a></div></div>
 <div class="ttc" id="amd40_8h_html"><div class="ttname"><a href="md40_8h.html">md40.h</a></div></div>
-<div class="ttc" id="amd40__lib_8h_html"><div class="ttname"><a href="md40__lib_8h.html">md40_lib.h</a></div></div>
-<div class="ttc" id="amd40__lib_8h_html_a27fff994ed10bd74ab968eb7ac31270d"><div class="ttname"><a href="md40__lib_8h.html#a27fff994ed10bd74ab968eb7ac31270d">em::md40_lib::Version</a></div><div class="ttdeci">String Version()</div><div class="ttdoc">Get the version number string.</div><div class="ttdef"><b>Definition</b> <a href="md40__lib_8h_source.html#l00055">md40_lib.h:55</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

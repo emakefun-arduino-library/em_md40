@@ -17,7 +17,6 @@
 #include <Wire.h>
 
 #include "md40.h"
-#include "md40_lib.h"
 
 namespace {
 constexpr int32_t kMotorSpeed = 100;
@@ -33,9 +32,6 @@ bool g_motor_run = true;
 
 void setup() {
   Serial.begin(115200);
-
-  Serial.print("Emakefun MD40 Library Version: ");
-  Serial.println(em::md40_lib::Version().c_str());
 
   Wire.begin();
 

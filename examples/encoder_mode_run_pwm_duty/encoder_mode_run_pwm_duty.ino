@@ -18,7 +18,6 @@
 #include <Wire.h>
 
 #include "md40.h"
-#include "md40_lib.h"
 
 namespace {
 constexpr uint16_t kEncoderPpr = 12;
@@ -33,9 +32,6 @@ int16_t g_pwm_duty = 1023;
 
 void setup() {
   Serial.begin(115200);
-
-  Serial.print("Emakefun MD40 Library Version: ");
-  Serial.println(em::md40_lib::Version().c_str());
 
   Wire.begin();
 

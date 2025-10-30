@@ -35,9 +35,6 @@ uint64_t g_last_print_time = 0;
 void setup() {
   Serial.begin(115200);
 
-  Serial.print("Emakefun MD40 Library Version: ");
-  Serial.println(em::md40_lib::Version().c_str());
-
   Wire.begin();
 
   g_md40.Init();
@@ -86,7 +83,7 @@ void setup() {
 }
 
 void loop() {
-  if (g_trigger_time == 0 || millis() - g_trigger_time > 200) {
+  if (g_last_print_time == 0 || millis() - g_last_print_time > 200) {
     g_last_print_time = millis();
     for (uint8_t i = 0; i < em::Md40::kMotorNum; i++) {
       const auto speed = g_md40[i].speed();

@@ -16,7 +16,6 @@
 #include <Wire.h>
 
 #include "md40.h"
-#include "md40_lib.h"
 
 namespace {
 em::Md40 g_md40(em::Md40::kDefaultI2cAddress, Wire);
@@ -24,9 +23,6 @@ em::Md40 g_md40(em::Md40::kDefaultI2cAddress, Wire);
 
 void setup() {
   Serial.begin(115200);
-
-  Serial.print("Emakefun MD40 Library Version: ");
-  Serial.println(em::md40_lib::Version().c_str());
 
   Wire.begin();
 

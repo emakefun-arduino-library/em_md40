@@ -119,7 +119,6 @@ $(function(){initNavTree('encoder_mode_move_8ino-example.html',''); initResizabl
 <div class="line"><span class="preprocessor">#include &lt;Wire.h&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &quot;<a class="code" href="md40_8h.html">md40.h</a>&quot;</span></div>
-<div class="line"><span class="preprocessor">#include &quot;<a class="code" href="md40__lib_8h.html">md40_lib.h</a>&quot;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">namespace </span>{</div>
 <div class="line"><span class="keyword">constexpr</span> int32_t kMotorSpeed = 60;</div>
@@ -135,9 +134,6 @@ $(function(){initNavTree('encoder_mode_move_8ino-example.html',''); initResizabl
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">void</span> setup() {</div>
 <div class="line">  Serial.begin(115200);</div>
-<div class="line"> </div>
-<div class="line">  Serial.print(<span class="stringliteral">&quot;Emakefun MD40 Library Version: &quot;</span>);</div>
-<div class="line">  Serial.println(<a class="code hl_function" href="md40__lib_8h.html#a27fff994ed10bd74ab968eb7ac31270d">em::md40_lib::Version</a>().c_str());</div>
 <div class="line"> </div>
 <div class="line">  Wire.begin();</div>
 <div class="line"> </div>
@@ -234,8 +230,6 @@ $(function(){initNavTree('encoder_mode_move_8ino-example.html',''); initResizabl
 <div class="ttc" id="aclassem_1_1_md40_html_a0f933702a074938a294ba59b03212fbb"><div class="ttname"><a href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a></div><div class="ttdeci">static constexpr uint8_t kMotorNum</div><div class="ttdoc">Number of motors.</div><div class="ttdef"><b>Definition</b> <a href="md40_8h_source.html#l00046">md40.h:46</a></div></div>
 <div class="ttc" id="aclassem_1_1_md40_html_a3a64a7255a21a66b9f4110ead3a26e5b"><div class="ttname"><a href="classem_1_1_md40.html#a3a64a7255a21a66b9f4110ead3a26e5b">em::Md40::kDefaultI2cAddress</a></div><div class="ttdeci">static constexpr uint8_t kDefaultI2cAddress</div><div class="ttdoc">Default I2C address.</div><div class="ttdef"><b>Definition</b> <a href="md40_8h_source.html#l00037">md40.h:37</a></div></div>
 <div class="ttc" id="amd40_8h_html"><div class="ttname"><a href="md40_8h.html">md40.h</a></div></div>
-<div class="ttc" id="amd40__lib_8h_html"><div class="ttname"><a href="md40__lib_8h.html">md40_lib.h</a></div></div>
-<div class="ttc" id="amd40__lib_8h_html_a27fff994ed10bd74ab968eb7ac31270d"><div class="ttname"><a href="md40__lib_8h.html#a27fff994ed10bd74ab968eb7ac31270d">em::md40_lib::Version</a></div><div class="ttdeci">String Version()</div><div class="ttdoc">Get the version number string.</div><div class="ttdef"><b>Definition</b> <a href="md40__lib_8h_source.html#l00055">md40_lib.h:55</a></div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
