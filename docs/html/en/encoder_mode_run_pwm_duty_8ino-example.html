@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">EM MD40 Arduino Lib<span id="projectnumber">&#160;1.0.0</span>
+   <div id="projectname">EM MD40 Arduino Lib<span id="projectnumber">&#160;1.0.1</span>
    </div>
   </td>
  </tr>
@@ -100,12 +100,22 @@ $(function(){initNavTree('encoder_mode_run_pwm_duty_8ino-example.html',''); init
 </div><!--header-->
 <div class="contents">
 <p>Use encoder mode to drive the motor with a specified PWM duty, switching the direction every 2 seconds (PWM duty is ± 1023). Real time monitoring of motor speed, position, PWM duty and other parameters.</p>
+<p>platform_notes Platform Compatibility Notes This example includes compatibility handling for I2C pin configuration across different hardware platforms:</p><ul>
+<li>ESP32: Uses GPIO21(SDA) and GPIO22(SCL), pins can be specified via Wire.begin(sda, scl).</li>
+<li>AVR platform: I2C pins are fixed at A4(SDA) and A5(SCL), uses Wire.begin() without parameters. Users can modify kI2cPinSda and kI2cPinScl constants or adjust conditional compilation logic according to actual hardware.</li>
+</ul>
 <div class="fragment"><div class="line"><span class="comment">/**</span></div>
 <div class="line"><span class="comment"> * @~Chinese</span></div>
 <div class="line"><span class="comment"> * @file encoder_mode_run_pwm_duty.ino</span></div>
 <div class="line"><span class="comment"> * @brief 示例：使用编码器模式，以指定PWM占空比驱动电机，每2秒切换转向（PWM占空比值为±1023）。</span></div>
 <div class="line"><span class="comment"> * @example encoder_mode_run_pwm_duty.ino</span></div>
 <div class="line"><span class="comment"> * 使用编码器模式，以指定PWM占空比驱动电机，每2秒切换转向（PWM占空比值为±1023）。实时监控电机速度、位置、PWM占空比等参数。</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> * @details platform_notes 平台兼容性说明</span></div>
+<div class="line"><span class="comment"> * 本示例针对不同硬件平台的I2C引脚配置进行了兼容性处理：</span></div>
+<div class="line"><span class="comment"> * - ESP32: 使用GPIO21(SDA)和GPIO22(SCL)，可通过Wire.begin(sda, scl)指定引脚。</span></div>
+<div class="line"><span class="comment"> * - AVR平台: I2C引脚固定为A4(SDA)和A5(SCL)，使用Wire.begin()无参调用。</span></div>
+<div class="line"><span class="comment"> * 用户可根据实际硬件修改kI2cPinSda和kI2cPinScl常量，或调整条件编译逻辑。</span></div>
 <div class="line"><span class="comment"> */</span><span class="comment"></span></div>
 <div class="line"><span class="comment">/**</span></div>
 <div class="line"><span class="comment"> * @~English</span></div>
@@ -115,6 +125,12 @@ $(function(){initNavTree('encoder_mode_run_pwm_duty_8ino-example.html',''); init
 <div class="line"><span class="comment"> * @example encoder_mode_run_pwm_duty.ino</span></div>
 <div class="line"><span class="comment"> * Use encoder mode to drive the motor with a specified PWM duty, switching the direction every 2 seconds (PWM duty is ± 1023). Real time</span></div>
 <div class="line"><span class="comment"> * monitoring of motor speed, position, PWM duty and other parameters.</span></div>
+<div class="line"><span class="comment"> *</span></div>
+<div class="line"><span class="comment"> * @details platform_notes Platform Compatibility Notes</span></div>
+<div class="line"><span class="comment"> * This example includes compatibility handling for I2C pin configuration across different hardware platforms:</span></div>
+<div class="line"><span class="comment"> * - ESP32: Uses GPIO21(SDA) and GPIO22(SCL), pins can be specified via Wire.begin(sda, scl).</span></div>
+<div class="line"><span class="comment"> * - AVR platform: I2C pins are fixed at A4(SDA) and A5(SCL), uses Wire.begin() without parameters.</span></div>
+<div class="line"><span class="comment"> * Users can modify kI2cPinSda and kI2cPinScl constants or adjust conditional compilation logic according to actual hardware.</span></div>
 <div class="line"><span class="comment"> */</span></div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;Wire.h&gt;</span></div>
@@ -122,6 +138,11 @@ $(function(){initNavTree('encoder_mode_run_pwm_duty_8ino-example.html',''); init
 <div class="line"><span class="preprocessor">#include &quot;<a class="code" href="md40_8h.html">md40.h</a>&quot;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">namespace </span>{</div>
+<div class="line"><span class="preprocessor">#if defined(ESP32)</span></div>
+<div class="line"><span class="keyword">constexpr</span> gpio_num_t kI2cPinSda = GPIO_NUM_21;</div>
+<div class="line"><span class="keyword">constexpr</span> gpio_num_t kI2cPinScl = GPIO_NUM_22;</div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+<div class="line"> </div>
 <div class="line"><span class="keyword">constexpr</span> uint16_t kEncoderPpr = 12;</div>
 <div class="line"><span class="keyword">constexpr</span> uint16_t kReductionRatio = 90;</div>
 <div class="line"> </div>
@@ -135,7 +156,11 @@ $(function(){initNavTree('encoder_mode_run_pwm_duty_8ino-example.html',''); init
 <div class="line"><span class="keywordtype">void</span> setup() {</div>
 <div class="line">  Serial.begin(115200);</div>
 <div class="line"> </div>
+<div class="line"><span class="preprocessor">#if defined(ESP32)</span></div>
+<div class="line">  Wire.begin(kI2cPinSda, kI2cPinScl);</div>
+<div class="line"><span class="preprocessor">#else</span></div>
 <div class="line">  Wire.begin();</div>
+<div class="line"><span class="preprocessor">#endif</span></div>
 <div class="line"> </div>
 <div class="line">  g_md40.Init();</div>
 <div class="line"> </div>
