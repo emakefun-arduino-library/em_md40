@@ -4,6 +4,12 @@
  * @brief 示例：电机脉冲计数设置功能演示。
  * @example encoder_mode_pulse_count_control.ino
  * 电机脉冲计数设置功能演示。
+ *
+ * @details platform_notes 平台兼容性说明
+ * 本示例针对不同硬件平台的I2C引脚配置进行了兼容性处理：
+ * - ESP32: 使用GPIO21(SDA)和GPIO22(SCL)，可通过Wire.begin(sda, scl)指定引脚。
+ * - AVR平台: I2C引脚固定为A4(SDA)和A5(SCL)，使用Wire.begin()无参调用。
+ * 用户可根据实际硬件修改kI2cPinSda和kI2cPinScl常量，或调整条件编译逻辑。
  */
 /**
  * @~English
@@ -11,11 +17,22 @@
  * @brief Example: Demonstration of motor pulse counting setting function.
  * @example encoder_mode_pulse_count_control.ino
  * Demonstration of motor pulse counting setting function.
+ *
+ * @details platform_notes Platform Compatibility Notes
+ * This example includes compatibility handling for I2C pin configuration across different hardware platforms:
+ * - ESP32: Uses GPIO21(SDA) and GPIO22(SCL), pins can be specified via Wire.begin(sda, scl).
+ * - AVR platform: I2C pins are fixed at A4(SDA) and A5(SCL), uses Wire.begin() without parameters.
+ * Users can modify kI2cPinSda and kI2cPinScl constants or adjust conditional compilation logic according to actual hardware.
  */
 
 #include "md40.h"
 
 namespace {
+#if defined(ESP32)
+constexpr gpio_num_t kI2cPinSda = GPIO_NUM_21;
+constexpr gpio_num_t kI2cPinScl = GPIO_NUM_22;
+#endif
+
 constexpr uint16_t kEncoderPpr = 12;
 constexpr uint16_t kReductionRatio = 90;
 constexpr int32_t kMotorSpeed = 60;
@@ -30,7 +47,11 @@ uint64_t g_trigger_time = 0;
 void setup() {
   Serial.begin(115200);
 
+#if defined(ESP32)
+  Wire.begin(kI2cPinSda, kI2cPinScl);
+#else
   Wire.begin();
+#endif
 
   g_md40.Init();
 

@@ -44,7 +44,7 @@ var NAVTREE =
     ] ],
     [ "Examples", "examples.html", "examples" ],
     [ "Downloads", "usergroup0.html", [
-      [ "EM_MD40_v1.0.0.zip: https://github.com/emakefun-arduino-library/em_md40/archive/refs/tags/v1.0.0.zip", "^https://github.com/emakefun-arduino-library/em_md40/archive/refs/tags/v1.0.0.zip", null ]
+      [ "EM_MD40_v1.0.1.zip: https://github.com/emakefun-arduino-library/em_md40/archive/refs/tags/v1.0.1.zip", "^https://github.com/emakefun-arduino-library/em_md40/archive/refs/tags/v1.0.1.zip", null ]
     ] ]
   ] ]
 ];
