@@ -58,4 +58,4 @@ var menudata={children:[
 {text:"Macros",url:"globals_defs.html"}]}]},
 {text:"Examples",url:"examples.html"},
 {text:"Downloads",url:"usergroup0.html",children:[
-{text:"EM_MD40_v1.0.0.zip: https://github.com/emakefun-arduino-library/em_md40/archive/refs/tags/v1.0.0.zip",url:"^https://github.com/emakefun-arduino-library/em_md40/archive/refs/tags/v1.0.0.zip"}]}]}
+{text:"EM_MD40_v1.0.1.zip: https://github.com/emakefun-arduino-library/em_md40/archive/refs/tags/v1.0.1.zip",url:"^https://github.com/emakefun-arduino-library/em_md40/archive/refs/tags/v1.0.1.zip"}]}]}

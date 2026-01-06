@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">EM MD40 Arduino Lib<span id="projectnumber">&#160;1.0.0</span>
+   <div id="projectname">EM MD40 Arduino Lib<span id="projectnumber">&#160;1.0.1</span>
    </div>
   </td>
  </tr>
@@ -105,119 +105,140 @@ $(function(){initNavTree('encoder__mode__position__control_8ino_source.html','')
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="comment"> * @brief 示例：电机位置设置功能演示。</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment"> * @example encoder_mode_position_control.ino</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment"> * 演示如何使用位置设置功能校准电机位置。</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> */</span><span class="comment"></span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">/**</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> * @~English</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> * @file encoder_mode_position_control.ino</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> * @brief Example: Demonstration of motor position setting function.</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"> * @example encoder_mode_position_control.ino</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"> * Demonstrates how to use the position setting function to calibrate motor position.</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment"> */</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;<a class="code" href="md40_8h.html">md40.h</a>&quot;</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">namespace </span>{</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">constexpr</span> uint16_t kEncoderPpr = 12;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">constexpr</span> uint16_t kReductionRatio = 90;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="keyword">constexpr</span> int32_t kMotorSpeed = 60;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="keyword">constexpr</span> int32_t kMotorMoveOffset = 100;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><a class="code hl_class" href="classem_1_1_md40.html">em::Md40</a> g_md40(<a class="code hl_variable" href="classem_1_1_md40.html#a3a64a7255a21a66b9f4110ead3a26e5b">em::Md40::kDefaultI2cAddress</a>, Wire);</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>int32_t g_motor_position = 100;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>uint64_t g_trigger_time = 0;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}  <span class="comment">// namespace</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="keywordtype">void</span> setup() {</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  Serial.begin(115200);</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>  Wire.begin();</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment"> * @details platform_notes 平台兼容性说明</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment"> * 本示例针对不同硬件平台的I2C引脚配置进行了兼容性处理：</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment"> * - ESP32: 使用GPIO21(SDA)和GPIO22(SCL)，可通过Wire.begin(sda, scl)指定引脚。</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="comment"> * - AVR平台: I2C引脚固定为A4(SDA)和A5(SCL)，使用Wire.begin()无参调用。</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment"> * 用户可根据实际硬件修改kI2cPinSda和kI2cPinScl常量，或调整条件编译逻辑。</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment"> */</span><span class="comment"></span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">/**</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment"> * @~English</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment"> * @file encoder_mode_position_control.ino</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment"> * @brief Example: Demonstration of motor position setting function.</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="comment"> * @example encoder_mode_position_control.ino</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment"> * Demonstrates how to use the position setting function to calibrate motor position.</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="comment"> *</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="comment"> * @details platform_notes Platform Compatibility Notes</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="comment"> * This example includes compatibility handling for I2C pin configuration across different hardware platforms:</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="comment"> * - ESP32: Uses GPIO21(SDA) and GPIO22(SCL), pins can be specified via Wire.begin(sda, scl).</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="comment"> * - AVR platform: I2C pins are fixed at A4(SDA) and A5(SCL), uses Wire.begin() without parameters.</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="comment"> * Users can modify kI2cPinSda and kI2cPinScl constants or adjust conditional compilation logic according to actual hardware.</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="comment"> */</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#include &quot;<a class="code" href="md40_8h.html">md40.h</a>&quot;</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="keyword">namespace </span>{</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#if defined(ESP32)</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="keyword">constexpr</span> gpio_num_t kI2cPinSda = GPIO_NUM_21;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="keyword">constexpr</span> gpio_num_t kI2cPinScl = GPIO_NUM_22;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  g_md40.Init();</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  Serial.print(F(<span class="stringliteral">&quot;Device ID: 0x&quot;</span>));</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>  Serial.println(g_md40.device_id(), HEX);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  Serial.print(F(<span class="stringliteral">&quot;Name: &quot;</span>));</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  Serial.println(g_md40.name());</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  Serial.print(F(<span class="stringliteral">&quot;Firmware Version: &quot;</span>));</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  Serial.println(g_md40.firmware_version());</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    g_md40[i].SetEncoderMode(kEncoderPpr, kReductionRatio, <a class="code hl_enumvalue" href="classem_1_1_md40_1_1_motor.html#aba6144fd97d3cfee09f0a6c7c77d547ca74feb97f77c7b3a897564eac21252b89">em::Md40::Motor::PhaseRelation::kAPhaseLeads</a>);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    g_md40[i].set_speed_pid_p(1.5);</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    g_md40[i].set_speed_pid_i(1.5);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    g_md40[i].set_speed_pid_d(1.0);</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    g_md40[i].set_position_pid_p(10.0);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    g_md40[i].set_position_pid_i(1.0);</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    g_md40[i].set_position_pid_d(1.0);</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    Serial.print(F(<span class="stringliteral">&quot;Motor &quot;</span>));</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    Serial.print(i);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    Serial.print(F(<span class="stringliteral">&quot; state:&quot;</span>));</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    Serial.print(<span class="keyword">static_cast&lt;</span>uint8_t<span class="keyword">&gt;</span>(g_md40[i].state()));</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    Serial.print(F(<span class="stringliteral">&quot;, speed pid p:&quot;</span>));</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    Serial.print(g_md40[i].speed_pid_p());</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    Serial.print(F(<span class="stringliteral">&quot;, speed pid i:&quot;</span>));</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    Serial.print(g_md40[i].speed_pid_i());</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    Serial.print(F(<span class="stringliteral">&quot;, speed pid d:&quot;</span>));</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    Serial.print(g_md40[i].speed_pid_d());</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    Serial.print(F(<span class="stringliteral">&quot;, position pid p:&quot;</span>));</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    Serial.print(g_md40[i].position_pid_p());</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    Serial.print(F(<span class="stringliteral">&quot;, position pid i:&quot;</span>));</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    Serial.print(g_md40[i].position_pid_i());</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    Serial.print(F(<span class="stringliteral">&quot;, position pid d:&quot;</span>));</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    Serial.println(g_md40[i].position_pid_d());</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  }</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>}</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="keywordtype">void</span> loop() {</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>  <span class="keywordflow">if</span> (g_trigger_time == 0 || millis() - g_trigger_time &gt; 2000) {</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    Serial.println(F(<span class="stringliteral">&quot;Initial state:&quot;</span>));</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>      Serial.print(F(<span class="stringliteral">&quot;Motor &quot;</span>));</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>      Serial.print(i);</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>      Serial.print(F(<span class="stringliteral">&quot;: &quot;</span>));</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>      Serial.println(g_md40[i].position());</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    }</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    Serial.print(F(<span class="stringliteral">&quot;Set all motors position to: &quot;</span>));</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    Serial.println(g_motor_position);</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>      g_md40[i].set_position(g_motor_position);</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    }</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    Serial.println(F(<span class="stringliteral">&quot;After set:&quot;</span>));</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>      Serial.print(F(<span class="stringliteral">&quot;Motor &quot;</span>));</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>      Serial.print(i);</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>      Serial.print(F(<span class="stringliteral">&quot;: &quot;</span>));</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>      Serial.println(g_md40[i].position());</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    }</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    g_motor_position = -g_motor_position;</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>      Serial.print(F(<span class="stringliteral">&quot;Motor &quot;</span>));</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>      Serial.print(i);</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>      Serial.print(F(<span class="stringliteral">&quot; from &quot;</span>));</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>      Serial.print(g_md40[i].position());</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>      Serial.println(F(<span class="stringliteral">&quot; move 100 degrees&quot;</span>));</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>      g_md40[i].Move(kMotorMoveOffset, kMotorSpeed);</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    }</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    delay(1000);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">constexpr</span> uint16_t kEncoderPpr = 12;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="keyword">constexpr</span> uint16_t kReductionRatio = 90;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keyword">constexpr</span> int32_t kMotorSpeed = 60;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="keyword">constexpr</span> int32_t kMotorMoveOffset = 100;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><a class="code hl_class" href="classem_1_1_md40.html">em::Md40</a> g_md40(<a class="code hl_variable" href="classem_1_1_md40.html#a3a64a7255a21a66b9f4110ead3a26e5b">em::Md40::kDefaultI2cAddress</a>, Wire);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>int32_t g_motor_position = 100;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>uint64_t g_trigger_time = 0;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>}  <span class="comment">// namespace</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span><span class="keywordtype">void</span> setup() {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>  Serial.begin(115200);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span><span class="preprocessor">#if defined(ESP32)</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  Wire.begin(kI2cPinSda, kI2cPinScl);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>  Wire.begin();</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  g_md40.Init();</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  Serial.print(F(<span class="stringliteral">&quot;Device ID: 0x&quot;</span>));</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  Serial.println(g_md40.device_id(), HEX);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>  Serial.print(F(<span class="stringliteral">&quot;Name: &quot;</span>));</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  Serial.println(g_md40.name());</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  Serial.print(F(<span class="stringliteral">&quot;Firmware Version: &quot;</span>));</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  Serial.println(g_md40.firmware_version());</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    g_md40[i].SetEncoderMode(kEncoderPpr, kReductionRatio, <a class="code hl_enumvalue" href="classem_1_1_md40_1_1_motor.html#aba6144fd97d3cfee09f0a6c7c77d547ca74feb97f77c7b3a897564eac21252b89">em::Md40::Motor::PhaseRelation::kAPhaseLeads</a>);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    g_md40[i].set_speed_pid_p(1.5);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    g_md40[i].set_speed_pid_i(1.5);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    g_md40[i].set_speed_pid_d(1.0);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    g_md40[i].set_position_pid_p(10.0);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    g_md40[i].set_position_pid_i(1.0);</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    g_md40[i].set_position_pid_d(1.0);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    Serial.print(F(<span class="stringliteral">&quot;Motor &quot;</span>));</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    Serial.print(i);</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    Serial.print(F(<span class="stringliteral">&quot; state:&quot;</span>));</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    Serial.print(<span class="keyword">static_cast&lt;</span>uint8_t<span class="keyword">&gt;</span>(g_md40[i].state()));</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    Serial.print(F(<span class="stringliteral">&quot;, speed pid p:&quot;</span>));</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    Serial.print(g_md40[i].speed_pid_p());</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    Serial.print(F(<span class="stringliteral">&quot;, speed pid i:&quot;</span>));</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    Serial.print(g_md40[i].speed_pid_i());</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    Serial.print(F(<span class="stringliteral">&quot;, speed pid d:&quot;</span>));</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    Serial.print(g_md40[i].speed_pid_d());</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    Serial.print(F(<span class="stringliteral">&quot;, position pid p:&quot;</span>));</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    Serial.print(g_md40[i].position_pid_p());</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    Serial.print(F(<span class="stringliteral">&quot;, position pid i:&quot;</span>));</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    Serial.print(g_md40[i].position_pid_i());</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    Serial.print(F(<span class="stringliteral">&quot;, position pid d:&quot;</span>));</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    Serial.println(g_md40[i].position_pid_d());</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>  }</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>}</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="keywordtype">void</span> loop() {</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>  <span class="keywordflow">if</span> (g_trigger_time == 0 || millis() - g_trigger_time &gt; 2000) {</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    Serial.println(F(<span class="stringliteral">&quot;Initial state:&quot;</span>));</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>      Serial.print(F(<span class="stringliteral">&quot;Motor &quot;</span>));</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>      Serial.print(i);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>      Serial.print(F(<span class="stringliteral">&quot;: &quot;</span>));</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>      Serial.println(g_md40[i].position());</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    }</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    Serial.print(F(<span class="stringliteral">&quot;Set all motors position to: &quot;</span>));</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    Serial.println(g_motor_position);</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>      g_md40[i].set_position(g_motor_position);</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    }</div>
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    Serial.println(F(<span class="stringliteral">&quot;After movement:&quot;</span>));</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    Serial.println(F(<span class="stringliteral">&quot;After set:&quot;</span>));</div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>      Serial.print(F(<span class="stringliteral">&quot;Motor &quot;</span>));</div>
 <div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>      Serial.print(i);</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>      Serial.print(F(<span class="stringliteral">&quot;: &quot;</span>));</div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>      Serial.println(g_md40[i].position());</div>
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    }</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    g_trigger_time = millis();</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>  }</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>}</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    g_motor_position = -g_motor_position;</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>      Serial.print(F(<span class="stringliteral">&quot;Motor &quot;</span>));</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>      Serial.print(i);</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>      Serial.print(F(<span class="stringliteral">&quot; from &quot;</span>));</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>      Serial.print(g_md40[i].position());</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>      Serial.println(F(<span class="stringliteral">&quot; move 100 degrees&quot;</span>));</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>      g_md40[i].Move(kMotorMoveOffset, kMotorSpeed);</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    }</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    delay(1000);</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    Serial.println(F(<span class="stringliteral">&quot;After movement:&quot;</span>));</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code hl_variable" href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a>; i++) {</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>      Serial.print(F(<span class="stringliteral">&quot;Motor &quot;</span>));</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>      Serial.print(i);</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>      Serial.print(F(<span class="stringliteral">&quot;: &quot;</span>));</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>      Serial.println(g_md40[i].position());</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    }</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>    g_trigger_time = millis();</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>  }</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>}</div>
 <div class="ttc" id="aclassem_1_1_md40_1_1_motor_html_aba6144fd97d3cfee09f0a6c7c77d547ca74feb97f77c7b3a897564eac21252b89"><div class="ttname"><a href="classem_1_1_md40_1_1_motor.html#aba6144fd97d3cfee09f0a6c7c77d547ca74feb97f77c7b3a897564eac21252b89">em::Md40::Motor::PhaseRelation::kAPhaseLeads</a></div><div class="ttdeci">@ kAPhaseLeads</div><div class="ttdoc">Represents the situation where phase A leads phase B when the motor is rotating forward.</div><div class="ttdef"><b>Definition</b> <a href="md40_8h_source.html#l00080">md40.h:80</a></div></div>
 <div class="ttc" id="aclassem_1_1_md40_html"><div class="ttname"><a href="classem_1_1_md40.html">em::Md40</a></div><div class="ttdoc">Md40 is a driver class used to control the MD40 module for motor driving.</div><div class="ttdef"><b>Definition</b> <a href="md40_8h_source.html#l00027">md40.h:27</a></div></div>
 <div class="ttc" id="aclassem_1_1_md40_html_a0f933702a074938a294ba59b03212fbb"><div class="ttname"><a href="classem_1_1_md40.html#a0f933702a074938a294ba59b03212fbb">em::Md40::kMotorNum</a></div><div class="ttdeci">static constexpr uint8_t kMotorNum</div><div class="ttdoc">Number of motors.</div><div class="ttdef"><b>Definition</b> <a href="md40_8h_source.html#l00046">md40.h:46</a></div></div>
